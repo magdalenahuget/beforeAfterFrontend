@@ -14,7 +14,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import Input from '@mui/joy/Input';
+import {TextField} from "@mui/material";
+import SvgIcon from '@mui/material/SvgIcon'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Copyright() {
     return (
@@ -29,20 +35,29 @@ function Copyright() {
     );
 }
 
+function HomeIcon(props) {
+    return (
+        <SvgIcon {...props}>
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </SvgIcon>
+    );
+}
+
+
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Album() {
+export default function Main() {
     return (
         <ThemeProvider theme={defaultTheme}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar position="fixed">
                 <Toolbar>
-                    <CameraIcon sx={{ mr: 2 }} />
+                    <CameraIcon sx={{mr: 2}}/>
                     <Typography variant="h6" color="inherit" noWrap>
-                        Album layout
+                        Before And After
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -56,38 +71,28 @@ export default function Album() {
                     }}
                 >
                     <Container maxWidth="sm">
-                        <Typography
-                            component="h1"
-                            variant="h2"
-                            align="center"
-                            color="text.primary"
-                            gutterBottom
-                        >
-                            Album layout
-                        </Typography>
-                        <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Something short and leading about the collection below—its contents,
-                            the creator, etc. Make it short and sweet, but not too short so folks
-                            don&apos;t simply skip over it entirely.
-                        </Typography>
                         <Stack
-                            sx={{ pt: 4 }}
+                            sx={{pt: 4}}
                             direction="row"
                             spacing={2}
                             justifyContent="center"
                         >
-                            <Button variant="contained">Main call to action</Button>
-                            <Button variant="outlined">Secondary action</Button>
+                            <Button variant="contained">Beauty</Button>
+                            <Button variant="outlined">Home</Button>
+                            <Button variant="outlined">Moto</Button>
+                        </Stack>
+                        <Stack sx={{pt: 4}}>
+                            <TextField id="filled-basic" label="type a city" variant="filled"/>
                         </Stack>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{py: 8}} maxWidth="md">
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {cards.map((card) => (
                             <Grid item key={card} xs={12} sm={6} md={4}>
                                 <Card
-                                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                                    sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
                                 >
                                     <CardMedia
                                         component="div"
@@ -97,7 +102,7 @@ export default function Album() {
                                         }}
                                         image="https://source.unsplash.com/random?wallpapers"
                                     />
-                                    <CardContent sx={{ flexGrow: 1 }}>
+                                    <CardContent sx={{flexGrow: 1}}>
                                         <Typography gutterBottom variant="h5" component="h2">
                                             Heading
                                         </Typography>
@@ -117,29 +122,18 @@ export default function Album() {
                 </Container>
                 <AppBar position="bottom">
                     <Toolbar>
-                        <CameraIcon sx={{ mr: 2 }} />
+                        <HomeIcon fontSize="large"/>
+                        <FavoriteBorderIcon fontSize="large"/>
+                        <AddIcon fontSize="large"/>
+                        <PersonIcon fontSize="large"/>
+
                         <Typography variant="h6" color="inherit" noWrap>
-                            Album layout
+
                         </Typography>
                     </Toolbar>
                 </AppBar>
             </main>
-            {/* Footer */}
-            {/*<Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">*/}
-            {/*    <Typography variant="h6" align="center" gutterBottom>*/}
-            {/*        Footer*/}
-            {/*    </Typography>*/}
-            {/*    <Typography*/}
-            {/*        variant="subtitle1"*/}
-            {/*        align="center"*/}
-            {/*        color="text.secondary"*/}
-            {/*        component="p"*/}
-            {/*    >*/}
-            {/*        Something here to give the footer a purpose!*/}
-            {/*    </Typography>*/}
-            {/*    <Copyright />*/}
-            {/*</Box>*/}
-            {/* End footer */}
+
         </ThemeProvider>
     );
 }
