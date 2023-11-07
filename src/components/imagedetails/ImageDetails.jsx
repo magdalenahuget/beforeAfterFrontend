@@ -14,21 +14,24 @@ import BottomNav from '../BottomNav';
 import BasicTabs from './BasicTabs';
 import { Avatar, Typography, Box } from "@mui/material";
 import styled from 'styled-components';
+import SimpleImageSlider from "react-simple-image-slider";
 
 const MainContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; 
   align-items: flex-start;
   margin-top: 11vh;
+  margin-left: 5vw; 
+  gap: 2vw; 
 `;
 
 const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 120%; //
-  margin-right: 2vh; 
+  width: auto;
 `;
+
 
 const LogoAndNameContainer = styled.div`
   display: flex;
@@ -51,10 +54,14 @@ const CompanyName = styled(Typography)`
 `;
 
 const ImageDetails = () => {
+    const images = [
+        { url: "https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg" },
+        { url: "https://www.moreforlessstl.com/cm/dpl/images/create/home_renovation_timeline.jpg" },
+    ];
     return (
         <>
             <Header/>
-            <Box sx={{ maxWidth: '1232px', margin: 'auto', padding: '0 2vh' }}>
+            <Box sx={{ maxWidth: '100%', margin: 'auto', padding: '0' }}>
                 <MainContainer>
                     <LeftContainer>
                         <LogoAndNameContainer>
@@ -65,9 +72,16 @@ const ImageDetails = () => {
                             />
                             <CompanyName variant="h5">Budomex Sp. z o.o.</CompanyName>
                         </LogoAndNameContainer>
-                        <StyledImage
-                            src="https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg"
-                            alt="before-and-after"
+                        {/*<StyledImage*/}
+                        {/*    src="https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg"*/}
+                        {/*    alt="before-and-after"*/}
+                        {/*/>*/}
+                        <SimpleImageSlider
+                            width={896}
+                            height={504}
+                            images={images}
+                            showBullets={true}
+                            showNavs={true}
                         />
                     </LeftContainer>
                     <BasicTabs/>
