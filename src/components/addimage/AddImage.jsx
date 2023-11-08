@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import {TextField} from '@mui/material';
 import Button from '@mui/material/Button';
-import {Grid} from '@mui/material';
-import Header from "./Header";
-import BottomNav from "./BottomNav";
+import Header from "../Header";
+import BottomNav from "../BottomNav";
 import axios from "axios";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
-
+import { FormControl, FormLabel, MenuItem} from '@mui/material';
+import Select from "@mui/material/Select";
 
 const AddImage = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const onFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -37,28 +36,22 @@ const AddImage = () => {
         width: 1,
     });
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:8080/api/v1/categories', {
-    //         headers: {
-    //             "Authorization": `Bearer ${sessionStorage.getItem('jwt')}`
-    //         }
-    //     })
-    //         .then(response => {
-    //             console.log('Status: ' + response.status);
-    //             if (response.status === 200) {
-    //                 console.log('Welcome solarwatch!');
-    //                 // setCategories(response.data)
-    //             } else {
-    //                 console.log('Unauthorized.');
-    //                 window.location.href = 'http://localhost:3000/login';
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Connection error:', error);
-    //             window.location.href = 'http://localhost:3000/login';
-    //         });
-    // }, []); // Pusta tablica jako drugi argument oznacza, że useEffect zostanie wywołany tylko raz, po pierwszym renderowaniu
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/v1/categories")
+            .then((response) => {
+                console.log(response.data);
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                console.error("Error downloading data:", error);
+            });
+    }, []);
 
+
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value);
+        // props.onSelectedCategory(event.target.value);
+    };
 
     return (
         <>
@@ -74,7 +67,7 @@ const AddImage = () => {
                 }}
             >
 
-                <Container
+                <FormControl
                     maxWidth="sm"
                     sx={{
                         marginTop: 10,
@@ -84,18 +77,24 @@ const AddImage = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Typography variant="h4" component="div" gutterBottom>
+                    <FormLabel variant="h4" component="div" gutterBottom>
                         Add image
-                    </Typography>
+                    </FormLabel>
                     <Box sx={{marginBottom: 2, width: '100%'}}>
                         <TextField
                             fullWidth
-                            id="outlined-select-category"
                             select
-                            label="Category"
-                            defaultValue=""
-                            helperText="Please select category"
-                        />
+                            label="Select"
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
+                            sx={{ height: '100%' }}
+                            >
+                            {categories.map((category) => (
+                                <MenuItem key={category.id} value={category.categoryName}  maxWidth="sm">
+                                    {category.categoryName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </Box>
                     <Box sx={{marginBottom: 2, width: '100%'}}>
                         <TextField
@@ -118,13 +117,13 @@ const AddImage = () => {
                     </Box>
                     <Box sx={{marginBottom: 2, width: '100%'}}>
                         <Button onChange={onFileChange} onClick={onFileUpload} component="label" variant="contained" startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>
-                            Upload file
+                            Upload before image
                             <VisuallyHiddenInput type="file"/>
                         </Button>
                     </Box>
                     <Box sx={{marginBottom: 2, width: '100%'}}>
                         <Button onChange={onFileChange} onClick={onFileUpload} component="label" variant="contained" startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>
-                            Upload file
+                            Upload after image
                             <VisuallyHiddenInput type="file"/>
                         </Button>
                     </Box>
@@ -132,7 +131,7 @@ const AddImage = () => {
                     <Box sx={{marginTop: 6, marginBottom: 4, width: '100%'}}>
                         <Button variant="contained" fullWidth>Save</Button>
                     </Box>
-                </Container>
+                </FormControl>
             </Box>
             <BottomNav/>
         </>
