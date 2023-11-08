@@ -6,21 +6,20 @@ import { Grid } from '@mui/material';
 import TitleTypography from "../favourites/TitleTypography";
 import ImageCard from "./ImageCard";
 
-const ImagesList = ({ isFavourite }) => {
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const defaultTheme = createTheme();
+const ImagesList = ({ images, onToggleFavourite }) => {
+    const theme = createTheme();
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <TitleTypography/>
                 <Grid container spacing={4}>
-                    {cards.map((card) => (
-                        <Grid item key={card} xs={12} sm={6} md={4}>
+                    {images.map((image) => (
+                        <Grid item key={image.id} xs={12} sm={6} md={4}>
                             <ImageCard
-                                imageId={card}
-                                isFavourite={isFavourite}
+                                image={image}
+                                onToggleFavourite={onToggleFavourite}
                             />
                         </Grid>
                     ))}

@@ -6,15 +6,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Box from '@mui/material/Box';
 
-const ImageCard = ({ imageId, isFavourite }) => {
-    const imageUrl = `https://source.unsplash.com/random?wallpapers&sig=${imageId}`;
-
+const ImageCard = ({ image, onToggleFavourite }) => {
     return (
         <Card sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardMedia
                 component="img"
-                image={imageUrl}
-                alt={`Random Image ${imageId}`}
+                image={image.url}
+                alt={`Image ${image.id}`}
                 sx={{
                     width: '100%',
                     height: '100%',
@@ -22,8 +20,11 @@ const ImageCard = ({ imageId, isFavourite }) => {
                 }}
             />
             <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
-                <IconButton aria-label={isFavourite ? "remove from favorites" : "add to favorites"}>
-                    {isFavourite ? (
+                <IconButton
+                    aria-label={image.isFavourite ? "remove from favorites" : "add to favorites"}
+                    onClick={() => onToggleFavourite(image)}
+                >
+                    {image.isFavourite ? (
                         <FavoriteIcon sx={{ color: 'red' }} />
                     ) : (
                         <FavoriteBorderIcon sx={{ color: 'red' }} />
