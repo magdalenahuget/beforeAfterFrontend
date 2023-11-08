@@ -4,43 +4,43 @@ import BottomNav from '../layout/BottomNav';
 import ImagesList from "../image/ImagesList";
 import { favouritesApi } from "../../api/favouritesApi";
 
-
-//obsługa błedów - dodac/zweryfikowac
 const Favourites = () => {
     const [favourites, setFavourites] = useState([]);
 
     useEffect(() => {
-        const userId = 1; // user ID dynamicznie pobierane z jwt sesji?
+        const userId = 1; // Replace with dynamic user ID from JWT/session???
 
         favouritesApi.getFavouritesByUserId(userId)
             .then(response => {
                 setFavourites(response.data.map(item => ({
                     id: item.id,
                     url: item.file,
-                    isFavourite: true
+                    isFavourite: true // These are all favorites initially
                 })));
             })
             .catch(error => {
-                console.error('There was an error!', error);
+                console.error('There was an error fetching favorites:', error);
             });
     }, []);
 
     const handleToggleFavourite = (image) => {
-        const userId = 1; // user ID dynamicznie pobierane z jwt sesji?
-        const method = image.isFavourite ? favouritesApi.deleteFavourite : favouritesApi.addImageToFavourites;
-
-        method(image.id, userId)
-            .then(() => {
-                setFavourites(favourites.map(fav => {
-                    if (fav.id === image.id) {
-                        return { ...fav, isFavourite: !fav.isFavourite };
-                    }
-                    return fav;
-                }));
-            })
-            .catch(error => {
-                console.error('Error toggling favourite status', error);
-            });
+        const userId = 1; // Replace with dynamic user ID from JWT/session???
+        if (image.isFavourite) {
+            favouritesApi.deleteFavourite(image.id, userId)
+                .then(() => {
+                    setFavourites(favourites.filter(fav => fav.id !== image.id));
+                })
+                .catch(error => {
+                    console.error('Error removing image from favourites:', error);
+                });
+        } else {
+            favouritesApi.addImageToFavourites(image.id, userId)
+                .then(() => {
+                })
+                .catch(error => {
+                    console.error('Error adding image to favourites:', error);
+                });
+        }
     };
 
     return (
