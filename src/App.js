@@ -1,19 +1,17 @@
-import logo from './logo.svg';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
-import BottomNav from "./components/BottomNav";
-import Header from "./components/Header";
-import CategoriesButton from "./components/search/CategoriesButton";
-import CitySelect from "./components/search/CitySelect";
+import Main from "./components/Main";
 
 
 function App() {
     return (
         <div className="App">
             <>
-                <Header/>
-                <CategoriesButton />
-                <CitySelect />
-                <BottomNav/>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/home" element={<Main/>}/>
+                    </Routes>
+                </BrowserRouter>
             </>
         </div>
     );
