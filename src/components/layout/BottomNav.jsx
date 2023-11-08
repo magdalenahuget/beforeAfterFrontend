@@ -5,6 +5,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate } from 'react-router-dom';
 
 const HomeIcon = (props) => (
     <SvgIcon {...props}>
@@ -12,15 +13,19 @@ const HomeIcon = (props) => (
     </SvgIcon>
 );
 
-const BottomNav = () => (
-    <AppBar position="fixed" sx={{ top: 'auto', bottom: 0 }}>
-        <Toolbar>
-            <HomeIcon fontSize="large"/>
-            <FavoriteBorderIcon fontSize="large"/>
-            <AddIcon fontSize="large"/>
-            <PersonIcon fontSize="large"/>
-        </Toolbar>
-    </AppBar>
-);
+const BottomNav = () => {
+    const navigate = useNavigate();
+
+    return (
+        <AppBar position="fixed" sx={{ top: 'auto', bottom: 0 }}>
+            <Toolbar>
+                <HomeIcon fontSize="large" onClick={() => navigate('/home')}/>
+                <FavoriteBorderIcon fontSize="large" onClick={() => navigate('/favourites')}/>
+                <AddIcon fontSize="large" onClick={() => navigate('/add')}/>
+                <PersonIcon fontSize="large" onClick={() => navigate('/profile')}/>
+            </Toolbar>
+        </AppBar>
+    );
+};
 
 export default BottomNav;
