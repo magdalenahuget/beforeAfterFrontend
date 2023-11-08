@@ -4,6 +4,8 @@ import BottomNav from '../layout/BottomNav';
 import ImagesList from "../image/ImagesList";
 import { favouritesApi } from "../../api/favouritesApi";
 
+
+//obsługa błedów - dodac/zweryfikowac
 const Favourites = () => {
     const [favourites, setFavourites] = useState([]);
 
