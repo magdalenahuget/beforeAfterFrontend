@@ -1,37 +1,29 @@
-
-/*
-
-Wersja 1:
-- wersja przeglądarkowa: BasicTabs znajduje się obok, po prawej stronie zdjęc.
-- wersja mobilna/ przejście BasicTabs do pozycji 'pod komponentem zdjęcie'
-
- */
-
-
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
-import { Avatar, Typography, Box } from "@mui/material";
+import {Avatar, Typography, Box, IconButton} from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styled from 'styled-components';
 import SimpleImageSlider from "react-simple-image-slider";
 
 const MainContainer = styled.div`
   display: flex;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   align-items: flex-start;
   margin-top: 11vh;
-  margin-left: 5vw; 
-  gap: 2vw; 
+  margin-left: 5vw;
+  gap: 2vw;
 `;
 
 const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: auto;
+  width: 896px; 
+  position: relative; 
 `;
-
 
 const LogoAndNameContainer = styled.div`
   display: flex;
@@ -43,21 +35,36 @@ const StyledAvatar = styled(Avatar)`
   margin-right: 1vh;
 `;
 
-const StyledImage = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-`;
-
 const CompanyName = styled(Typography)`
   font-weight: bold;
 `;
 
+const SliderWrapper = styled.div`
+  position: relative;
+`;
+
+const FavoriteIconButton = styled(IconButton)`
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
+  z-index: 10; 
+`;
 const ImageDetails = () => {
-    const images = [
-        { url: "https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg" },
-        { url: "https://www.moreforlessstl.com/cm/dpl/images/create/home_renovation_timeline.jpg" },
-    ];
+    const initialImages = [
+        {url: "https://source.unsplash.com/random?wallpapers&sig=1", isFavourite: false},
+        {url: "https://source.unsplash.com/random?wallpapers&sig=2", isFavourite: false},
+        {url: "https://source.unsplash.com/random?wallpapers&sig=3", isFavourite: false}];
+
+    const [images, setImages] = useState(initialImages);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const toggleFavourite = () => {
+        const updatedImages = images.map((img, index) =>
+            index === currentIndex ? { ...img, isFavourite: !img.isFavourite } : img
+        );
+        setImages(updatedImages);
+    };
+
     return (
         <>
             <Header/>
@@ -72,17 +79,23 @@ const ImageDetails = () => {
                             />
                             <CompanyName variant="h5">Budomex Sp. z o.o.</CompanyName>
                         </LogoAndNameContainer>
-                        {/*<StyledImage*/}
-                        {/*    src="https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg"*/}
-                        {/*    alt="before-and-after"*/}
-                        {/*/>*/}
-                        <SimpleImageSlider
-                            width={896}
-                            height={504}
-                            images={images}
-                            showBullets={true}
-                            showNavs={true}
-                        />
+                        <FavoriteIconButton onClick={toggleFavourite}>
+                            {images[currentIndex].isFavourite ? (
+                                <FavoriteIcon sx={{ color: 'red' }} />
+                            ) : (
+                                <FavoriteBorderIcon sx={{ color: 'red' }} />
+                            )}
+                        </FavoriteIconButton>
+                        <SliderWrapper>
+                            <SimpleImageSlider
+                                width={896}
+                                height={504}
+                                images={images.map(image => ({ url: image.url }))}
+                                showBullets={true}
+                                showNavs={true}
+                                onClick={(idx) => setCurrentIndex(idx)}
+                            />
+                        </SliderWrapper>
                     </LeftContainer>
                     <BasicTabs/>
                 </MainContainer>
@@ -93,70 +106,3 @@ const ImageDetails = () => {
 };
 
 export default ImageDetails;
-
-
-
-/*
-
-A second version in which the tabs are under the image component;
-
-
- */
-
-
-// import React from 'react';
-// import Header from '../Header';
-// import BottomNav from '../BottomNav';
-// import BasicTabs from './BasicTabs';
-// import styled from 'styled-components';
-// import { Avatar, Typography } from "@mui/material";
-//
-// const LogoAndNameContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-start;
-//   margin: 8vh 0 0;
-//   padding-left: calc(50% - 17.5%);
-// `;
-//
-// const StyledAvatar = styled(Avatar)`
-//   margin-right: 1vh;
-// `;
-//
-// const StyledImage = styled.img`
-//   width: 35%;
-//   height: auto;
-//   display: block;
-//   margin: 0 auto;
-// `;
-//
-// const CompanyName = styled(Typography)`
-//   font-weight: bold;
-// `;
-//
-// const ImageDetails = () => {
-//     return (
-//         <>
-//             <Header/>
-//             <LogoAndNameContainer>
-//                 <StyledAvatar
-//                     alt="Company Logo"
-//                     src="https://png.pngtree.com/template/20191014/ourmid/pngtree-home-renovation-logo-design-template-with-green-leaf-image_317632.jpg"
-//                     sx={{ width: 80, height: 80 }}
-//                 />
-//                 <CompanyName variant="h5">Budomex Sp. z o.o.</CompanyName>
-//             </LogoAndNameContainer>
-//             <StyledImage
-//                 src="https://www.younghouselove.com/wp-content/uploads/2018/09/Beach-House-Before-After-Doorway-Side-By-Side-650x457.jpg"
-//                 alt="before-and-after"
-//             />
-//             <BasicTabs/>
-//             <BottomNav/>
-//         </>
-//     );
-// };
-//
-// export default ImageDetails;
-//
-//
-
