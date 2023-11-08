@@ -1,13 +1,24 @@
 import React from 'react';
-import Header from '../Header';
-import BottomNav from '../BottomNav';
+import Header from '../layout/Header';
+import BottomNav from '../layout/BottomNav';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import FavouritesList from "./FavouritesList";
+
+const styles = {
+    centerText: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+    },
+};
 
 const Favourites = () => {
-
     return (
         <>
             <Header/>
-            <h1 style={{ marginTop: '10vh', textAlign: 'center' }}>Your favourite transformations:</h1>
+            <FavouritesList/>
             <BottomNav/>
         </>
     );

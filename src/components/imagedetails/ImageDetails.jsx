@@ -9,8 +9,8 @@ Wersja 1:
 
 
 import React from 'react';
-import Header from '../Header';
-import BottomNav from '../BottomNav';
+import Header from '../layout/Header';
+import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
 import { Avatar, Typography, Box } from "@mui/material";
 import styled from 'styled-components';
