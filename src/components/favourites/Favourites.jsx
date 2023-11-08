@@ -3,13 +3,13 @@ import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import FavouritesList from "./FavouritesList";
+import ImagesList from "./ImagesList";
 
 const Favourites = () => {
     return (
         <>
             <Header/>
-            <FavouritesList/>
+            <ImagesList/>
             <BottomNav/>
         </>
     );

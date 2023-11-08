@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 import TitleTypography from "./TitleTypography";
 import ImageCard from "../image/ImageCard";
 
-const FavouritesList = () => {
+const ImagesList = () => {
     const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const defaultTheme = createTheme();
 
@@ -18,7 +18,7 @@ const FavouritesList = () => {
                 <Grid container spacing={4}>
                     {cards.map((card) => (
                         <Grid item key={card} xs={12} sm={6} md={4}>
-                            <ImageCard imageId={card} />
+                            <ImageCard imageId={card} showIcon={true}  />
                         </Grid>
                     ))}
                 </Grid>
@@ -27,4 +27,4 @@ const FavouritesList = () => {
     );
 };
 
-export default FavouritesList;
+export default ImagesList;
