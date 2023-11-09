@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
+import AboutMe from '../user/about_me/AboutMe';
 
 const BasicTabs = () => {
 
@@ -28,7 +29,9 @@ const BasicTabs = () => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} sx={{textAlign: 'justify'}}>{lorem}</TabPanel>
-            <TabPanel value={value} index={1}>About company</TabPanel>
+            <TabPanel value={value} index={1}>
+                <AboutMe userId={userId}/>
+            </TabPanel>
             <TabPanel value={value} index={2}>
                 <ContactDetails userId={userId}/>
             </TabPanel>
