@@ -1,9 +1,9 @@
 import React from 'react';
-import AboutMeHook from '../../../hooks/AboutMeHook';
+import UseAboutMe from '../../../hooks/useAboutMe';
 import {Box, Typography, CircularProgress} from '@mui/material';
 
 const AboutMeComponent = ({userId}) => {
-    const {aboutMeInfo, isLoading, error} = AboutMeHook(userId);
+    const {aboutMeInfo, isLoading, error} = UseAboutMe(userId);
 
     if (isLoading) {
         return (

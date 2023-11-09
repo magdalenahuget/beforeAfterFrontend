@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { contactDetailsApi } from '../../api/contactDetailsApi';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -9,37 +7,47 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import LanguageIcon from '@mui/icons-material/Language';
 import HomeIcon from '@mui/icons-material/Home';
 import PinDropIcon from '@mui/icons-material/PinDrop';
+import useContactDetails from "../../hooks/useContactDetails";
+import {Box, CircularProgress, Typography} from "@mui/material";
 
-const ContactDetailsPanel = ({ userId }) => {
-    const [contactDetails, setContactDetails] = useState({});
+const ContactDetails = ({userId}) => {
+    const {contactDetails, isLoading, error} = useContactDetails(userId);
 
-    useEffect(() => {
-        contactDetailsApi.getContactDetailsByUserId(userId)
-            .then(response => {
-                setContactDetails(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the contact details:', error);
-            });
-    }, [userId]);
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center">
+                <CircularProgress/>
+            </Box>
+        );
+    }
+
+    if (error) {
+        return (
+            <Typography color="error" textAlign="center">
+                Error loading the contact details.
+            </Typography>
+        );
+    }
+
 
     return (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }} aria-label="contact details">
+        <List sx={{width: '100%', bgcolor: 'background.paper'}} aria-label="contact details">
             <ListItem>
                 <ListItemIcon>
-                    <HomeIcon />
+                    <HomeIcon/>
                 </ListItemIcon>
-                <ListItemText primary={`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`} />
+                <ListItemText
+                    primary={`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}/>
             </ListItem>
             <ListItem>
                 <ListItemIcon>
-                    <PinDropIcon />
+                    <PinDropIcon/>
                 </ListItemIcon>
-                <ListItemText primary={`${contactDetails.cityName}, ${contactDetails.postcode}`} />
+                <ListItemText primary={`${contactDetails.cityName}, ${contactDetails.postcode}`}/>
             </ListItem>
             <ListItem>
                 <ListItemIcon>
-                    <PhoneIcon />
+                    <PhoneIcon/>
                 </ListItemIcon>
                 <ListItemText
                     primary={
@@ -51,7 +59,7 @@ const ContactDetailsPanel = ({ userId }) => {
             </ListItem>
             <ListItem>
                 <ListItemIcon>
-                    <LanguageIcon />
+                    <LanguageIcon/>
                 </ListItemIcon>
                 <ListItemText
                     primary={
@@ -65,4 +73,4 @@ const ContactDetailsPanel = ({ userId }) => {
     );
 };
 
-export default ContactDetailsPanel;
+export default ContactDetails;

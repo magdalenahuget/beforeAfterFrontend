@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAboutMeByUserId } from '../api/userApi'
 
-const AboutMeHook = (userId) => {
+const UseAboutMe = (userId) => {
     const [aboutMeInfo, setAboutMeInfo] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -23,4 +23,4 @@ const AboutMeHook = (userId) => {
     return { aboutMeInfo, isLoading, error };
 };
 
-export default AboutMeHook;
+export default UseAboutMe;
