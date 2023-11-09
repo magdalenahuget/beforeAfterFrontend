@@ -1,14 +1,14 @@
 import React from 'react';
-import UseAboutMe from '../../../hooks/useAboutMe';
-import {Box, Typography, CircularProgress} from '@mui/material';
+import useImageDescription from '../../hooks/useImageDescription';
+import { Box, Typography, CircularProgress } from '@mui/material';
 
-const AboutMeComponent = ({userId}) => {
-    const {aboutMeInfo, isLoading, error} = UseAboutMe(userId);
+const ImageDescription = ({ imageId }) => {
+    const { imageDescription, isLoading, error } = useImageDescription(imageId);
 
     if (isLoading) {
         return (
             <Box display="flex" justifyContent="center">
-                <CircularProgress/>
+                <CircularProgress />
             </Box>
         );
     }
@@ -16,7 +16,7 @@ const AboutMeComponent = ({userId}) => {
     if (error) {
         return (
             <Typography color="error" textAlign="center">
-                Error loading the about me information.
+                Error loading the image description.
             </Typography>
         );
     }
@@ -24,10 +24,10 @@ const AboutMeComponent = ({userId}) => {
     return (
         <Box>
             <Typography variant="body1" textAlign="justify">
-                {aboutMeInfo}
+                {imageDescription}
             </Typography>
         </Box>
     );
 };
 
-export default AboutMeComponent;
+export default ImageDescription;
