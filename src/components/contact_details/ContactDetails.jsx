@@ -35,7 +35,7 @@ const ContactDetailsPanel = ({ userId }) => {
                 <ListItemIcon>
                     <PinDropIcon />
                 </ListItemIcon>
-                <ListItemText primary={`${contactDetails.postcode}`} />
+                <ListItemText primary={`${contactDetails.cityName}, ${contactDetails.postcode}`} />
             </ListItem>
             <ListItem>
                 <ListItemIcon>
