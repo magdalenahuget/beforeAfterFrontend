@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
+import AboutMe from '../user/about_me/AboutMe';
+import ImageDescription from "../image/ImageDescription";
 
 const BasicTabs = () => {
 
@@ -15,8 +17,7 @@ const BasicTabs = () => {
     };
 
     const userId = 6; // Replace with dynamic user ID from JWT/session
-
-    const lorem = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`;
+    const imageId = 1;
 
     return (
         <Box sx={{width: '80%', mt: '4vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -27,8 +28,12 @@ const BasicTabs = () => {
                     <Tab label="Contact details" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-            <TabPanel value={value} index={0} sx={{textAlign: 'justify'}}>{lorem}</TabPanel>
-            <TabPanel value={value} index={1}>About company</TabPanel>
+            <TabPanel value={value} index={0} sx={{textAlign: 'justify'}}>
+                <ImageDescription imageId={imageId}/>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <AboutMe userId={userId}/>
+            </TabPanel>
             <TabPanel value={value} index={2}>
                 <ContactDetails userId={userId}/>
             </TabPanel>
