@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
-import AboutMe from '../user/about_me/AboutMe';
+import AboutMe from '../user/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
-const BasicTabs = () => {
+const BasicTabs = ({ userId }) => {
 
     const [value, setValue] = useState(0);
 
@@ -16,11 +16,10 @@ const BasicTabs = () => {
         setValue(newValue);
     };
 
-    const userId = 6; // Replace with dynamic user ID from JWT/session
-    const imageId = 1;
+    const imageId = 6;
 
     return (
-        <Box sx={{width: '80%', mt: '4vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box sx={{width: '100%', mt: '6vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Service description" {...a11yProps(0)} />
