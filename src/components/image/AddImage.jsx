@@ -75,7 +75,46 @@ const AddImage = () => {
             console.log(selectedAfterFile);
         };
 
+        // SUBMIT FORM
+        const handleSubmit = async (event) => {
+            event.preventDefault();
+
+            const dataToSend = new FormData();
+            dataToSend.append('categoryId', '1');
+            dataToSend.append('description', description);
+            dataToSend.append('city', city);
+            let collage = getCollage();
+            let newMergedFiles = convertImageUrlToFile(collage, 'collage.png');
+            dataToSend.append('file', newMergedFiles);
+            dataToSend.append('userId', '1');
+            let config = {
+                maxBodyLength: Infinity,
+            };
+
+            axios.post(`http://localhost:8080/api/v1/images`, dataToSend, config)
+                .then(response => {
+                    console.log('Success:', response);
+                })
+                .catch(error => {
+                    console.error('Data sending error:', error);
+                });
+        };
+
         // MERGE IMAGES
+
+        function convertImageUrlToFile(imageUrl, fileName) {
+            var splittedUrl = imageUrl.split(','), mime = splittedUrl[0].match(/:(.*?);/)[1],
+                bstr = atob(splittedUrl[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], fileName, {type: mime});
+        }
+
+        const getCollage = () => {
+            return createCollageUrlFrom(selectedBeforeFile, selectedAfterFile);
+        }
+
         const createCollageUrlFrom = (imageBefore, imageAfter) => {
             const canvas = document.createElement('canvas');
             const canvasRenderingContext2D = canvas.getContext('2d');
@@ -98,65 +137,14 @@ const AddImage = () => {
             return canvas.toDataURL('image/png');
         };
 
-        const getCollage = () => {
-            return createCollageUrlFrom(selectedBeforeFile, selectedAfterFile);
-        }
-
-        // HANDLING IMAGE TESTING
+        // HANDLING IMAGES DISPLAY TESTING
         const [allImagesFromDb, setAllImagesFromDb] = useState(null);
 
         const loadAllUploadedImages = async (e) => {
-            console.log('load Image func')
             const result = await axios.get(
                 `http://localhost:8080/api/v1/images`
             );
-            console.log(result);
             setAllImagesFromDb(result.data);
-            // setImageSrc('data:image/jpeg;base64,' + result.data[0]['file'])
-            console.log(allImagesFromDb);
-            console.log(result.data[0]);
-            console.log(result.data[0]['file']);
-
-        };
-
-        function convertImageUrlToFile(imageUrl, fileName) {
-            var splittedUrl = imageUrl.split(','), mime = splittedUrl[0].match(/:(.*?);/)[1],
-                bstr = atob(splittedUrl[1]), n = bstr.length, u8arr = new Uint8Array(n);
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            return new File([u8arr], fileName, {type: mime});
-        }
-
-        const handleSubmit = async (event) => {
-            event.preventDefault();
-
-            const dataToSend = new FormData();
-            dataToSend.append('categoryId', '1');
-            dataToSend.append('description', description);
-            dataToSend.append('city', city);
-            let collage = getCollage();
-            let newMergedFiles = convertImageUrlToFile(collage, 'collage.png');
-            dataToSend.append('file', newMergedFiles);
-
-            dataToSend.append('userId', '1');
-            console.log('Success:', dataToSend.get("city"));
-            console.log('Success:', dataToSend.get("description"));
-            console.log('Success:', dataToSend.get("categoryId"));
-            console.log('Success:', dataToSend.get("file"));
-            console.log('Success:', dataToSend.get("userId"));
-
-            let config = {
-                maxBodyLength: Infinity,
-            };
-
-            axios.post(`http://localhost:8080/api/v1/images`, dataToSend, config)
-                .then(response => {
-                    console.log('Success:', response);
-                })
-                .catch(error => {
-                    console.error('Data sending error:', error);
-                });
         };
 
         const SetButtonType = styled('input')({
@@ -246,7 +234,6 @@ const AddImage = () => {
                                 <SetButtonType type="file"/>
                             </Button>
                         </Box>
-                        {/*// TODO: This code is for second photo (after). In future should be uncomment and updated with merge library*/}
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button onChange={onAfterFileChange} component="label" variant="contained"
                                     startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>
@@ -254,22 +241,15 @@ const AddImage = () => {
                                 <SetButtonType type="file"/>
                             </Button>
                         </Box>
-
                         <Box sx={{marginTop: 6, marginBottom: 4, width: '100%'}}>
                             <Button onClick={handleSubmit} variant="contained" fullWidth>Save</Button>
                         </Box>
                     </FormControl>
-                    {/*TODO: This functionality is helpful in testing phase to display first added image to database*/}
-                    {/*Result: warnings with imports are never used*/}
                     <Box sx={{marginTop: 6, marginBottom: 10, width: '100%'}}>
                         <Button onClick={loadAllUploadedImages} variant="contained" fullWidth>Display all images</Button>
-                        <CardMedia
-                            component="div"
-                            image="https://source.unsplash.com/random?wallpapers"
-                        />
+                        <CardMedia component="div"/>
                         {allImagesFromDb ? allImagesFromDb.map((image) => (
-                            <img src={'data:image/jpeg;base64,' + image['file']}/>
-                        )) : ''}
+                            <img key={image['id']} src={'data:image/jpeg;base64,' + image['file']}/>)) : ''}
                     </Box>
                 </Box>
                 <BottomNav/>
