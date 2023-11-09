@@ -18,11 +18,11 @@ const BottomNav = () => {
 
     return (
         <AppBar position="fixed" sx={{ top: 'auto', bottom: 0 }}>
-            <Toolbar>
-                <HomeIcon fontSize="large" onClick={() => navigate('/home')}/>
-                <FavoriteBorderIcon fontSize="large" onClick={() => navigate('/favourites')}/>
-                <AddIcon fontSize="large" onClick={() => navigate('/add')}/>
-                <PersonIcon fontSize="large" onClick={() => navigate('/profile')}/>
+            <Toolbar sx={{ justifyContent: 'center' }}>
+                <div style={{ padding: '0 1.5%' }}><HomeIcon fontSize="large" onClick={() => navigate('/home')}/></div>
+                <div style={{ padding: '0 1.5%' }}><FavoriteBorderIcon fontSize="large" onClick={() => navigate('/favourites')}/></div>
+                <div style={{ padding: '0 1.5%' }}><AddIcon fontSize="large" onClick={() => navigate('/add')}/></div>
+                <div style={{ padding: '0 1.5%' }}><PersonIcon fontSize="large" onClick={() => navigate('/profile')}/></div>
             </Toolbar>
         </AppBar>
     );
