@@ -8,7 +8,7 @@ import ContactDetails from '../contact_details/ContactDetails'
 import AboutMe from '../user/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
-const BasicTabs = ({ userId }) => {
+const BasicTabs = ({ userId,imageId }) => {
 
     const [value, setValue] = useState(0);
 
@@ -16,7 +16,6 @@ const BasicTabs = ({ userId }) => {
         setValue(newValue);
     };
 
-    const imageId = 6;
 
     return (
         <Box sx={{width: '100%', mt: '4vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -28,7 +27,7 @@ const BasicTabs = ({ userId }) => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} sx={{textAlign: 'justify'}}>
-                <ImageDescription imageId={imageId}/>
+                <ImageDescription imageId={imageId} />
             </TabPanel>
             <TabPanel value={value} index={1} >
                 <AboutMe userId={userId}/>

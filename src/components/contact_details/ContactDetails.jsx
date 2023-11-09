@@ -7,6 +7,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import LanguageIcon from '@mui/icons-material/Language';
 import HomeIcon from '@mui/icons-material/Home';
 import PinDropIcon from '@mui/icons-material/PinDrop';
+import EmailIcon from '@mui/icons-material/Email';
 import useContactDetails from "../../hooks/useContactDetails";
 import {Box, CircularProgress, Typography} from "@mui/material";
 
@@ -53,6 +54,18 @@ const ContactDetails = ({userId}) => {
                     primary={
                         <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
                             {contactDetails.phoneNumber}
+                        </Link>
+                    }
+                />
+            </ListItem>
+            <ListItem>
+                <ListItemIcon>
+                    <EmailIcon/>
+                </ListItemIcon>
+                <ListItemText
+                    primary={
+                        <Link href={`make_this_email_dynamic@gmail.com`} underline="none">
+                            make_this_email_dynamic@gmail.com
                         </Link>
                     }
                 />

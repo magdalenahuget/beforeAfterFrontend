@@ -5,7 +5,7 @@ import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Typography from '@mui/material/Typography';
 
 const Header = () => (
-    <AppBar position="fixed">
+    <AppBar position="fixed" >
         <Toolbar>
             <CameraIcon sx={{ mr: 2 }} />
             <Typography variant="h6" color="inherit" noWrap>
