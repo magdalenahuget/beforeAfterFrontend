@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
+import useImage from '../../hooks/useImage'
 import {Avatar, Typography, Box, IconButton, Grid, useTheme, useMediaQuery} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SimpleImageSlider from "react-simple-image-slider";
 
@@ -16,6 +18,8 @@ const ImageDetails = ({ userId }) => {
 
     const [images, setImages] = useState(initialImages);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { imageData } = useImage(userId);
+
 
     const toggleFavourite = () => {
         const updatedImages = images.map((img, index) =>
@@ -31,25 +35,43 @@ const ImageDetails = ({ userId }) => {
 
     return (
         <>
-            <Header/>
-            <Box sx={{flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9)}}>
-                <Grid container spacing={2} sx={{px: '2vw'}}>
-                    <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
-                        <Box sx={{display: 'flex', alignItems: 'center', mb: 2}}>
-                            <Avatar
-                                alt="Company Logo"
-                                src="https://source.unsplash.com/random?company"
-                                sx={{
-                                    width: avatarSize,
-                                    height: avatarSize,
-                                    minWidth: minAvatarSize,
-                                    minHeight: minAvatarSize,
-                                    mr: 2
-                                }}
-                            />
-                            <Typography variant="h5" sx={{fontWeight: 'bold'}}>
-                                Budomex Sp. z o.o.
-                            </Typography>
+            <Header />
+            <Box sx={{ flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9) }}>
+                <Grid container spacing={2} sx={{ px: '2vw' }}>
+                    <Grid item xs={12} md={7} lg={8} sx={{ pr: isSmallScreen ? '0' : '2%' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', mb: 1 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 0 }}>
+                                <Avatar
+                                    alt="Company Logo"
+                                    src="https://source.unsplash.com/random?company"
+                                    sx={{
+                                        width: avatarSize,
+                                        height: avatarSize,
+                                        minWidth: minAvatarSize,
+                                        minHeight: minAvatarSize,
+                                        mr: 2
+                                    }}
+                                />
+                                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+                                    Budomex Sp. z o.o.
+                                </Typography>
+                            </Box>
+                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 10 }}>
+                                <LocationOnIcon sx={{ mr: 0.5 }} />
+                                <Typography variant="subtitle1">
+                                    Paris
+                                </Typography>
+                            </Box>
+                            {/*//                     /!* usunac wykrzyknic przed imageData   *!/*/}
+                            {/*//                         {!imageData && (*/}
+                            {/*//                             <Box sx={{display: 'flex', alignItems: 'center', ml: 1}}>*/}
+                            {/*//                                 <LocationOnIcon sx={{mr: 0.5}}/>*/}
+                            {/*//                                 <Typography variant="subtitle1">*/}
+                            {/*//                                     /!*{imageData.cityName}*!/*/}
+                            {/*//                                     Paris*/}
+                            {/*//                                 </Typography>*/}
+                            {/*//                             </Box>*/}
+                            {/*//                         )}*/}
                         </Box>
                         <Box sx={{
                             position: 'relative',
@@ -66,9 +88,9 @@ const ImageDetails = ({ userId }) => {
                                 }}
                             >
                                 {images[currentIndex].isFavourite ? (
-                                    <FavoriteIcon sx={{color: 'purple', fontSize: '3rem'}}/>
+                                    <FavoriteIcon sx={{ color: 'purple', fontSize: '3rem' }} />
                                 ) : (
-                                    <FavoriteBorderIcon sx={{color: 'purple', fontSize: '3rem'}}/>
+                                    <FavoriteBorderIcon sx={{ color: 'purple', fontSize: '3rem' }} />
                                 )}
                             </IconButton>
                             <Box sx={{
@@ -81,7 +103,7 @@ const ImageDetails = ({ userId }) => {
                                 <SimpleImageSlider
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images.map(image => ({url: image.url}))}
+                                    images={images.map(image => ({ url: image.url }))}
                                     showBullets={true}
                                     showNavs={true}
                                     onClick={(idx) => setCurrentIndex(idx - 1)}
@@ -94,7 +116,7 @@ const ImageDetails = ({ userId }) => {
                     </Grid>
                 </Grid>
             </Box>
-            <BottomNav sx={{mt: 1}}/>
+            <BottomNav sx={{ mt: 1 }} />
         </>
     );
 };

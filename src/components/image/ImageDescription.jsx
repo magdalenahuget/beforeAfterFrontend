@@ -1,9 +1,9 @@
 import React from 'react';
-import useImageDescription from '../../hooks/useImageDescription';
+import useImage from '../../hooks/useImage'
 import { Box, Typography, CircularProgress } from '@mui/material';
 
 const ImageDescription = ({ imageId }) => {
-    const { imageDescription, isLoading, error } = useImageDescription(imageId);
+    const { imageData, isLoading, error } = useImage(imageId);
 
     if (isLoading) {
         return (
@@ -24,7 +24,7 @@ const ImageDescription = ({ imageId }) => {
     return (
         <Box>
             <Typography variant="body1" textAlign="justify">
-                {imageDescription}
+                {imageData?.description}
             </Typography>
         </Box>
     );
