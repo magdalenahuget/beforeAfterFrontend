@@ -1,11 +1,10 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Main from "./components/Main";
+import AddImage from "./components/image/AddImage";
 import ImageDetails from "./components/imagedetails/ImageDetails";
 import Favourites from "./components/favourites/Favourites";
-import MyImages from "./components/MyImages";
-import AddImage from "./components/AddImage";
-
+import MyImages from "./components/myimages/MyImages";
 
 function App() {
     return (
