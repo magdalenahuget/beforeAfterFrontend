@@ -1,5 +1,5 @@
 import React from 'react';
-import UseAboutMe from '../../../hooks/useAboutMe';
+import UseAboutMe from '../../hooks/useAboutMe';
 import {Box, Typography, CircularProgress} from '@mui/material';
 
 const AboutMeComponent = ({userId}) => {

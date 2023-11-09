@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
-import AboutMe from '../user/about_me/AboutMe';
+import AboutMe from '../user/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
 const BasicTabs = () => {
@@ -16,7 +16,7 @@ const BasicTabs = () => {
         setValue(newValue);
     };
 
-    const userId = 6; // Replace with dynamic user ID from JWT/session
+    const userId = 1; // Replace with dynamic user ID from JWT/session
     const imageId = 1;
 
     return (
