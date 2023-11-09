@@ -8,7 +8,7 @@ import ContactDetails from '../contact_details/ContactDetails'
 import AboutMe from '../user/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
-const BasicTabs = () => {
+const BasicTabs = ({ userId }) => {
 
     const [value, setValue] = useState(0);
 
@@ -16,8 +16,7 @@ const BasicTabs = () => {
         setValue(newValue);
     };
 
-    const userId = 1; // Replace with dynamic user ID from JWT/session
-    const imageId = 1;
+    const imageId = 6;
 
     return (
         <Box sx={{width: '100%', mt: '6vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

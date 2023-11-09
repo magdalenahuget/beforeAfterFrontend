@@ -20,7 +20,7 @@ function App() {
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
                         <Route path="/profile"/>
-                        <Route path="/offer" element={<OfferDetails/>}/>
+                        <Route path="/offer" element={<OfferDetails userId={userId} />} />
                     </Routes>
                 </BrowserRouter>
             </>
