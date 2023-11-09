@@ -2,7 +2,9 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Main from "./components/Main";
 import AddImage from "./components/addimage/AddImage";
-
+import ImageDetails from "./components/imagedetails/ImageDetails";
+import Favourites from "./components/favourites/Favourites";
+import MyImages from "./components/myimages/MyImages";
 
 function App() {
     return (
@@ -11,7 +13,11 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/home" element={<Main/>}/>
-                        <Route path="/add-image" element={<AddImage/>}/>
+                        <Route path="/favourites" element={<Favourites/>}/>
+                        <Route path="/add" element={<AddImage/>}/>
+                        <Route path="/images" element={<MyImages/>}/>
+                        <Route path="/profile"/>
+                        <Route path="/offer" element={<ImageDetails/>}/>
                     </Routes>
                 </BrowserRouter>
             </>
