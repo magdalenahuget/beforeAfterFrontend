@@ -12,7 +12,7 @@ const BottomNav = () => {
     const navigate = useNavigate();
 
     return (
-        <AppBar position="fixed" sx={{top: 'auto', bottom: 0}}>
+        <AppBar position="fixed" sx={{top: 'auto', bottom: 0}} >
             <Toolbar sx={{justifyContent: 'center'}}>
                 <div style={{padding: '0 1.5%'}}>
                     <Fab color="primary" aria-label="home" onClick={() => navigate('/home')}>

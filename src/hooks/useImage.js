@@ -1,29 +1,45 @@
 import { useState, useEffect } from 'react';
-import { imageDataApi } from '../api/imageApi';
+import axios from 'axios';
 
-const useImage = (imageId) => {
-    const [imageData, setImageData] = useState(null);
+const API_URL = process.env.REACT_APP_API_URL;
+
+const useImages = (userId) => {
+    const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        (async () => {
-            if (!imageId) return;
+        if (!userId) return;
 
-            setIsLoading(true);
+        setIsLoading(true);
+
+        const fetchImages = async () => {
             try {
-                const response = await imageDataApi.getImageDescriptionById(imageId);
-                setImageData(response.data);
-            } catch (error) {
-                console.error('Error fetching image data:', error);
-                setError(error);
+                const params = new URLSearchParams({ usersID: [userId] }).toString();
+                const response = await axios.get(`${API_URL}/images?${params}`);
+
+                const imagesWithDetails = response.data.map(img => ({
+                    ...img,
+                    url: `data:image/jpeg;base64,${img.file}`,
+                    cityName: img.cityName,
+                    description: img.description
+                }));
+
+                setImages(imagesWithDetails);
+            } catch (err) {
+                console.error('Error fetching images:', err);
+                setError(err);
             } finally {
                 setIsLoading(false);
             }
-        })();
-    }, [imageId]);
+        };
 
-    return { imageData, isLoading, error };
+        fetchImages().catch(err => {
+            console.error('Unhandled error in fetchImages:', err);
+        });
+    }, [userId]);
+
+    return { images, isLoading, error };
 };
 
-export default useImage;
+export default useImages;

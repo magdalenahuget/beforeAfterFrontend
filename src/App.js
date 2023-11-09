@@ -8,7 +8,7 @@ import MyImages from "./components/myimages/MyImages";
 
 function App() {
 
-    const userId = 6
+    const userId = 1
 
     return (
         <div className="App">

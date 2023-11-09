@@ -23,16 +23,12 @@ const AboutMeComponent = ({userId}) => {
 
     return (
         <Box>
-            {/*<Typography variant="body1" textAlign="justify" sx={{ fontSize: '1rem' }}>*/}
-            {/*    {aboutMeInfo}*/}
-            {/*</Typography>*/}
-
             <Typography
                 variant="body1"
                 textAlign="justify"
                 sx={{
                     fontSize: '0.875rem',
-                    maxHeight: '350px',
+                    maxHeight: '400px',
                     overflow: 'auto',
                     paddingRight: '3%',
                     '&::-webkit-scrollbar': {
