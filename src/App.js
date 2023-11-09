@@ -7,13 +7,16 @@ import Favourites from "./components/favourites/Favourites";
 import MyImages from "./components/myimages/MyImages";
 
 function App() {
+
+    const userId = 1
+
     return (
         <div className="App">
             <>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/home" element={<Main/>}/>
-                        <Route path="/favourites" element={<Favourites/>}/>
+                        <Route path="/favourites" element={<Favourites userId={userId}/>}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
                         <Route path="/profile"/>

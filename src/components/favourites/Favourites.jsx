@@ -1,58 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useFavourites from '../../hooks/useFavourites';
+import ImagesList from "../image/ImagesList";
+import { Box, CircularProgress, Typography } from '@mui/material';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
-import ImagesList from "../image/ImagesList";
-import { favouritesApi } from "../../api/favouritesApi";
 
-const Favourites = () => {
-    const [favourites, setFavourites] = useState([]);
+const FavouritesComponent = ({ userId }) => {
+    const { favourites, addFavourite, removeFavourite, isLoading, error } = useFavourites(userId);
 
-    useEffect(() => {
-        const userId = 1; // Replace with dynamic user ID from JWT/session???
-
-        favouritesApi.getFavouritesByUserId(userId)
-            .then(response => {
-                setFavourites(response.data.map(item => ({
-                    id: item.id,
-                    url: item.file,
-                    isFavourite: true // These are all favorites initially
-                })));
-            })
-            .catch(error => {
-                console.error('There was an error fetching favorites:', error);
-            });
-    }, []);
-
-    const handleToggleFavourite = (image) => {
-        const userId = 1; // Replace with dynamic user ID from JWT/session???
-        if (image.isFavourite) {
-            favouritesApi.deleteFavourite(image.id, userId)
-                .then(() => {
-                    setFavourites(favourites.filter(fav => fav.id !== image.id));
-                })
-                .catch(error => {
-                    console.error('Error removing image from favourites:', error);
-                });
+    const handleToggleFavourite = (imageId, isFavourite) => {
+        if (isFavourite) {
+            removeFavourite(imageId);
         } else {
-            favouritesApi.addImageToFavourites(image.id, userId)
-                .then(() => {
-                })
-                .catch(error => {
-                    console.error('Error adding image to favourites:', error);
-                });
+            addFavourite(imageId);
         }
     };
 
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center">
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (error) {
+        return (
+            <Typography color="error" textAlign="center">
+                Error loading favourites.
+            </Typography>
+        );
+    }
+
     return (
         <>
-            <Header/>
+            <Header />
             <ImagesList
                 images={favourites}
                 onToggleFavourite={handleToggleFavourite}
             />
-            <BottomNav/>
+            <BottomNav />
         </>
     );
-}
+};
 
-export default Favourites;
+export default FavouritesComponent;
