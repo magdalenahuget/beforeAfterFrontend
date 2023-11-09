@@ -19,18 +19,18 @@ const BasicTabs = ({ userId }) => {
     const imageId = 6;
 
     return (
-        <Box sx={{width: '100%', mt: '6vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box sx={{width: '100%', mt: '4vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Service description" {...a11yProps(0)} />
+                    <Tab label="Service" {...a11yProps(0)} />
                     <Tab label="About us" {...a11yProps(1)} />
-                    <Tab label="Contact details" {...a11yProps(2)} />
+                    <Tab label="Contact" {...a11yProps(2)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} sx={{textAlign: 'justify'}}>
                 <ImageDescription imageId={imageId}/>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1} >
                 <AboutMe userId={userId}/>
             </TabPanel>
             <TabPanel value={value} index={2}>

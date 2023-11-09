@@ -66,9 +66,9 @@ const ImageDetails = ({ userId }) => {
                                 }}
                             >
                                 {images[currentIndex].isFavourite ? (
-                                    <FavoriteIcon sx={{color: 'red', fontSize: '3rem'}}/>
+                                    <FavoriteIcon sx={{color: 'purple', fontSize: '3rem'}}/>
                                 ) : (
-                                    <FavoriteBorderIcon sx={{color: 'red', fontSize: '3rem'}}/>
+                                    <FavoriteBorderIcon sx={{color: 'purple', fontSize: '3rem'}}/>
                                 )}
                             </IconButton>
                             <Box sx={{
