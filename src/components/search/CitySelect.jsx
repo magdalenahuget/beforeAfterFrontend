@@ -4,10 +4,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import SelectedImages from "./SelectedImages";
+
 
 export default function CitySelect() {
+    const [selectedCity, setSelectedCity] = React.useState('');
+    const [CityOptions, setCityOptions] = React.useState([]);
     const [images, setImages] = React.useState([]);
-    const [cityName, setCityName] = React.useState('');
+    
+
     async function handleSearchCategories() {
         try {
             const queryParams = {
@@ -23,8 +28,9 @@ export default function CitySelect() {
 
             const data = await response.json();
             console.log('Received data:', data);
+            setImages(data);
             const uniqueCityNames = [...new Set(data.map(image => image.cityName))]
-            setImages(uniqueCityNames);
+            setCityOptions(uniqueCityNames);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -35,7 +41,7 @@ export default function CitySelect() {
     }, []);
 
     const handleChange = (event) => {
-        setCityName(event.target.value);
+        setSelectedCity(event.target.value);
     };
 
     return (
@@ -45,17 +51,19 @@ export default function CitySelect() {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={cityName}
+                    value={selectedCity}
                     label="City"
                     onChange={handleChange}
                 >
-                    {images.map((image) => (
+                    {CityOptions.map((image) => (
                         <MenuItem key={image} value={image}>
                             {image}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
+
+            <SelectedImages selectedCity={selectedCity} allImages={images} />
         </Box>
     );
 }
