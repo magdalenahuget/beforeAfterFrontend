@@ -20,7 +20,7 @@ const BasicTabs = () => {
     const imageId = 1;
 
     return (
-        <Box sx={{width: '80%', mt: '4vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <Box sx={{width: '100%', mt: '6vh', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Service description" {...a11yProps(0)} />

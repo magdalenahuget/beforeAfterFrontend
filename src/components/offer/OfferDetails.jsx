@@ -26,18 +26,26 @@ const ImageDetails = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const avatarSize = isSmallScreen ? '6vw' : '4vw';
+    const minAvatarSize = '3vw';
 
     return (
         <>
             <Header />
             <Box sx={{ flexGrow: 1, mt: isSmallScreen ? theme.spacing(9) : theme.spacing(11) }}>
                 <Grid container spacing={2} sx={{ px: '2vw' }}>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={7} lg={8} sx={{ pr: isSmallScreen ? '0' : '2%' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <Avatar
                                 alt="Company Logo"
                                 src="https://source.unsplash.com/random?company"
-                                sx={{ width: 80, height: 80, mr: 2 }}
+                                sx={{
+                                    width: avatarSize,
+                                    height: avatarSize,
+                                    minWidth: minAvatarSize,
+                                    minHeight: minAvatarSize,
+                                    mr: 2
+                                }}
                             />
                             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                                 Budomex Sp. z o.o.
@@ -46,7 +54,7 @@ const ImageDetails = () => {
                         <Box sx={{
                             position: 'relative',
                             width: '100%',
-                            paddingTop: '56.25%',
+                            paddingTop: '56.25%', // 16:9 aspect ratio
                         }}>
                             <IconButton
                                 onClick={toggleFavourite}
@@ -58,9 +66,9 @@ const ImageDetails = () => {
                                 }}
                             >
                                 {images[currentIndex].isFavourite ? (
-                                    <FavoriteIcon sx={{ color: 'red' }} />
+                                    <FavoriteIcon sx={{ color: 'red', fontSize: '3rem' }} />
                                 ) : (
-                                    <FavoriteBorderIcon sx={{ color: 'red' }} />
+                                    <FavoriteBorderIcon sx={{ color: 'red', fontSize: '3rem' }} />
                                 )}
                             </IconButton>
                             <Box sx={{
@@ -81,7 +89,7 @@ const ImageDetails = () => {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={5} lg={4}>
                         <BasicTabs />
                     </Grid>
                 </Grid>
