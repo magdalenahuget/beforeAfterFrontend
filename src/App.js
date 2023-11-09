@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
 import Main from "./components/Main";
 import AddImage from "./components/image/AddImage";
-import ImageDetails from "./components/imagedetails/ImageDetails";
+import ImageDetails from "./components/offer/ImageDetails";
 import Favourites from "./components/favourites/Favourites";
 import MyImages from "./components/myimages/MyImages";
 

@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grid } from '@mui/material';
-import TitleTypography from "../favourites/TitleTypography";
+import TitleTypography from "../layout/TitleTypography";
 import ImageCard from "./ImageCard";
 
 const ImagesList = ({ images, onToggleFavourite }) => {
