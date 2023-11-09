@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import {TextField} from '@mui/material';
 import Button from '@mui/material/Button';
-import Header from "../Header";
-import BottomNav from "../BottomNav";
+import Header from "../layout/Header";
+import BottomNav from "../layout/BottomNav";
 import axios from "axios";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {styled} from '@mui/material/styles';
@@ -16,7 +16,6 @@ const AddImage = () => {
         const [selectedCategory, setSelectedCategory] = useState('');
         const [description, setDescription] = useState('');
         const [city, setCity] = useState('');
-        const [file, setFile] = useState('');
 
         const onFileChange = (event) => {
             setSelectedFile(event.target.files[0]);
@@ -178,6 +177,7 @@ const AddImage = () => {
                                 <VisuallyHiddenInput type="file"/>
                             </Button>
                         </Box>
+                        {/*// TODO: This code is for second photo (after). In future should be uncomment and updated with merge library*/}
                         {/*<Box sx={{marginBottom: 2, width: '100%'}}>*/}
                         {/*    <Button onChange={onFileChange} component="label" variant="contained"*/}
                         {/*            startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>*/}
@@ -190,14 +190,16 @@ const AddImage = () => {
                             <Button onClick={handleSubmit} variant="contained" fullWidth>Save</Button>
                         </Box>
                     </FormControl>
-                    <Box sx={{marginTop: 6, marginBottom: 10, width: '100%'}}>
-                        <Button onClick={loadImage} variant="contained" fullWidth>Display image</Button>
-                        <CardMedia
-                            component="div"
-                            image="https://source.unsplash.com/random?wallpapers"
-                        />
-                        {imageSrc ? <img src={imageSrc} alt="test image"/> : ''}
-                    </Box>
+                    {/*TODO: This functionality is helpful in testing phase to display first added image to database*/}
+                    {/*Result: warnings with imports are never used*/}
+                    {/*<Box sx={{marginTop: 6, marginBottom: 10, width: '100%'}}>*/}
+                    {/*    <Button onClick={loadImage} variant="contained" fullWidth>Display image</Button>*/}
+                    {/*    <CardMedia*/}
+                    {/*        component="div"*/}
+                    {/*        image="https://source.unsplash.com/random?wallpapers"*/}
+                    {/*    />*/}
+                    {/*    {imageSrc ? <img src={imageSrc} alt="test first uploaded"/> : ''}*/}
+                    {/*</Box>*/}
                 </Box>
                 <BottomNav/>
             </>
