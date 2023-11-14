@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
-import {FormControl, FormLabel, MenuItem, TextField} from '@mui/material';
+import { FormControl, FormLabel, MenuItem, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Header from "../layout/Header";
 import BottomNav from "../layout/BottomNav";
@@ -94,6 +94,12 @@ const AddImage = () => {
             axios.post(`http://localhost:8080/api/v1/images`, dataToSend, config)
                 .then(response => {
                     console.log('Success:', response);
+                    // Reset form fields
+                    setSelectedCategory('');
+                    setDescription('');
+                    setCity('');
+                    setSelectedBeforeFile(null);
+                    setSelectedAfterFile(null);
                 })
                 .catch(error => {
                     console.error('Data sending error:', error);
@@ -208,7 +214,7 @@ const AddImage = () => {
                                 fullWidth
                                 id="outlined-helperText"
                                 label="Description"
-                                defaultValue=""
+                                value={description}
                                 helperText="Please type service description"
                                 name={"description"}
                                 onChange={handleDescription}
@@ -217,10 +223,9 @@ const AddImage = () => {
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <TextField
                                 fullWidth
-                                required
                                 id="outlined-required"
                                 label="City"
-                                defaultValue=""
+                                value={city}
                                 helperText="Please select a city"
                                 name={"city"}
                                 onChange={handleCity}
