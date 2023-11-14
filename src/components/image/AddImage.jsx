@@ -10,12 +10,13 @@ import {styled} from '@mui/material/styles';
 import CardMedia from "@mui/material/CardMedia";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CitySearch from "./CitySearch";
 
 const AddImage = () => {
         const [categories, setCategories] = useState([]);
         const [selectedCategory, setSelectedCategory] = useState('');
+        const [selectedCity, setSelectedCity] = useState('');
         const [description, setDescription] = useState('');
-        const [city, setCity] = useState('');
         const [selectedBeforeFile, setSelectedBeforeFile] = useState(null);
         const [selectedAfterFile, setSelectedAfterFile] = useState(null);
 
@@ -38,11 +39,6 @@ const AddImage = () => {
         // DESCRIPTION
         const handleDescription = (event) => {
             setDescription(event.target.value);
-        };
-
-        // CITY
-        const handleCity = (event) => {
-            setCity(event.target.value);
         };
 
         // BEFORE IMAGE
@@ -83,7 +79,7 @@ const AddImage = () => {
                 event.preventDefault();
             }
 
-            if (!selectedCategory || !description || !city || !selectedBeforeFile || !selectedAfterFile) {
+            if (!selectedCategory || !description || !selectedCity || !selectedBeforeFile || !selectedAfterFile) {
                 showErrorToastMessage("Please complete all form fields!");
                 return;
             }
@@ -91,7 +87,7 @@ const AddImage = () => {
             const dataToSend = new FormData();
             dataToSend.append('categoryId', '1');
             dataToSend.append('description', description);
-            dataToSend.append('city', city);
+            dataToSend.append('city', selectedCity);
             let collage = getCollage();
             let newMergedFiles = convertImageUrlToFile(collage, 'collage.png');
             dataToSend.append('file', newMergedFiles);
@@ -106,7 +102,7 @@ const AddImage = () => {
                     // Reset form fields
                     setSelectedCategory('');
                     setDescription('');
-                    setCity('');
+                    setSelectedCity('');
                     setSelectedBeforeFile(null);
                     setSelectedAfterFile(null);
 
@@ -247,17 +243,7 @@ const AddImage = () => {
                                 onChange={handleDescription}
                             />
                         </Box>
-                        <Box sx={{marginBottom: 2, width: '100%'}}>
-                            <TextField
-                                fullWidth
-                                id="outlined-required"
-                                label="City"
-                                value={city}
-                                helperText="Please select a city"
-                                name={"city"}
-                                onChange={handleCity}
-                            />
-                        </Box>
+                        <CitySearch selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button name={"before-file"} onChange={onBeforeFileChange} component="label"
                                     variant="contained"

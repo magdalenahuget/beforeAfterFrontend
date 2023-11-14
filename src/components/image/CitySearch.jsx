@@ -5,14 +5,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {TextField} from "@mui/material";
 
 
-const CitySearch = () => {
+const CitySearch = ({selectedCity, setSelectedCity}) => {
     const API_KEY = `${process.env.REACT_APP_CITIES_API_KEY}`;
     const URL_CITY_SEARCH = `http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=`;
     const [cities, setCities] = useState([]);
-    const [selectedCity, setSelectedCity] = useState('');
 
-    const handleSelectedCity = (event) => {
-        setSelectedCity(event.target.value);
+    const handleSelectedCity = (event, value) => {
+        setSelectedCity(value);
     };
 
     const fetchCitiesFromApi = async (query) => {
@@ -47,7 +46,7 @@ const CitySearch = () => {
                         onChange={(event) => fetchCitiesFromApi(event.target.value)}
                     />
                 )}
-                onChange={handleSelectedCity}
+                onChange={(event, value) => handleSelectedCity(event, value)}
             />
         </Box>
     );
