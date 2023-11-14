@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
-import { FormControl, FormLabel, MenuItem, TextField } from '@mui/material';
+import {FormControl, FormLabel, MenuItem, TextField} from '@mui/material';
 import Button from '@mui/material/Button';
 import Header from "../layout/Header";
 import BottomNav from "../layout/BottomNav";
@@ -8,6 +8,8 @@ import Upload from '@mui/icons-material/Upload';
 import axios from "axios";
 import {styled} from '@mui/material/styles';
 import CardMedia from "@mui/material/CardMedia";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddImage = () => {
         const [categories, setCategories] = useState([]);
@@ -77,7 +79,14 @@ const AddImage = () => {
 
         // SUBMIT FORM
         const handleSubmit = async (event) => {
-            event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
+
+            if (!selectedCategory || !description || !city || !selectedBeforeFile || !selectedAfterFile) {
+                showErrorToastMessage("Please complete all form fields!");
+                return;
+            }
 
             const dataToSend = new FormData();
             dataToSend.append('categoryId', '1');
@@ -93,16 +102,21 @@ const AddImage = () => {
 
             axios.post(`http://localhost:8080/api/v1/images`, dataToSend, config)
                 .then(response => {
-                    console.log('Success:', response);
+                    console.log('Response:', response);
                     // Reset form fields
                     setSelectedCategory('');
                     setDescription('');
                     setCity('');
                     setSelectedBeforeFile(null);
                     setSelectedAfterFile(null);
+
+                    if (response.status === 201) {
+                        showSuccessToastMessage();
+                    }
                 })
                 .catch(error => {
                     console.error('Data sending error:', error);
+                    showErrorToastMessage('Data sending error:' + error);
                 });
         };
 
@@ -151,6 +165,19 @@ const AddImage = () => {
                 `http://localhost:8080/api/v1/images`
             );
             setAllImagesFromDb(result.data);
+        };
+
+        // TOSTIFY
+        const showSuccessToastMessage = () => {
+            toast.success("Image has been added successfully!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        };
+
+        const showErrorToastMessage = (message) => {
+            toast.error(message, {
+                position: toast.POSITION.TOP_RIGHT
+            });
         };
 
         const SetButtonType = styled('input')({
@@ -258,6 +285,19 @@ const AddImage = () => {
                     </Box>
                 </Box>
                 <BottomNav/>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                <ToastContainer/>
             </>
         );
     }
