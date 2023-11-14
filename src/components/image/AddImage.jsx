@@ -4,8 +4,8 @@ import { FormControl, FormLabel, MenuItem, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Header from "../layout/Header";
 import BottomNav from "../layout/BottomNav";
+import Upload from '@mui/icons-material/Upload';
 import axios from "axios";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {styled} from '@mui/material/styles';
 import CardMedia from "@mui/material/CardMedia";
 
@@ -234,14 +234,14 @@ const AddImage = () => {
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button name={"before-file"} onChange={onBeforeFileChange} component="label"
                                     variant="contained"
-                                    startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>
+                                    startIcon={<Upload/>} sx={{width: '100%'}}>
                                 Upload before image
                                 <SetButtonType type="file"/>
                             </Button>
                         </Box>
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button onChange={onAfterFileChange} component="label" variant="contained"
-                                    startIcon={<CloudUploadIcon/>} sx={{width: '100%'}}>
+                                    startIcon={<Upload/>} sx={{width: '100%'}}>
                                 Upload after image
                                 <SetButtonType type="file"/>
                             </Button>
