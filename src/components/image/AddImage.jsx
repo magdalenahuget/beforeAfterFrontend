@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Box from '@mui/material/Box';
-import {FormControl, FormLabel, MenuItem, TextField} from '@mui/material';
+import {FormControl, FormLabel} from '@mui/material';
 import Button from '@mui/material/Button';
 import Header from "../layout/Header";
 import BottomNav from "../layout/BottomNav";
@@ -11,35 +11,15 @@ import CardMedia from "@mui/material/CardMedia";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CitySearch from "./CitySearch";
+import CategorySelect from "./CategorySelect";
+import DescriptionInput from "./DescriptionInput";
 
 const AddImage = () => {
-        const [categories, setCategories] = useState([]);
         const [selectedCategory, setSelectedCategory] = useState('');
         const [selectedCity, setSelectedCity] = useState('');
         const [description, setDescription] = useState('');
         const [selectedBeforeFile, setSelectedBeforeFile] = useState(null);
         const [selectedAfterFile, setSelectedAfterFile] = useState(null);
-
-        // CATEGORY
-        useEffect(() => {
-            axios.get("http://localhost:8080/api/v1/categories")
-                .then((response) => {
-                    console.log(response.data);
-                    setCategories(response.data);
-                })
-                .catch((error) => {
-                    console.error("Error downloading data:", error);
-                });
-        }, []);
-
-        const handleSelectedCategory = (event) => {
-            setSelectedCategory(event.target.value);
-        };
-
-        // DESCRIPTION
-        const handleDescription = (event) => {
-            setDescription(event.target.value);
-        };
 
         // BEFORE IMAGE
         const onBeforeFileChange = (event) => {
@@ -201,7 +181,6 @@ const AddImage = () => {
                         padding: '10px',
                     }}
                 >
-
                     <FormControl
                         sx={{
                             marginTop: 10,
@@ -214,36 +193,16 @@ const AddImage = () => {
                         <FormLabel variant="h4" component="div">
                             Add image
                         </FormLabel>
-                        <Box sx={{marginBottom: 2, width: '100%'}}>
-                            <TextField
-                                fullWidth
-                                select
-                                label="Category"
-                                helperText="Please select category"
-                                value={selectedCategory}
-                                name={"category"}
-                                onChange={handleSelectedCategory}
-                                sx={{height: '100%'}}
-                            >
-                                {categories.map((category) => (
-                                    <MenuItem key={category.id} value={category.categoryName}>
-                                        {category.categoryName}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Box>
-                        <Box sx={{marginBottom: 2, width: '100%'}}>
-                            <TextField
-                                fullWidth
-                                id="outlined-helperText"
-                                label="Description"
-                                value={description}
-                                helperText="Please type service description"
-                                name={"description"}
-                                onChange={handleDescription}
-                            />
-                        </Box>
-                        <CitySearch selectedCity={selectedCity} setSelectedCity={setSelectedCity}/>
+                        <CategorySelect
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}/>
+                        <DescriptionInput
+                            description={description}
+                            onDescriptionChange={setDescription}
+                        />
+                        <CitySearch
+                            selectedCity={selectedCity}
+                            setSelectedCity={setSelectedCity}/>
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button name={"before-file"} onChange={onBeforeFileChange} component="label"
                                     variant="contained"
@@ -267,7 +226,7 @@ const AddImage = () => {
                         <Button onClick={loadAllUploadedImages} variant="contained" fullWidth>Display all images</Button>
                         <CardMedia component="div"/>
                         {allImagesFromDb ? allImagesFromDb.map((image) => (
-                            <img key={image['id']} src={'data:image/jpeg;base64,' + image['file']}/>)) : ''}
+                            <img alt="" key={image['id']} src={'data:image/jpeg;base64,' + image['file']}/>)) : ''}
                     </Box>
                 </Box>
                 <BottomNav/>
