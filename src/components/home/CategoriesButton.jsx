@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import {TextField} from "@mui/material";
+
 import Container from "@mui/material/Container";
-import Display from "./ShowImages";
+
 
 const CategoriesButton = ({categories,onSelect, selectedCategories}) => {
 
