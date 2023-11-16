@@ -65,7 +65,7 @@ const AddImage = () => {
             }
 
             const dataToSend = new FormData();
-            dataToSend.append('categoryId', '1');
+            dataToSend.append('categoryId', Number(selectedCategory.id));
             dataToSend.append('description', description);
             dataToSend.append('city', selectedCity);
             let collage = getCollage();

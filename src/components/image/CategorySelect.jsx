@@ -35,7 +35,7 @@ const CategorySelect = ({ selectedCategory, setSelectedCategory }) => {
                 sx={{ height: '100%' }}
             >
                 {categories.map((category) => (
-                    <MenuItem key={category.id} value={category.categoryName}>
+                    <MenuItem key={category.id} value={category}>
                         {category.categoryName}
                     </MenuItem>
                 ))}
