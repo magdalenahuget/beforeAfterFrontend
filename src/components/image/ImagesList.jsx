@@ -6,14 +6,14 @@ import { Grid } from '@mui/material';
 import TitleTypography from "../layout/TitleTypography";
 import ImageCard from "./ImageCard";
 
-const ImagesList = ({ images, onToggleFavourite }) => {
+const ImagesList = ({ images, onToggleFavourite, titleText  }) => {
     const theme = createTheme();
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Container sx={{ py: 8 }} maxWidth="md">
-                <TitleTypography/>
+                <TitleTypography titleText={titleText}/>
                 <Grid container spacing={4}>
                     {images.map((image) => (
                         <Grid item key={image.id} xs={12} sm={6} md={4}>
