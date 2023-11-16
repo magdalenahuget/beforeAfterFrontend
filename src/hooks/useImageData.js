@@ -34,7 +34,13 @@ const useImageData = () =>{
         const nameCategories = selectedCategories.map(selectedCategory => selectedCategory.categoryName).join(", ");
         imagesApi.getImagesByDynamicFilter({approvalStatus:false, categories: nameCategories, cities: selectedCity})
             .then(response => {
-                setImages(response.data)
+                const imagesWithDetails = response.data.map(img => ({
+                    ...img,
+                    url: `data:image/jpeg;base64,${img.file}`,
+                    cityName: img.cityName,
+                    description: img.description
+                }));
+                setImages(imagesWithDetails)
             })
     }, [selectedCity,selectedCategories]);
 
