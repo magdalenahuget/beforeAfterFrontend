@@ -5,6 +5,8 @@ import OfferDetails from "./components/offer/OfferDetails";
 import Favourites from "./components/favourites/Favourites";
 import MyImages from "./components/myimages/MyImages";
 import Home from "./components/home/Home";
+import SignIn from "./components/user/SignIn";
+import SignUp from "./components/user/SignUp";
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
                         <Route path="/images" element={<MyImages/>}/>
                         <Route path="/profile"/>
                         <Route path="/offer" element={<OfferDetails userId={userId} />} />
+                        <Route path="/signin" element={<SignIn />}/>
+                        <Route path="/signup" element={<SignUp />}/>
                     </Routes>
                 </BrowserRouter>
             </>
