@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const TitleTypography = () => {
+const TitleTypography = ({ titleText }) => {
     return (
         <Box sx={{
             display: 'flex',
@@ -26,7 +26,7 @@ const TitleTypography = () => {
                     }
                 }}
             >
-                Your favourite transformations:
+                {titleText}
             </Typography>
         </Box>
     );

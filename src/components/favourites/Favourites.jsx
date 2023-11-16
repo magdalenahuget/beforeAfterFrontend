@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useFavourites from '../../hooks/useFavourites';
 import ImagesList from "../image/ImagesList";
 import { Box, CircularProgress, Typography } from '@mui/material';
@@ -7,6 +7,7 @@ import BottomNav from '../layout/BottomNav';
 
 const FavouritesComponent = ({ userId }) => {
     const { favourites, addFavourite, removeFavourite, isLoading, error } = useFavourites(userId);
+    const [titleText, setTitleText] = useState("Your Favourite Images");
 
     const handleToggleFavourite = (imageId, isFavourite) => {
         if (isFavourite) {
@@ -38,6 +39,7 @@ const FavouritesComponent = ({ userId }) => {
             <ImagesList
                 images={favourites}
                 onToggleFavourite={handleToggleFavourite}
+                titleText={titleText}
             />
             <BottomNav />
         </>
