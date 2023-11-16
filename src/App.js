@@ -5,6 +5,8 @@ import OfferDetails from "./components/offer/OfferDetails";
 import Favourites from "./components/favourites/Favourites";
 import MyImages from "./components/myimages/MyImages";
 import Home from "./components/home/Home";
+import Profile from "./components/profil/Profile";
+
 
 function App() {
 
@@ -19,7 +21,7 @@ function App() {
                         <Route path="/favourites" element={<Favourites userId={userId}/>}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
-                        <Route path="/profile"/>
+                        <Route path="/profile" element={<Profile userId={userId}/>}/>
                         <Route path="/offer" element={<OfferDetails userId={userId} />} />
                     </Routes>
                 </BrowserRouter>
