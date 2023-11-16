@@ -174,7 +174,6 @@ const AddImage = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         minHeight: '100vh',
-                        padding: '10px',
                     }}
                 >
                     <FormControl
