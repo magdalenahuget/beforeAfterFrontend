@@ -88,6 +88,8 @@ const AddImage = () => {
                     setSelectedCity('');
                     setSelectedBeforeFile(null);
                     setSelectedAfterFile(null);
+                    setBeforeImagePreview(null);
+                    setAfterImagePreview(null);
 
                     if (response.status === 201) {
                         showSuccessToastMessage();
