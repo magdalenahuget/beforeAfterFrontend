@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import {TextField} from "@mui/material";
 
 
-const CitySearch = ({selectedCity, setSelectedCity }) => {
+const CitySearch = ({selectedCity, setSelectedCity}) => {
     const API_KEY = `${process.env.REACT_APP_CITIES_API_KEY}`;
     const URL_CITY_SEARCH = `http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=`;
     const [cities, setCities] = useState([]);
@@ -27,14 +27,16 @@ const CitySearch = ({selectedCity, setSelectedCity }) => {
     };
 
     useEffect(() => {
-        if (selectedCity.length > 0) {
-            fetchCitiesFromApi(selectedCity);
+        if (selectedCity && selectedCity.length > 0) {
+            fetchCitiesFromApi(selectedCity).then(r => console.log('cities fetched'));
         }
     }, [selectedCity]);
 
     return (
         <Box sx={{marginBottom: 2, width: '100%'}}>
             <Autocomplete
+                value={selectedCity}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 disablePortal
                 id="combo-box"
                 options={cities}
