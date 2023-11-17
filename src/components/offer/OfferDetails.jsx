@@ -22,14 +22,37 @@ const OfferDetails = ({userId}) => {
         if (images.length > 0 && currentImageIndex < images.length) {
             const newCurrentImage = images[currentImageIndex];
             setCurrentImage({
-                url: newCurrentImage.url,
+                url: newCurrentImage.file, // Zakładam, że 'file' zawiera URL do obrazu.
                 cityName: newCurrentImage.cityName,
-                imageId: newCurrentImage.imageId,
+                imageId: newCurrentImage.id, // Zmiana z imageId na id
                 description: newCurrentImage.description
             });
         }
     }, [currentImageIndex, images]);
 
+    /**
+     *
+     * @param newIndex  -  indexes in SimpleImageSlider start from 1
+     */
+    const handleSlideChange = (newIndex) => {
+        setCurrentImageIndex(newIndex - 1);
+    };
+
+    //!delete
+    const handleImageClick = (index) => {
+        console.log(`Clicked on image index: ${index}`);
+        if (images && index >= 0 && index < images.length) {
+            const image = images[index];
+            console.log(`Clicked image object:`, image);
+            if (image && image.id) { // Zmieniamy imageId na id
+                console.log(`Clicked on image with ID: ${image.id}`); // Tutaj również zmieniamy imageId na id
+            } else {
+                console.error('Image ID is undefined or image object is not valid:', image);
+            }
+        } else {
+            console.error(`Invalid index or images array is not defined: index=${index}, images=`, images);
+        }
+    };
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
@@ -50,7 +73,7 @@ const OfferDetails = ({userId}) => {
                                     height: avatarSize,
                                     minWidth: minAvatarSize,
                                     minHeight: minAvatarSize,
-                                    mr: 2 // spacing between avatar and text
+                                    mr: 2
                                 }}
                             />
                             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
@@ -85,6 +108,8 @@ const OfferDetails = ({userId}) => {
                                     images={images.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
+                                    onChange={handleSlideChange}
+                                    onClick={handleImageClick}
                                 />
                             </Box>
                         </Box>
