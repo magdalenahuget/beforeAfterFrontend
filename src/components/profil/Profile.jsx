@@ -6,8 +6,9 @@ import BottomNav from "../layout/BottomNav";
 import Header from "../layout/Header";
 import ContactDetailsForm from "./ContactDetailsForm";
 import ProfileTabs from "./ProfileTabs";
-import {getAboutMeByUserId} from "../../api/userApi";
+
 import AboutMeForm from "./AboutMeForm";
+import {userDataApi} from "../../api/userApi";
 
 const Profile = ({userId}) => {
 
@@ -28,16 +29,24 @@ const Profile = ({userId}) => {
     useEffect(() => {
 
         contactDetailsApi.getContactDetailsByUserId(userId)
-            .then(response => setContactDetails(response.data))
+            .then(response => {
+                setContactDetails(response.data);
+
+            }).catch(error => {
+            contactDetailsApi.createContactDetails(contactDetails)
+        })
+
     }, [userId]);
 
     useEffect(() => {
 
-        getAboutMeByUserId(userId)
+        userDataApi.getAboutMeByUserId(userId)
             .then(response => setAboutMe(response.data))
     }, [userId]);
 
+
     const handleTabChange = (event, newValue) => {
+
 
         setValue(newValue);
         if (newValue === 1) {
@@ -70,24 +79,22 @@ const Profile = ({userId}) => {
             ...prevUpdateAboutMe,
             aboutMe: value,
         }));
-    };
-    const handleSubmitForm = (event) => {
-
-        event.preventDefault();
-//TODO logika do wysylania
-        const phoneNumberWithCountryCode = `+48${formData.phoneNumber}`;
-
-    };
-    const handleSubmitAboutMe = (event) => {
-
-        event.preventDefault();
-        // TODO: Logika do wysyłania
 
         setAboutMe((prevAboutMe) => ({
             ...prevAboutMe,
             aboutMe: updateAboutMe.aboutMe || aboutMe.aboutMe,
         }));
+    };
+    const handleSubmitForm = (event) => {
 
+        contactDetailsApi.updateContactDetailsByUserId(userId, contactDetails)
+        event.preventDefault();
+
+    };
+    const handleSubmitAboutMe = (event) => {
+
+        userDataApi.updateAboutMeByUserId(userId, aboutMe)
+        event.preventDefault();
     };
 
     const isPostcodeValid = () => {
@@ -96,11 +103,6 @@ const Profile = ({userId}) => {
         return postcodePattern.test(formData.postcode);
     };
 
-    const isPhoneNumberValid = () => {
-
-        const phoneNumberPattern = /^\d{9}$/;
-        return phoneNumberPattern.test(formData.phoneNumber) && !formData.phoneNumber.startsWith('+48');
-    };
 
     return (
         <>
@@ -129,7 +131,6 @@ const Profile = ({userId}) => {
                         <ContactDetailsForm
                             formData={formData}
                             isPostcodeValid={isPostcodeValid}
-                            isPhoneNumberValid={isPhoneNumberValid}
                             handleFormInputChange={handleFormInputChange}
                             handleSubmitForm={handleSubmitForm}
                             contactDetails={contactDetails}
