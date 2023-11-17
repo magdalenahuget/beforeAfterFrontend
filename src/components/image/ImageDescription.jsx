@@ -1,13 +1,14 @@
 import React from 'react';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import {Typography} from '@mui/material';
+import Scrollable from "../layout/Scrollbar";
 
-const ImageDescription = ({ description }) => {
+const ImageDescription = ({description}) => {
     return (
-        <Box>
+        <Scrollable>
             <Typography variant="body1" textAlign="justify" component="div">
                 {description}
             </Typography>
-        </Box>
+        </Scrollable>
     );
 };
 
