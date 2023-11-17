@@ -5,11 +5,11 @@ import BasicTabs from './BasicTabs';
 import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/material";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
-import useImages from "../../hooks/useImage";
+import useImageData from "../../hooks/useImageData";
 
 const OfferDetails = ({ userId }) => {
 
-    const { images: fetchedImages, isLoading, error } = useImages(userId);
+    const { images: fetchedImages, isLoading, error, cities, categories, selectedCity, handleCategorySelect, handleChange } = useImageData();
     const [images, setImages] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentCity, setCurrentCity] = useState('');

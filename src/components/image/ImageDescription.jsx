@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Typography, CircularProgress } from '@mui/material';
-import useImages from '../../hooks/useImage';
+import useImageData from '../../hooks/useImageData';
 
 const ImageDescription = ({ userId, imageId }) => {
-    const { images, isLoading, error } = useImages(userId);
+    // Assuming useImageData now provides a loading and error state
+    const { images, isLoading, error } = useImageData();
 
     const image = images.find(img => img.id === imageId);
 
