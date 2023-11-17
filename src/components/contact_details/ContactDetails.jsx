@@ -1,3 +1,4 @@
+import {useState} from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,9 +11,12 @@ import PinDropIcon from '@mui/icons-material/PinDrop';
 import EmailIcon from '@mui/icons-material/Email';
 import useContactDetails from "../../hooks/useContactDetails";
 import {Box, CircularProgress, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+import ContactForm from "./ContactForm";
 
-const ContactDetails = ({userId}) => {
+const ContactDetails = ({userId, onOpenContactForm}) => {
     const {contactDetails, isLoading, error} = useContactDetails(userId);
+    const [showContactForm, setShowContactForm] = useState(false);
 
     if (isLoading) {
         return (
@@ -28,6 +32,10 @@ const ContactDetails = ({userId}) => {
                 Error loading the contact details.
             </Typography>
         );
+    }
+
+    if (showContactForm) {
+        return <ContactForm onCancel={() => setShowContactForm(false)} />;
     }
 
 
@@ -76,13 +84,12 @@ const ContactDetails = ({userId}) => {
                 </ListItemIcon>
                 <ListItemText
                     primary={
-                        <Link href={`make_this_email_dynamic@gmail.com`} underline="none">
-                            make_this_email_dynamic@gmail.com
-                        </Link>
+                        <Button variant="outlined" onClick={() => setShowContactForm(true)} >
+                            Write to US
+                        </Button>
                     }
                 />
             </ListItem>
-
         </List>
     );
 };
