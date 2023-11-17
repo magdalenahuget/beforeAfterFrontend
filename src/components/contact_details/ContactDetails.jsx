@@ -60,18 +60,6 @@ const ContactDetails = ({userId}) => {
             </ListItem>
             <ListItem>
                 <ListItemIcon>
-                    <EmailIcon/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={
-                        <Link href={`make_this_email_dynamic@gmail.com`} underline="none">
-                            make_this_email_dynamic@gmail.com
-                        </Link>
-                    }
-                />
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
                     <LanguageIcon/>
                 </ListItemIcon>
                 <ListItemText
@@ -82,6 +70,19 @@ const ContactDetails = ({userId}) => {
                     }
                 />
             </ListItem>
+            <ListItem>
+                <ListItemIcon>
+                    <EmailIcon/>
+                </ListItemIcon>
+                <ListItemText
+                    primary={
+                        <Link href={`make_this_email_dynamic@gmail.com`} underline="none">
+                            make_this_email_dynamic@gmail.com
+                        </Link>
+                    }
+                />
+            </ListItem>
+
         </List>
     );
 };
