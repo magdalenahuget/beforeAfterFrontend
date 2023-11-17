@@ -8,7 +8,7 @@ import ContactDetails from '../contact_details/ContactDetails'
 import AboutMe from '../user/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
-const BasicTabs = ({userId, imageId, description, isSmallScreen}) => {
+const BasicTabs = ({userId, description, isSmallScreen}) => {
 
     const [value, setValue] = useState(0);
 
