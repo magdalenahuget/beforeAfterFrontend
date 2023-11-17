@@ -9,6 +9,7 @@ import ProfileTabs from "./ProfileTabs";
 
 import AboutMeForm from "./AboutMeForm";
 import {userDataApi} from "../../api/userApi";
+import {toast, ToastContainer} from "react-toastify";
 
 const Profile = ({userId}) => {
 
@@ -88,12 +89,22 @@ const Profile = ({userId}) => {
     const handleSubmitForm = (event) => {
 
         contactDetailsApi.updateContactDetailsByUserId(userId, contactDetails)
+            .then((response) => {
+                if (response.status === 200) {
+                    showSuccessToastMessage()
+                }
+            })
         event.preventDefault();
 
     };
     const handleSubmitAboutMe = (event) => {
 
         userDataApi.updateAboutMeByUserId(userId, aboutMe)
+            .then((response) => {
+                if (response.status === 200) {
+                    showSuccessToastMessage()
+                }
+            })
         event.preventDefault();
     };
 
@@ -101,6 +112,12 @@ const Profile = ({userId}) => {
 
         const postcodePattern = /^\d{2}-\d{3}$/;
         return postcodePattern.test(formData.postcode);
+    };
+
+    const showSuccessToastMessage = () => {
+        toast.success("Your information has been added successfully!", {
+            position: toast.POSITION.TOP_RIGHT
+        });
     };
 
 
@@ -139,6 +156,19 @@ const Profile = ({userId}) => {
                 )}
             </Box>
             <BottomNav/>
+            <ToastContainer
+                position="top-right"
+                autoClose={100}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <ToastContainer/>
         </>
 
     );
