@@ -1,8 +1,5 @@
 import {useState} from "react";
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Link from '@mui/material/Link';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -13,8 +10,9 @@ import useContactDetails from "../../hooks/useContactDetails";
 import {Box, CircularProgress, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import ContactForm from "./ContactForm";
+import ContactItem from "./ContactItem";
 
-const ContactDetails = ({userId, onOpenContactForm}) => {
+const ContactDetails = ({userId}) => {
     const {contactDetails, isLoading, error} = useContactDetails(userId);
     const [showContactForm, setShowContactForm] = useState(false);
 
@@ -38,58 +36,29 @@ const ContactDetails = ({userId, onOpenContactForm}) => {
         return <ContactForm onCancel={() => setShowContactForm(false)} />;
     }
 
-
     return (
-        <List sx={{width: '100%', bgcolor: 'background.paper'}} aria-label="contact details">
-            <ListItem>
-                <ListItemIcon>
-                    <HomeIcon/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}/>
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
-                    <PinDropIcon/>
-                </ListItemIcon>
-                <ListItemText primary={`${contactDetails.cityName}, ${contactDetails.postcode}`}/>
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
-                    <PhoneIcon/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={
-                        <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
-                            {contactDetails.phoneNumber}
-                        </Link>
-                    }
-                />
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
-                    <LanguageIcon/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={
-                        <Link href={contactDetails.webpage} target="_blank" rel="noopener">
-                            {contactDetails.webpage}
-                        </Link>
-                    }
-                />
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
-                    <EmailIcon/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={
-                        <Button variant="outlined" onClick={() => setShowContactForm(true)} >
-                            Write to US
-                        </Button>
-                    }
-                />
-            </ListItem>
+        <List sx={{ width: '100%', bgcolor: 'background.paper' }} aria-label="contact details">
+            <ContactItem icon={<HomeIcon />}>
+                {`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}
+            </ContactItem>
+            <ContactItem icon={<PinDropIcon />}>
+                {`${contactDetails.cityName}, ${contactDetails.postcode}`}
+            </ContactItem>
+            <ContactItem icon={<PhoneIcon />}>
+                <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
+                    {contactDetails.phoneNumber}
+                </Link>
+            </ContactItem>
+            <ContactItem icon={<LanguageIcon />}>
+                <Link href={contactDetails.webpage} target="_blank" rel="noopener">
+                    {contactDetails.webpage}
+                </Link>
+            </ContactItem>
+            <ContactItem icon={<EmailIcon />}>
+                <Button variant="outlined" onClick={() => setShowContactForm(true)}>
+                    Write to US
+                </Button>
+            </ContactItem>
         </List>
     );
 };
