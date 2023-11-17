@@ -11,9 +11,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Header from "../layout/Header";
 import {useNavigate} from "react-router-dom";
+import {InputAdornment} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useState} from "react";
 
 export default function SignIn() {
 
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -59,11 +65,23 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
                             id="password"
                             autoComplete="current-password"
+                            name="password"
+                            label="Password"
+                            type={showPassword ? "text" : "password"} // <-- This is where can show and hide password
+                            InputProps={{ // <-- This is where the toggle button is added.
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                        >
+                                            {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
                         />
                         <Button
                             type="submit"
