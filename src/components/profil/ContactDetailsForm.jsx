@@ -4,8 +4,7 @@ import {Button, Container, Grid, Paper, TextField, Typography} from "@mui/materi
 const ContactDetailsForm = ({
                                 formData,
                                 isPostcodeValid,
-                                isPhoneNumberValid,
-                                handleFormInputChange,
+                                    handleFormInputChange,
                                 handleSubmitForm,
                                 contactDetails
                             }) => {
@@ -73,8 +72,8 @@ const ContactDetailsForm = ({
                                     name="phoneNumber"
                                     value={contactDetails.phoneNumber || formData.phoneNumber}
                                     onChange={handleFormInputChange}
-                                    error={isPhoneNumberValid()}
-                                    helperText={isPhoneNumberValid() && "Enter a valid phone number (without +48)"}
+
+                                    helperText= "Enter the country code."
                                 />
                             </Grid>
                             <Grid item xs={6}>
