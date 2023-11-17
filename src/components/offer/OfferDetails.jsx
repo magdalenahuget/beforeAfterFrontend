@@ -9,7 +9,7 @@ import useImageData from "../../hooks/useImageData";
 
 const OfferDetails = ({userId}) => {
     const theme = useTheme();
-    const { images } = useImageData();
+    const {images} = useImageData(userId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -18,8 +18,6 @@ const OfferDetails = ({userId}) => {
         description: ''
     });
 
-    // Ten useEffect będzie aktualizował currentImage za każdym razem,
-    // gdy currentImageIndex lub images się zmieni.
     useEffect(() => {
         if (images.length > 0 && currentImageIndex < images.length) {
             const newCurrentImage = images[currentImageIndex];
@@ -29,49 +27,42 @@ const OfferDetails = ({userId}) => {
                 imageId: newCurrentImage.imageId,
                 description: newCurrentImage.description
             });
-            console.log('Aktualne miasto:', newCurrentImage.cityName);
-            console.log('Aktualny opis:', newCurrentImage.description);
         }
     }, [currentImageIndex, images]);
 
-    // Ta funkcja aktualizuje currentImageIndex, który następnie spowoduje aktualizację currentImage poprzez useEffect
-    const onSliderClick = (idx) => {
-        setCurrentImageIndex(idx - 1); // Zaktualizuj index, useEffect zajmie się resztą
-    };
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const avatarSize = isSmallScreen ? '5vw' : '4vw';
-    const minAvatarSize = '3vw';
+    const avatarSize = isSmallScreen ? '5vw' : '5vw';
+    const minAvatarSize = '5vw';
 
     return (
         <>
-            <Header />
-            <Box sx={{ flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9) }}>
-                <Grid container spacing={2} sx={{ px: '2vw' }}>
-                    <Grid item xs={12} md={7} lg={8} sx={{ pr: isSmallScreen ? '0' : '2%' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', mb: 1 }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', mb: -1 }}>
-                                <Avatar
-                                    alt="Company Logo"
-                                    src="https://source.unsplash.com/random?company"
-                                    sx={{
-                                        width: avatarSize,
-                                        height: avatarSize,
-                                        minWidth: minAvatarSize,
-                                        minHeight: minAvatarSize,
-                                        mr: 2,
-                                        mb: -1
-                                    }}
-                                />
-                                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+            <Header/>
+            <Box sx={{flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9)}}>
+                <Grid container spacing={2} sx={{px: '2vw'}}>
+                    <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
+                        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 4, mb: 0}}>
+                            <Avatar
+                                alt="Company Logo"
+                                src="https://source.unsplash.com/random?company"
+                                sx={{
+                                    width: avatarSize,
+                                    height: avatarSize,
+                                    minWidth: minAvatarSize,
+                                    minHeight: minAvatarSize,
+                                    mr: 2 // spacing between avatar and text
+                                }}
+                            />
+                            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                                <Typography variant="h5" sx={{fontWeight: 'bold'}}>
                                     Budomex Sp. z o.o.
                                 </Typography>
-                            </Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', ml: 10 }}>
-                                <LocationOnIcon sx={{ mr: 0.5, ml: 2, mt: -2 }} />
-                                <Typography variant="subtitle1" sx={{ mt: -2 }}>
-                                    {currentImage.cityName}
-                                </Typography>
+                                <Box sx={{display: 'flex', alignItems: 'center'}}>
+                                    <LocationOnIcon sx={{ml: -0.5, mr: 0.5}}/>
+                                    <Typography variant="subtitle1">
+                                        {currentImage.cityName}
+                                    </Typography>
+                                </Box>
                             </Box>
                         </Box>
                         <Box sx={{
@@ -88,13 +79,12 @@ const OfferDetails = ({userId}) => {
                                 height: '80%',
                             }}>
                                 <SimpleImageSlider
-                                    key={images.length} // Użyj długości images jako klucza
+                                    key={images.length}
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images.map(image => ({ url: image.url }))}
+                                    images={images.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
-                                    onClick={onSliderClick}
                                 />
                             </Box>
                         </Box>
@@ -104,11 +94,12 @@ const OfferDetails = ({userId}) => {
                             userId={userId}
                             imageId={currentImage.imageId}
                             description={currentImage.description}
+                            isSmallScreen={isSmallScreen}
                         />
                     </Grid>
                 </Grid>
             </Box>
-            <BottomNav sx={{ mt: 1 }} />
+            <BottomNav sx={{mt: 1}}/>
         </>
     );
 };

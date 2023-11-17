@@ -3,7 +3,7 @@ import {categoriesApi} from "../api/categoriesApi";
 import {imagesApi} from "../api/imagesApi";
 
 
-const useImageData = () =>{
+const useImageData = () => {
     const [cities, setCities] = useState([])
     const [categories, setCategories] = useState([])
     const [selectedCity, setSelectedCity] = useState('');
@@ -13,8 +13,8 @@ const useImageData = () =>{
 
     useEffect(() => {
         categoriesApi.getCategories()
-            .then(response =>{
-                const sortedCategories = response.data.sort((a,b) => a.categoryName.localeCompare(b.categoryName));
+            .then(response => {
+                const sortedCategories = response.data.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
                 setCategories(sortedCategories);
                 setSelectedCategories(sortedCategories)
             })
@@ -22,28 +22,32 @@ const useImageData = () =>{
     }, []);
 
     useEffect(() => {
-        imagesApi.getImagesByDynamicFilter({approvalStatus:false})//TODO do zmiany na true w finalnej
+        imagesApi.getImagesByDynamicFilter({approvalStatus: false})//TODO do zmiany na true w finalnej
             .then(response => {
                 const uniqueCities = [...new Set(response.data.map(city => city.cityName))];
-                setCities(uniqueCities.sort((a,b) => a-b))
+                setCities(uniqueCities.sort((a, b) => a - b))
             })
             .catch(error => console.error('Error fetching cities: ', error))
     }, []);
 
     useEffect(() => {
         const nameCategories = selectedCategories.map(selectedCategory => selectedCategory.categoryName).join(", ");
-        imagesApi.getImagesByDynamicFilter({approvalStatus:false, categories: nameCategories, cities: selectedCity})
+        imagesApi.getImagesByDynamicFilter({
+            approvalStatus: false,
+            categories: nameCategories,
+            cities: selectedCity,
+        })
             .then(response => {
-                console.log('API Response:', response.data);
                 const imagesWithDetails = response.data.map(img => ({
                     ...img,
                     url: `data:image/jpeg;base64,${img.file}`,
                     cityName: img.cityName,
                     description: img.description
                 }));
+
                 setImages(imagesWithDetails)
             })
-    }, [selectedCity,selectedCategories]);
+    }, [selectedCity, selectedCategories]);
 
     const handleCategorySelect = (category) => {
         setSelectedCategories(prevState =>
