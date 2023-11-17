@@ -22,6 +22,9 @@ const OfferDetails = ({userId}) => {
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
 
+    //move useEffect to separate file into hooks folder.
+    //implement dynamic avatar change taken from profile data
+    //modify screen responsivity
     useEffect(() => {
         if (images.length > 0 && currentImageIndex < images.length) {
             const newCurrentImage = images[currentImageIndex];
