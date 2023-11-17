@@ -22,13 +22,13 @@ const OfferDetails = ({userId}) => {
         if (images.length > 0 && currentImageIndex < images.length) {
             const newCurrentImage = images[currentImageIndex];
             setCurrentImage({
-                url: newCurrentImage.file, // Zakładam, że 'file' zawiera URL do obrazu.
+                url: newCurrentImage.file,
                 cityName: newCurrentImage.cityName,
-                imageId: newCurrentImage.id, // Zmiana z imageId na id
+                imageId: newCurrentImage.id,
                 description: newCurrentImage.description
             });
         }
-    }, [currentImageIndex, images]);
+    }, [currentImageIndex, images]); // Ta część powinna aktualizować się również przy zmianie obrazów w sliderze
 
     /**
      *
@@ -38,14 +38,20 @@ const OfferDetails = ({userId}) => {
         setCurrentImageIndex(newIndex - 1);
     };
 
-    //!delete
     const handleImageClick = (index) => {
         console.log(`Clicked on image index: ${index}`);
         if (images && index >= 0 && index < images.length) {
             const image = images[index];
             console.log(`Clicked image object:`, image);
-            if (image && image.id) { // Zmieniamy imageId na id
-                console.log(`Clicked on image with ID: ${image.id}`); // Tutaj również zmieniamy imageId na id
+            if (image && image.id) {
+                console.log(`Clicked on image with ID: ${image.id}`);
+                // Aktualizacja stanu currentImage
+                setCurrentImage({
+                    url: image.file, // Zakładam, że 'file' zawiera URL do obrazu
+                    cityName: image.cityName,
+                    imageId: image.id,
+                    description: image.description
+                });
             } else {
                 console.error('Image ID is undefined or image object is not valid:', image);
             }
