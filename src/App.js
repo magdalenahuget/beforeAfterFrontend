@@ -8,6 +8,7 @@ import Home from "./components/home/Home";
 import SignIn from "./components/user/SignIn";
 import SignUp from "./components/user/SignUp";
 import Profile from "./components/profil/Profile";
+import ForgotPassword from "./components/user/ForgotPassword";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                         <Route path="/offer" element={<OfferDetails userId={userId} />} />
                         <Route path="/signin" element={<SignIn />}/>
                         <Route path="/signup" element={<SignUp />}/>
+                        <Route path="/forgot" element={<ForgotPassword />}/>
                     </Routes>
                 </BrowserRouter>
             </>
