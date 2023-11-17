@@ -7,44 +7,41 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
 
-const OfferDetails = ({ userId }) => {
-
-    const { images: fetchedImages, isLoading, error, cities, categories, selectedCity, handleCategorySelect, handleChange } = useImageData();
-    const [images, setImages] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [currentCity, setCurrentCity] = useState('');
-
-    useEffect(() => {
-        if (fetchedImages && fetchedImages.length > 0) {
-            setImages(fetchedImages.map(img => ({
-                url: img.url
-            })));
-            setCurrentCity(fetchedImages[0].cityName);
-        }
-    }, [fetchedImages]);
-
+const OfferDetails = ({userId}) => {
     const theme = useTheme();
+    const { images } = useImageData();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImage, setCurrentImage] = useState({
+        url: '',
+        cityName: '',
+        imageId: '',
+        description: ''
+    });
+
+    // Ten useEffect będzie aktualizował currentImage za każdym razem,
+    // gdy currentImageIndex lub images się zmieni.
+    useEffect(() => {
+        if (images.length > 0 && currentImageIndex < images.length) {
+            const newCurrentImage = images[currentImageIndex];
+            setCurrentImage({
+                url: newCurrentImage.url,
+                cityName: newCurrentImage.cityName,
+                imageId: newCurrentImage.imageId,
+                description: newCurrentImage.description
+            });
+            console.log('Aktualne miasto:', newCurrentImage.cityName);
+            console.log('Aktualny opis:', newCurrentImage.description);
+        }
+    }, [currentImageIndex, images]);
+
+    // Ta funkcja aktualizuje currentImageIndex, który następnie spowoduje aktualizację currentImage poprzez useEffect
+    const onSliderClick = (idx) => {
+        setCurrentImageIndex(idx - 1); // Zaktualizuj index, useEffect zajmie się resztą
+    };
+
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '4vw';
     const minAvatarSize = '3vw';
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
-
-    const onSliderClick = (idx) => {
-        const imageId = fetchedImages[idx].id;
-        const image = fetchedImages.find(img => img.id === imageId);
-        if (image) {
-            setCurrentCity(image.cityName);
-        }
-    };
-
-    const currentImageId = fetchedImages.length > 0 ? fetchedImages[currentIndex].id : null;
 
     return (
         <>
@@ -71,9 +68,9 @@ const OfferDetails = ({ userId }) => {
                                 </Typography>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', ml: 10 }}>
-                                <LocationOnIcon sx={{ mr: 0.5, ml: 2, mt:-2 }} />
-                                <Typography variant="subtitle1" sx={{ mt:-2 }}>
-                                    {currentCity}
+                                <LocationOnIcon sx={{ mr: 0.5, ml: 2, mt: -2 }} />
+                                <Typography variant="subtitle1" sx={{ mt: -2 }}>
+                                    {currentImage.cityName}
                                 </Typography>
                             </Box>
                         </Box>
@@ -91,10 +88,10 @@ const OfferDetails = ({ userId }) => {
                                 height: '80%',
                             }}>
                                 <SimpleImageSlider
-                                    key={images.length > 0 ? images[0].url : 'slider-key'}
+                                    key={images.length} // Użyj długości images jako klucza
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images}
+                                    images={images.map(image => ({ url: image.url }))}
                                     showBullets={true}
                                     showNavs={true}
                                     onClick={onSliderClick}
@@ -103,7 +100,11 @@ const OfferDetails = ({ userId }) => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={5} lg={4}>
-                        <BasicTabs userId={userId}  imageId={currentImageId} />
+                        <BasicTabs
+                            userId={userId}
+                            imageId={currentImage.imageId}
+                            description={currentImage.description}
+                        />
                     </Grid>
                 </Grid>
             </Box>
