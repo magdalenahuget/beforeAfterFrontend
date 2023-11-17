@@ -18,6 +18,10 @@ const OfferDetails = ({userId}) => {
         description: ''
     });
 
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const avatarSize = isSmallScreen ? '5vw' : '5vw';
+    const minAvatarSize = '5vw';
+
     useEffect(() => {
         if (images.length > 0 && currentImageIndex < images.length) {
             const newCurrentImage = images[currentImageIndex];
@@ -28,41 +32,27 @@ const OfferDetails = ({userId}) => {
                 description: newCurrentImage.description
             });
         }
-    }, [currentImageIndex, images]); // Ta część powinna aktualizować się również przy zmianie obrazów w sliderze
+    }, [currentImageIndex, images]);
 
-    /**
-     *
-     * @param newIndex  -  indexes in SimpleImageSlider start from 1
-     */
-    const handleSlideChange = (newIndex) => {
-        setCurrentImageIndex(newIndex - 1);
-    };
 
-    const handleImageClick = (index) => {
-        console.log(`Clicked on image index: ${index}`);
-        if (images && index >= 0 && index < images.length) {
-            const image = images[index];
-            console.log(`Clicked image object:`, image);
-            if (image && image.id) {
-                console.log(`Clicked on image with ID: ${image.id}`);
-                // Aktualizacja stanu currentImage
-                setCurrentImage({
-                    url: image.file, // Zakładam, że 'file' zawiera URL do obrazu
-                    cityName: image.cityName,
-                    imageId: image.id,
-                    description: image.description
-                });
-            } else {
-                console.error('Image ID is undefined or image object is not valid:', image);
-            }
-        } else {
-            console.error(`Invalid index or images array is not defined: index=${index}, images=`, images);
+    const handleNavClick = (toRight) => {
+        let newImageIndex = toRight ? currentImageIndex + 1 : currentImageIndex - 1;
+
+        if (newImageIndex >= images.length) {
+            newImageIndex = 0;
+        } else if (newImageIndex < 0) {
+            newImageIndex = images.length - 1;
         }
+
+        setCurrentImageIndex(newImageIndex);
+        setCurrentImage({
+            url: images[newImageIndex].file,
+            cityName: images[newImageIndex].cityName,
+            imageId: images[newImageIndex].id,
+            description: images[newImageIndex].description
+        });
     };
 
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const avatarSize = isSmallScreen ? '5vw' : '5vw';
-    const minAvatarSize = '5vw';
 
     return (
         <>
@@ -114,8 +104,7 @@ const OfferDetails = ({userId}) => {
                                     images={images.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
-                                    onChange={handleSlideChange}
-                                    onClick={handleImageClick}
+                                    onClickNav={handleNavClick}
                                 />
                             </Box>
                         </Box>
