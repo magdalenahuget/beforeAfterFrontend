@@ -3,7 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import a11yProps from "../offer/tabs/a11yProps";
 
-const ProfileTabs = ({ value, handleTabChange }) => {
+const ProfileTabs = ({value, handleTabChange}) => {
+
     return (
         <div>
             <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
@@ -11,7 +12,6 @@ const ProfileTabs = ({ value, handleTabChange }) => {
                 <Tab label="About us" {...a11yProps(1)} />
                 <Tab label="Contact" {...a11yProps(2)} />
             </Tabs>
-            
         </div>
     );
 };
