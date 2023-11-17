@@ -8,6 +8,13 @@ export default function ContactForm({ onCancel }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        /*
+
+
+        Dokończyć wysyłanie maila
+
+
+         */
     };
 
     return (
@@ -23,7 +30,7 @@ export default function ContactForm({ onCancel }) {
             }}
         >
             <Box sx={{maxWidth: 600, mx: "auto", p: 2}}>
-                <Typography variant="h4" align="center" mb={2}>
+                <Typography variant="h5" align="center" mb={2}>
                     Contact Us
                 </Typography>
                 <form onSubmit={handleSubmit}>
