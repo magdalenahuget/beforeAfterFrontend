@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import useImage from '../../hooks/useImage';
+import useImageData from '../../hooks/useImageData';
 import ImagesList from "../image/ImagesList";
 import { Box, CircularProgress, Typography } from '@mui/material';
 import Header from '../layout/Header';
@@ -12,7 +12,7 @@ const MyImages = ({ userId }) => {
     const { images, isLoading, error } = useImage(userId);
     or set up id accordingly */
     const userIdForTest = 1;
-    const { images, isLoading, error } = useImage(userIdForTest);
+    const { images, isLoading, error } = useImageData(userIdForTest);
     const [titleText, setTitleText] = useState("My Images");
 
     // const handleToggleFavourite = (imageId, isFavourite) => {
