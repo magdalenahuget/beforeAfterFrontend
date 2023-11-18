@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import CategoriesButton from "./CategoriesButton";
 import CitySelect from "./CitySelect";
 import Header from "../layout/Header";
@@ -15,7 +14,8 @@ export default function Home() {
         cities,
         images,
         handleCategorySelect,
-        handleChange
+        handleChange,
+        deleteImage  //[TEST] - to delete
     } = useImageData()
 
     return (
@@ -33,10 +33,9 @@ export default function Home() {
             />
             <ImagesList
                 images={images}
+                onDeleteImage={deleteImage}  //[TEST] - to delete
             />
             <BottomNav/>
-
-
         </div>
     );
 };
