@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import useImageData from '../../hooks/useImageData';
 import ImagesList from "../image/ImagesList";
 import { Box, CircularProgress, Typography } from '@mui/material';
-import Header from '../layout/Header';
-import BottomNav from '../layout/BottomNav';
 
 const MyImages = ({ userId }) => {
     //TODO:
@@ -41,12 +39,10 @@ const MyImages = ({ userId }) => {
 
     return (
         <>
-            <Header />
             <ImagesList
                 images={images}
-                titleText={titleText}
+                // titleText={titleText}
             />
-            <BottomNav />
         </>
     );
 };

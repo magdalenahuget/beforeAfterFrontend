@@ -10,6 +10,7 @@ import ProfileTabs from "./ProfileTabs";
 import AboutMeForm from "./AboutMeForm";
 import {userDataApi} from "../../api/userApi";
 import {toast, ToastContainer} from "react-toastify";
+import MyImages from "../myimages/MyImages";
 
 const Profile = ({userId}) => {
 
@@ -133,6 +134,12 @@ const Profile = ({userId}) => {
                 margin: '50px -0px'
             }}>
                 <ProfileTabs value={value} handleTabChange={handleTabChange}/>
+                {value === 0 && (
+                <TabPanel value={value} index={0}>
+                    <MyImages userId={userId}
+                    />
+                </TabPanel>
+            )}
                 {value === 1 && (
                     <TabPanel value={value} index={1}>
                         <AboutMeForm
