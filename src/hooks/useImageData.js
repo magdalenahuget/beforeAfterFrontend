@@ -49,6 +49,16 @@ const useImageData = () => {
             })
     }, [selectedCity, selectedCategories]);
 
+    const deleteImage = (imageId) => {
+        imagesApi.deleteImage(imageId)
+            .then(() => {
+                setImages(prevImages => prevImages.filter(image => image.id !== imageId));
+            })
+            .catch(error => {
+                console.error('Error deleting image: ', error);
+            });
+    };
+
     const handleCategorySelect = (category) => {
         setSelectedCategories(prevState =>
             prevState.includes(category)
@@ -71,6 +81,7 @@ const useImageData = () => {
         images,
         handleCategorySelect,
         handleChange,
+        deleteImage
     };
 };
 
