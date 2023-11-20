@@ -10,7 +10,7 @@ const MyImages = ({ userId }) => {
     const { images, isLoading, error } = useImage(userId);
     or set up id accordingly */
     const userIdForTest = 1;
-    const { images, isLoading, error } = useImageData(userIdForTest);
+    const { images, isLoading, error, deleteImage } = useImageData(userId);
     const [titleText, setTitleText] = useState("My Images");
 
     // const handleToggleFavourite = (imageId, isFavourite) => {
@@ -42,6 +42,7 @@ const MyImages = ({ userId }) => {
             <ImagesList
                 images={images}
                 // titleText={titleText}
+                onDeleteImage={deleteImage}
             />
         </>
     );
