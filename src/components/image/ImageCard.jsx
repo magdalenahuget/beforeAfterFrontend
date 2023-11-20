@@ -20,10 +20,8 @@ const ImageCard = ({image, onDeleteImage}) => {
 
     const handleToggleFavourite = () => {
         if (isFavourite) {
-            console.log(image.id)
             removeFavourite(image.id);
         } else {
-            console.log(image.id)
             addFavourite(image.id);
         }
         setIsFavourite(!isFavourite);
