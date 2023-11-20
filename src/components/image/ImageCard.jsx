@@ -13,7 +13,7 @@ const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
         onClick={() => onToggleFavourite(image)}
     >
-        {isFavourite ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon sx={{ color: 'red' }} />}
+        {isFavourite ? <FavoriteIcon sx={{ color: 'purple' }} /> : <FavoriteBorderIcon sx={{ color: 'red' }} />}
     </IconButton>
 );
 
@@ -22,7 +22,7 @@ const DeleteIconButton = ({ onDeleteImage, image }) => (
         aria-label="delete image"
         onClick={() => onDeleteImage(image.id)}
     >
-        <DeleteIcon sx={{ color: 'red' }} />
+        <DeleteIcon sx={{ color: 'purple', fontSize: '1.2em'  }} />
     </IconButton>
 );
 
