@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { favouritesApi } from '../api/favouritesApi';
 
 const useFavourites = (userId) => {
@@ -13,30 +13,35 @@ const useFavourites = (userId) => {
                 setFavourites(response.data);
                 setIsLoading(false);
             })
-            .catch(error => {
-                console.error('There was an error fetching the favourites:', error);
-                setError(error);
+            .catch(err => {
+                setError(err);
                 setIsLoading(false);
             });
     }, [userId]);
 
     const addFavourite = (imageId) => {
-        favouritesApi.addImageToFavourites(imageId, userId)
+        return favouritesApi.addImageToFavourites(imageId, userId)
             .then(() => {
-                setFavourites([...favourites, { id: imageId, isFavourite: true }]);
+                return favouritesApi.getFavouritesByUserId(userId);
             })
-            .catch(error => {
-                console.error('Error adding image to favourites:', error);
+            .then(response => {
+                setFavourites(response.data);
+            })
+            .catch(err => {
+                setError(err);
             });
     };
 
     const removeFavourite = (imageId) => {
-        favouritesApi.deleteFavourite(imageId, userId)
+        return favouritesApi.deleteFavourite(imageId, userId)
             .then(() => {
-                setFavourites(favourites.filter(fav => fav.id !== imageId));
+                return favouritesApi.getFavouritesByUserId(userId);
             })
-            .catch(error => {
-                console.error('Error removing image from favourites:', error);
+            .then(response => {
+                setFavourites(response.data);
+            })
+            .catch(err => {
+                setError(err);
             });
     };
 
