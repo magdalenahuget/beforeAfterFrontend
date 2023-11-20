@@ -15,20 +15,12 @@ const ImagesList = ({ images, onToggleFavourite, titleText,onDeleteImage  }) => 
             <Container sx={{ py: 8 }} maxWidth="md">
                 <TitleTypography titleText={titleText}/>
                 <Grid container spacing={4}>
-                    {/*{images.map((image) => (*/}
-                    {/*    <Grid item key={image.id} xs={12} sm={6} md={4}>*/}
-                    {/*        <ImageCard*/}
-                    {/*            image={image}*/}
-                    {/*            onToggleFavourite={onToggleFavourite}*/}
-                    {/*        />*/}
-                    {/*    </Grid>*/}
-                    {/*))}*/}
                     {images.map((image) => (
                         <Grid item key={image.id} xs={12} sm={6} md={4}>
                             <ImageCard
                                 image={image}
                                 onToggleFavourite={onToggleFavourite}
-                                onDeleteImage={onDeleteImage} // Pass the deleteImage function here
+                                onDeleteImage={onDeleteImage}
                             />
                         </Grid>
                     ))}
