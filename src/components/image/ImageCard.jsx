@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import useFavourites from '../../hooks/useFavourites';
 import Fab from "@mui/material/Fab";
+import { useNavigate } from 'react-router-dom';
 
 // const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
 //     <IconButton
@@ -61,7 +62,7 @@ const DeleteIconButton = ({onDeleteImage, image}) => (
                 bgcolor: 'grey',
             },
             boxShadow: 'none',
-            marginLeft: '8px', // Adjust spacing as necessary
+            marginLeft: '8px',
         }}
     >
         <DeleteIcon/>
@@ -75,13 +76,18 @@ const ImageCard = ({image, onDeleteImage}) => {
     const {handleToggleFavourite, favourites} = useFavourites(userId);
     const isFavourite = favourites.some(fav => fav.id === image.id);
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const goToOfferDetails = () => {
+        navigate(`/offer/${image.id}`);
+    };
 
 
     const showFavoriteIcon = location.pathname === '/home' || location.pathname === '/offer';
     const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
-        <Card sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Card onClick={goToOfferDetails}  sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
             <CardMedia
                 component="img"
                 image={image.url}

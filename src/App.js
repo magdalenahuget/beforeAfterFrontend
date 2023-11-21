@@ -24,7 +24,8 @@ function App() {
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
                         <Route path="/profile" element={<Profile userId={userId}/>}/>
-                        <Route path="/offer" element={<OfferDetails userId={userId}/>}/>
+                        {/*<Route path="/offer" element={<OfferDetails userId={userId}/>}/>*/}
+                        <Route path="/offer/:imageId" element={<OfferDetails />} />  //!!!!!!!!!!!!!
                         <Route path="/signin" element={<SignIn/>}/>
                         <Route path="/signup" element={<SignUp/>}/>
                         <Route path="/forgot" element={<ForgotPassword/>}/>

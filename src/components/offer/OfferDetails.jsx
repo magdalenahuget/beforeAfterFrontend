@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
@@ -8,6 +9,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
 
 const OfferDetails = ({userId}) => {
+    const { imageId } = useParams();  //!!!!!!!!!!!!!!!!
     const theme = useTheme();
     const {images} = useImageData(userId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
