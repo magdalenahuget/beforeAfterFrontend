@@ -8,16 +8,37 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import useFavourites from '../../hooks/useFavourites';
+import Fab from "@mui/material/Fab";
 
-const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
-    <IconButton
+// const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
+//     <IconButton
+//         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
+//         onClick={() => onToggleFavourite(image)}
+//     >
+//         {isFavourite ?
+//             <FavoriteIcon sx={{color: 'purple', fontSize: '1.3em'}}/> :
+//             <FavoriteBorderIcon sx={{color: 'purple', fontSize: '1.3em'}}/>}
+//     </IconButton>
+// );
+
+const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
+    <Fab
+        color={isFavourite ? "secondary" : "default"}
         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
         onClick={() => onToggleFavourite(image)}
+        sx={{
+            color: 'white',
+            bgcolor: isFavourite ? 'purple' : 'grey',
+            '&:hover': {
+                bgcolor: isFavourite ? 'purple' : 'grey',
+            },
+            boxShadow: 'none',
+        }}
     >
-        {isFavourite ? <FavoriteIcon sx={{color: 'purple',  fontSize: '1.3em'}}/> :
-            <FavoriteBorderIcon sx={{color: 'purple', fontSize: '1.2em'}}/>}
-    </IconButton>
+        <FavoriteBorderIcon />
+    </Fab>
 );
+
 
 const DeleteIconButton = ({onDeleteImage, image}) => (
     <IconButton
