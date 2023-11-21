@@ -11,6 +11,9 @@ import AboutMeForm from "./AboutMeForm";
 import {userDataApi} from "../../api/userApi";
 import {toast, ToastContainer} from "react-toastify";
 import MyImages from "../myimages/MyImages";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import AvatarForm from "./AvatarForm";
 
 const Profile = ({userId}) => {
 
@@ -27,6 +30,9 @@ const Profile = ({userId}) => {
     const [contactDetails, setContactDetails] = useState([])
     const [aboutMe, setAboutMe] = useState('')
     const [value, setValue] = useState(0);
+    const [user, setUser] = useState([])
+    const [updateUser, setUpdateUser] = useState([])
+
 
     useEffect(() => {
 
@@ -46,14 +52,24 @@ const Profile = ({userId}) => {
             .then(response => setAboutMe(response.data))
     }, [userId]);
 
+    useEffect(() => {
+        userDataApi.getUserById(userId)
+            .then(response => setUser(response.data))
+    }, [userId]);
+
 
     const handleTabChange = (event, newValue) => {
 
 
         setValue(newValue);
         if (newValue === 1) {
+            console.log(aboutMe)
+            console.log(user)
             setUpdateAboutMe({
                 aboutMe: aboutMe.aboutMe,
+            });
+            setUpdateUser({
+                userName: user.userName,
             });
         }
     };
@@ -87,6 +103,21 @@ const Profile = ({userId}) => {
             aboutMe: updateAboutMe.aboutMe || aboutMe.aboutMe,
         }));
     };
+
+    const handleUserChange = (event) => {
+        const {value} = event.target;
+
+        setUpdateUser((preUpdateUser) => ({
+            ...preUpdateUser,
+            userName: value,
+        }));
+
+        setUser((preUser) => ({
+            ...preUser,
+            userName: updateUser.userName || user.userName
+        }))
+
+    }
     const handleSubmitForm = (event) => {
 
         contactDetailsApi.updateContactDetailsByUserId(userId, contactDetails)
@@ -106,6 +137,19 @@ const Profile = ({userId}) => {
                     showSuccessToastMessage()
                 }
             })
+        event.preventDefault();
+    };
+
+    const handleSubmitUserForm = (event) => {
+        userDataApi.updateUserById(userId, updateUser) 
+            .then((response) => {
+                if (response.status === 200) {
+                    showSuccessToastMessage();
+                }
+            })
+            .catch((error) => {
+                console.error(error.response.data);
+            });
         event.preventDefault();
     };
 
@@ -135,13 +179,19 @@ const Profile = ({userId}) => {
             }}>
                 <ProfileTabs value={value} handleTabChange={handleTabChange}/>
                 {value === 0 && (
-                <TabPanel value={value} index={0}>
-                    <MyImages userId={userId}
-                    />
-                </TabPanel>
-            )}
+                    <TabPanel value={value} index={0}>
+                        <MyImages userId={userId}
+                        />
+                    </TabPanel>
+                )}
                 {value === 1 && (
                     <TabPanel value={value} index={1}>
+                        <AvatarForm
+                            user={user}
+                            updateUser={updateUser}
+                            handleUserChange={handleUserChange}
+                            handleSubmitUserForm={handleSubmitUserForm}
+                        />
                         <AboutMeForm
                             aboutMe={aboutMe}
                             updateAboutMe={updateAboutMe}

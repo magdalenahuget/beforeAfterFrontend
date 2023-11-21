@@ -9,7 +9,17 @@ export const updateAboutMeByUserId = (userId, aboutMe) => {
     return axios.patch(`${API_USER}/${userId}/about_me`, aboutMe);
 };
 
+export const getUserById = (userId) =>{
+    return axios.get(`${API_USER}/${userId}`)
+}
+
+export const updateUserById = (userId, user) =>{
+     return axios.put(`${API_USER}/${userId}`, user)
+}
+
 export const userDataApi = {
     getAboutMeByUserId,
-    updateAboutMeByUserId
+    updateAboutMeByUserId,
+    getUserById,
+    updateUserById
 };
