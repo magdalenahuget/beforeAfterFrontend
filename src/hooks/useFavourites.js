@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { favouritesApi } from '../api/favouritesApi';
+import { favouritesApi  } from '../api/favouritesApi';
 
 const useFavourites = (userId) => {
     const [favourites, setFavourites] = useState([]);
@@ -10,12 +10,17 @@ const useFavourites = (userId) => {
         setIsLoading(true);
         favouritesApi.getFavouritesByUserId(userId)
             .then(response => {
-                setFavourites(response.data);
-                setIsLoading(false);
+                setFavourites(response.data.map(fav => ({
+                    ...fav,
+                    isFavourite: true,
+                    url: `data:image/jpeg;base64,${fav.file}`
+                })));
             })
             .catch(error => {
-                console.error('There was an error fetching the favourites:', error);
+                console.error('Error fetching favourites:', error);
                 setError(error);
+            })
+            .finally(() => {
                 setIsLoading(false);
             });
     }, [userId]);
@@ -44,10 +49,10 @@ const useFavourites = (userId) => {
     const handleToggleFavourite = (image) => {
         const isFavourite = favourites.some(fav => fav.id === image.id);
         if (isFavourite) {
-            console.log("remove" + image.id + userId);
+            console.log(" useFavourite__REMOVE image_id: " + image.id+" user_id: " + userId);
             removeFavourite(image.id);
         } else {
-            console.log("error");
+            console.log(" useFavourite__ADD image_id: " + image.id+" user_id: " + userId);
             addFavourite(image.id);
         }
     };
