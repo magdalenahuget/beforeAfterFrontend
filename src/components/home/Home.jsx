@@ -15,7 +15,6 @@ export default function Home() {
         images,
         handleCategorySelect,
         handleChange,
-        deleteImage  //[TEST] - to delete
     } = useImageData()
 
     return (
@@ -33,7 +32,6 @@ export default function Home() {
             />
             <ImagesList
                 images={images}
-                onDeleteImage={deleteImage}  //[TEST] - to delete
             />
             <BottomNav/>
         </div>
