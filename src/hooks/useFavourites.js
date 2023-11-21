@@ -40,7 +40,18 @@ const useFavourites = (userId) => {
             });
     };
 
-    return { favourites, addFavourite, removeFavourite, isLoading, error };
+    const handleToggleFavourite = (image) => {
+        const isFavourite = favourites.some(fav => fav.id === image.id);
+        if (isFavourite) {
+            console.log("remove" + image.id + userId);
+            removeFavourite(image.id);
+        } else {
+            console.log("add" + image.id + userId);
+            addFavourite(image.id);
+        }
+    };
+
+    return { favourites, addFavourite, removeFavourite, handleToggleFavourite, isLoading, error };
 };
 
 export default useFavourites;
