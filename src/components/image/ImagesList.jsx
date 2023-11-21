@@ -17,10 +17,7 @@ const ImagesList = ({ images, titleText,onDeleteImage  }) => {
                 <Grid container spacing={4}>
                     {images.map((image) => (
                         <Grid item key={image.id} xs={12} sm={6} md={4}>
-                            <ImageCard
-                                image={image}
-                                onDeleteImage={onDeleteImage}
-                            />
+                            <ImageCard image={image} onDeleteImage={onDeleteImage} />
                         </Grid>
                     ))}
                 </Grid>

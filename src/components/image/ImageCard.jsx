@@ -21,7 +21,17 @@ import Fab from "@mui/material/Fab";
 //     </IconButton>
 // );
 
-const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
+
+// const DeleteIconButton = ({onDeleteImage, image}) => (
+//     <IconButton
+//         aria-label="delete image"
+//         onClick={() => onDeleteImage(image.id)}
+//     >
+//         <DeleteIcon sx={{color: 'purple', fontSize: '1.2em'}}/>
+//     </IconButton>
+// );
+
+const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
     <Fab
         color={isFavourite ? "secondary" : "default"}
         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
@@ -35,19 +45,29 @@ const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
             boxShadow: 'none',
         }}
     >
-        <FavoriteBorderIcon />
+        <FavoriteBorderIcon/>
     </Fab>
 );
 
 
 const DeleteIconButton = ({onDeleteImage, image}) => (
-    <IconButton
+    <Fab
         aria-label="delete image"
         onClick={() => onDeleteImage(image.id)}
+        sx={{
+            color: 'white',
+            bgcolor: 'grey',
+            '&:hover': {
+                bgcolor: 'grey',
+            },
+            boxShadow: 'none',
+            marginLeft: '8px', // Adjust spacing as necessary
+        }}
     >
-        <DeleteIcon sx={{color: 'purple', fontSize: '1.2em'}}/>
-    </IconButton>
+        <DeleteIcon/>
+    </Fab>
 );
+
 
 const ImageCard = ({image, onDeleteImage}) => {
 
@@ -58,7 +78,7 @@ const ImageCard = ({image, onDeleteImage}) => {
 
 
     const showFavoriteIcon = location.pathname === '/home' || location.pathname === '/offer';
-    const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites';
+    const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
         <Card sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
