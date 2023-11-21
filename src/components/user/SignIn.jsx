@@ -49,6 +49,7 @@ export default function SignIn() {
                     console.log('User logged in successfully!');
                     const userId = parseJwt(response.data["jwt"]).userId;
                     console.log(userId);
+                    navigate('/home');
                 } else {
                     console.log('Login failed.');
                 }
@@ -127,6 +128,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            // onClick={() => navigate('/home')}
                         >
                             Sign In
                         </Button>
