@@ -78,7 +78,7 @@ const ImageCard = ({image, onDeleteImage}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const goToOfferDetails = () => {
+    const goToOffer = () => {
         navigate(`/offer/${image.id}`);
     };
 
@@ -87,7 +87,7 @@ const ImageCard = ({image, onDeleteImage}) => {
     const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
-        <Card onClick={goToOfferDetails}  sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Card onClick={goToOffer}  sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
             <CardMedia
                 component="img"
                 image={image.url}
