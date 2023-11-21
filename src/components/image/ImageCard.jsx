@@ -14,7 +14,7 @@ const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
         onClick={() => onToggleFavourite(image)}
     >
-        {isFavourite ? <FavoriteIcon sx={{color: 'purple'}}/> :
+        {isFavourite ? <FavoriteIcon sx={{color: 'purple',  fontSize: '1.3em'}}/> :
             <FavoriteBorderIcon sx={{color: 'purple', fontSize: '1.2em'}}/>}
     </IconButton>
 );
