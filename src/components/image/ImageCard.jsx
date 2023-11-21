@@ -21,6 +21,16 @@ import Fab from "@mui/material/Fab";
 //     </IconButton>
 // );
 
+
+// const DeleteIconButton = ({onDeleteImage, image}) => (
+//     <IconButton
+//         aria-label="delete image"
+//         onClick={() => onDeleteImage(image.id)}
+//     >
+//         <DeleteIcon sx={{color: 'purple', fontSize: '1.2em'}}/>
+//     </IconButton>
+// );
+
 const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
     <Fab
         color={isFavourite ? "secondary" : "default"}
@@ -40,14 +50,24 @@ const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
 );
 
 
-const DeleteIconButton = ({onDeleteImage, image}) => (
-    <IconButton
+const DeleteIconButton = ({ onDeleteImage, image }) => (
+    <Fab
         aria-label="delete image"
         onClick={() => onDeleteImage(image.id)}
+        sx={{
+            color: 'white',
+            bgcolor: 'grey',
+            '&:hover': {
+                bgcolor: 'grey',
+            },
+            boxShadow: 'none',
+            marginLeft: '8px', // Adjust spacing as necessary
+        }}
     >
-        <DeleteIcon sx={{color: 'purple', fontSize: '1.2em'}}/>
-    </IconButton>
+        <DeleteIcon />
+    </Fab>
 );
+
 
 const ImageCard = ({image, onDeleteImage}) => {
 
