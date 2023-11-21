@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import CitySearch from "./CitySearch";
 import CategorySelect from "./CategorySelect";
 import DescriptionInput from "./DescriptionInput";
-
 const AddImage = () => {
         const [selectedCategory, setSelectedCategory] = useState('');
         const [selectedCity, setSelectedCity] = useState('');
@@ -21,6 +20,7 @@ const AddImage = () => {
         const [selectedAfterFile, setSelectedAfterFile] = useState(null);
         const [beforeImagePreview, setBeforeImagePreview] = useState(null);
         const [afterImagePreview, setAfterImagePreview] = useState(null);
+
 
         // BEFORE IMAGE
         const onBeforeFileChange = (event) => {

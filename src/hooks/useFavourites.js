@@ -30,6 +30,7 @@ const useFavourites = (userId) => {
             });
     };
 
+
     const removeFavourite = (imageId) => {
         favouritesApi.deleteFavourite(imageId, userId)
             .then(() => {
@@ -46,7 +47,7 @@ const useFavourites = (userId) => {
             console.log("remove" + image.id + userId);
             removeFavourite(image.id);
         } else {
-            console.log("add" + image.id + userId);
+            console.log("error");
             addFavourite(image.id);
         }
     };

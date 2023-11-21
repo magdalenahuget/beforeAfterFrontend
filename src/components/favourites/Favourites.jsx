@@ -19,7 +19,7 @@ const Favourites = ({ userId }) => {
             <Header/>
             <ImagesList
                 images={favourites}
-                titleText="Your Favourites"
+                titleText="Your Favourites"    //PODMIENIĆ NA TitleTypography.jsx
                 onDeleteImage={handleDeleteImage}
             />
             <BottomNav/>

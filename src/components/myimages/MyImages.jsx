@@ -15,14 +15,6 @@ const MyImages = ({ userId }) => {
     const { images, isLoading, error, deleteImage } = useImageData(userId);
     const [titleText, setTitleText] = useState("My Images");
 
-    // const handleToggleFavourite = (imageId, isFavourite) => {
-    //     if (isFavourite) {
-    //         removeFavourite(imageId);
-    //     } else {
-    //         addFavourite(imageId);
-    //     }
-    // };
-
     if (isLoading) {
         return (
             <Box display="flex" justifyContent="center">
