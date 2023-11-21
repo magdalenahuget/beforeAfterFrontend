@@ -17,6 +17,7 @@ export const updateUserById = (userId, user) =>{
      return axios.put(`${API_USER}/${userId}`, user)
 }
 
+
 export const userDataApi = {
     getAboutMeByUserId,
     updateAboutMeByUserId,
