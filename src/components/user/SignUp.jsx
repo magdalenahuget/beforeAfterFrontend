@@ -15,19 +15,74 @@ import {InputAdornment} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
+import axios from "axios";
+import {toast, ToastContainer} from "react-toastify";
 
-export default function SignUp() {
+const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const navigate = useNavigate();
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+
+    const handleNameChange = (e) => {
+        setUserName(e.target.value);
+    };
+
+    const handleEmailChange = (e) => {
+        setUserEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setUserPassword(e.target.value);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+
+        if (!userName || !userEmail || !userPassword) {
+            showErrorToastMessage("Please complete all form fields!");
+            return;
+        }
+
+        axios.post(`http://localhost:8080/api/v1/auth/signup`, {
+            userName: userName,
+            userEmail: userEmail,
+            userPassword: userPassword
+        })
+            .then(response => {
+                console.log('Response:', response);
+                console.log('Status: ' + response.status);
+                // Reset form fields
+                setUserName('');
+                setUserEmail('');
+                setUserPassword('');
+
+                if (response.status === 201) {
+                    console.log('User registered successfully!');
+                    showSuccessToastMessage();
+                } else {
+                    console.log('Registration failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Data sending error:', error);
+                showErrorToastMessage('Data sending error:' + error);
+            });
+    }
+
+    // TOSTIFY
+    const showSuccessToastMessage = () => {
+        toast.success("User has been register successfully!", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
+    const showErrorToastMessage = (message) => {
+        toast.error(message, {
+            position: toast.POSITION.TOP_RIGHT
         });
     };
 
@@ -55,12 +110,14 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="name"
+                                    name="userName"
                                     required
                                     fullWidth
                                     id="name"
                                     label="Name"
                                     autoFocus
+                                    value={userName}
+                                    onChange={handleNameChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -69,8 +126,10 @@ export default function SignUp() {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
-                                    name="email"
+                                    name="userEmail"
                                     autoComplete="email"
+                                    value={userEmail}
+                                    onChange={handleEmailChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -79,8 +138,10 @@ export default function SignUp() {
                                     fullWidth
                                     id="password"
                                     autoComplete="new-password"
-                                    name="password"
+                                    name="userPassword"
                                     label="Password"
+                                    value={userPassword}
+                                    onChange={handlePasswordChange}
                                     type={showPassword ? "text" : "password"}
                                     InputProps={{
                                         endAdornment: (
@@ -121,6 +182,21 @@ export default function SignUp() {
                     </Box>
                 </Box>
             </Container>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <ToastContainer/>
         </>
     );
-}
+};
+
+export default SignUp;
