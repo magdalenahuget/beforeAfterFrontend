@@ -1,16 +1,17 @@
 import React from 'react';
 import {useLocation} from 'react-router-dom';
+import {getUserIdFromToken} from "../../utils/jwtUtils";
+import useFavourites from '../../hooks/useFavourites';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Box from '@mui/material/Box';
-import useFavourites from '../../hooks/useFavourites';
 import { useNavigate } from 'react-router-dom';
 import FavoriteIconButton from "../layout/FavoriteIconButton";
 import DeleteIconButton from "../layout/DeleteIconButton";
 
-const ImageCard = ({image, onDeleteImage}) => {
 
-    const userId = 1;   //  [TEST USER]  ==> to delete
+const ImageCard = ({image, onDeleteImage}) => {
+    const userId = getUserIdFromToken();
     const {handleToggleFavourite, favourites} = useFavourites(userId);
     const isFavourite = favourites.some(fav => fav.id === image.id);
     const location = useLocation();
