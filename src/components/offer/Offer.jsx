@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
@@ -7,9 +8,10 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
 
-const OfferDetails = ({userId}) => {
+const Offer = ({userId}) => {
+    const {imageId} = useParams();
     const theme = useTheme();
-    const {images} = useImageData(userId);
+    const {images} = useImageData();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -21,6 +23,7 @@ const OfferDetails = ({userId}) => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
+
 
     //move useEffect to separate file into hooks folder.
     //implement dynamic avatar change taken from profile data
@@ -127,4 +130,4 @@ const OfferDetails = ({userId}) => {
     );
 };
 
-export default OfferDetails;
+export default Offer;
