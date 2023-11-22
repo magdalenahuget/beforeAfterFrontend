@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CitySearch from "./CitySearch";
 import CategorySelect from "./CategorySelect";
 import DescriptionInput from "./DescriptionInput";
+
 const AddImage = () => {
         const [selectedCategory, setSelectedCategory] = useState('');
         const [selectedCity, setSelectedCity] = useState('');
@@ -21,6 +22,17 @@ const AddImage = () => {
         const [beforeImagePreview, setBeforeImagePreview] = useState(null);
         const [afterImagePreview, setAfterImagePreview] = useState(null);
 
+        const parseJwt = (token) => {
+            try {
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (e) {
+                return null;
+            }
+        };
+
+        const jwtToken = sessionStorage.getItem('jwt');
+        const decodedToken = parseJwt(jwtToken);
+        const userId = decodedToken.userId;
 
         // BEFORE IMAGE
         const onBeforeFileChange = (event) => {
@@ -67,6 +79,7 @@ const AddImage = () => {
                 return;
             }
 
+
             const dataToSend = new FormData();
             dataToSend.append('categoryId', Number(selectedCategory.id));
             dataToSend.append('description', description);
@@ -74,7 +87,7 @@ const AddImage = () => {
             let collage = getCollage();
             let newMergedFiles = convertImageUrlToFile(collage, 'collage.png');
             dataToSend.append('file', newMergedFiles);
-            dataToSend.append('userId', '1');
+            dataToSend.append('userId', Number(userId));
             let config = {
                 maxBodyLength: Infinity,
             };
@@ -151,7 +164,6 @@ const AddImage = () => {
             });
         };
 
-
         const SetButtonType = styled('input')({
             clip: 'rect(0 0 0 0)',
             clipPath: 'inset(50%)',
@@ -206,7 +218,8 @@ const AddImage = () => {
                                 <SetButtonType type="file"/>
                             </Button>
                             {beforeImagePreview &&
-                                <img src={beforeImagePreview} alt="Before" style={{marginTop: '10px', maxWidth: '20%'}}/>}
+                                <img src={beforeImagePreview} alt="Before"
+                                     style={{marginTop: '10px', maxWidth: '20%'}}/>}
                         </Box>
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button onChange={onAfterFileChange} component="label" variant="contained"
