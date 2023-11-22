@@ -24,7 +24,7 @@ const ImageCard = ({image, onDeleteImage}) => {
     };
 
 
-    const showFavoriteIcon = location.pathname === '/home' || location.pathname === '/offer';
+    const showFavoriteIcon = location.pathname === '/' || location.pathname === '/offer';
     const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (

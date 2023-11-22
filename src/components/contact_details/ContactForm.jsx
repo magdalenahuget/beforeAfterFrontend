@@ -1,21 +1,45 @@
-import {useState} from "react";
-import {TextField, Button, Typography, Box} from "@mui/material";
+import React, { useState, useRef } from "react";
+import { TextField, Button, Typography, Box } from "@mui/material";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function ContactForm({ onCancel }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [recaptchaToken, setRecaptchaToken] = useState("");
+    const recaptchaRef = useRef(null);
+    const recaptchaSiteKey = `${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+
+    const resetForm = () => {
+        setName("");
+        setEmail("");
+        setMessage("");
+        setRecaptchaToken("");
+        if (recaptchaRef.current) {
+            recaptchaRef.current.reset();
+        }
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!recaptchaToken) {
+            console.log('Please verify that you are not a robot.');
+            return;
+        }
+        console.log('Message sent:', { name, email, message });
         /*
 
-
-        Dokończyć wysyłanie maila
-
+        LOGIKA WYSYŁANIA FORMULARZA
 
          */
+        resetForm();
     };
+
+    const onRecaptchaChange = (token) => {
+        setRecaptchaToken(token);
+    };
+
 
     return (
         <Box
@@ -29,7 +53,7 @@ export default function ContactForm({ onCancel }) {
                 mt: -10
             }}
         >
-            <Box sx={{maxWidth: 600, mx: "auto", p: 2}}>
+            <Box sx={{ maxWidth: 600, mx: "auto", p: 2 }}>
                 <Typography variant="h5" align="center" mb={2}>
                     Contact Us
                 </Typography>
@@ -61,9 +85,18 @@ export default function ContactForm({ onCancel }) {
                         multiline
                         rows={4}
                     />
-                    <Button variant="contained" type="submit" sx={{mt: 2}}>
-                        SEND
-                    </Button>
+                    {recaptchaToken ? (
+                        <Button variant="contained" type="submit" sx={{ mt: 2 }}>
+                            SEND
+                        </Button>
+                    ) : (
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={recaptchaSiteKey}
+                            onChange={onRecaptchaChange}
+                            sx={{ my: 2 }}
+                        />
+                    )}
                     <Button variant="outlined" onClick={onCancel} sx={{ mt: 2 }}>
                         CANCEL
                     </Button>
@@ -72,3 +105,4 @@ export default function ContactForm({ onCancel }) {
         </Box>
     );
 }
+
