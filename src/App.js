@@ -19,7 +19,7 @@ function App() {
             <>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/home" element={<Home/>}/>
+                        <Route path="/" element={<Home/>}/>
                         <Route path="/favourites" element={<Favourites />}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
