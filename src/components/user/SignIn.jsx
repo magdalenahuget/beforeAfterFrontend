@@ -49,7 +49,7 @@ export default function SignIn() {
                     console.log('User logged in successfully!');
                     const userId = parseJwt(response.data["jwt"]).userId;
                     console.log(userId);
-                    navigate('/home');
+                    navigate('/');
                 } else {
                     console.log('Login failed.');
                 }
