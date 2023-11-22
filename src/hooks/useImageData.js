@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {categoriesApi} from "../api/categoriesApi";
-import {imagesApi} from "../api/imagesApi";
+import {getImagesByDynamicFilter, imagesApi} from "../api/imagesApi";
 
 
 const useImageData = () => {
@@ -49,6 +49,7 @@ const useImageData = () => {
             })
     }, [selectedCity, selectedCategories]);
 
+
     const deleteImage = (imageId) => {
         imagesApi.deleteImage(imageId)
             .then(() => {
@@ -81,7 +82,7 @@ const useImageData = () => {
         images,
         handleCategorySelect,
         handleChange,
-        deleteImage
+        deleteImage,
     };
 };
 

@@ -7,9 +7,9 @@ import BottomNav from '../layout/BottomNav';
 const Favourites = ({userId}) => {
     const {favourites, removeFavourite, isLoading, error} = useFavourites(userId);
 
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>An error occurred: {error.message}</p>;
-
+    // if (isLoading) return <p>Loading...</p>;
+    // if (error) return <p>An error occurred: {error.message}</p>;
+    //
     const handleDeleteImage = (imageId) => {
         removeFavourite(imageId);
     };
