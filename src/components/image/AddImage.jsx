@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CitySearch from "./CitySearch";
 import CategorySelect from "./CategorySelect";
 import DescriptionInput from "./DescriptionInput";
+import {parseJwt, getUserIdFromToken} from '../../utils/jwtUtils';
 
 const AddImage = () => {
         const [selectedCategory, setSelectedCategory] = useState('');
@@ -22,17 +23,20 @@ const AddImage = () => {
         const [beforeImagePreview, setBeforeImagePreview] = useState(null);
         const [afterImagePreview, setAfterImagePreview] = useState(null);
 
-        const parseJwt = (token) => {
-            try {
-                return JSON.parse(atob(token.split('.')[1]));
-            } catch (e) {
-                return null;
-            }
-        };
+        // const parseJwt = (token) => {
+        //     try {
+        //         return JSON.parse(atob(token.split('.')[1]));
+        //     } catch (e) {
+        //         return null;
+        //     }
+        // };
+        //
+        // const jwtToken = sessionStorage.getItem('jwt');
+        // const decodedToken = parseJwt(jwtToken);
+        // const userId = decodedToken.userId;
 
-        const jwtToken = sessionStorage.getItem('jwt');
-        const decodedToken = parseJwt(jwtToken);
-        const userId = decodedToken.userId;
+        // const jwtToken = sessionStorage.getItem('jwt');
+        const userId = getUserIdFromToken();
 
         // BEFORE IMAGE
         const onBeforeFileChange = (event) => {
