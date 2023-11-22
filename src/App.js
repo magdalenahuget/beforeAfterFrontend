@@ -20,7 +20,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/home" element={<Home/>}/>
-                        <Route path="/favourites" element={<Favourites userId={userId}/>}/>
+                        <Route path="/favourites" element={<Favourites />}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
                         <Route path="/profile" element={<Profile userId={userId}/>}/>
