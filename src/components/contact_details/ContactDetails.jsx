@@ -11,8 +11,10 @@ import {Box, CircularProgress, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import ContactForm from "./ContactForm";
 import ContactItem from "./ContactItem";
+import {getUserIdFromToken} from '../../utils/jwtUtils';
 
-const ContactDetails = ({userId}) => {
+const ContactDetails = () => {
+    const userId = getUserIdFromToken();
     const {contactDetails, isLoading, error} = useContactDetails(userId);
     const [showContactForm, setShowContactForm] = useState(false);
 
