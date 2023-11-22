@@ -63,6 +63,10 @@ const SignUp = () => {
                 if (response.status === 201) {
                     console.log('User registered successfully!');
                     showSuccessToastMessage();
+                    // Navidate to '/signin' after displaying toast
+                    setTimeout(() => {
+                        navigate('/signin');
+                    }, 5000); // 5000 ms it is time of toast displaying
                 } else {
                     console.log('Registration failed.');
                 }
@@ -75,8 +79,8 @@ const SignUp = () => {
 
     // TOSTIFY
     const showSuccessToastMessage = () => {
-        toast.success("User has been register successfully!", {
-            position: toast.POSITION.TOP_RIGHT
+        toast.success("User successfully registered!\nRedirecting to Sign In...", {
+            position: toast.POSITION.TOP_RIGHT,
         });
     };
 
@@ -184,7 +188,7 @@ const SignUp = () => {
             </Container>
             <ToastContainer
                 position="top-right"
-                autoClose={5000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
