@@ -7,10 +7,11 @@ import useFavourites from '../../hooks/useFavourites';
 import { useNavigate } from 'react-router-dom';
 import FavoriteIconButton from "../layout/FavoriteIconButton";
 import DeleteIconButton from "../layout/DeleteIconButton";
+import {getUserIdFromToken} from "../../utils/jwtUtils";
 
 const ImageCard = ({image, onDeleteImage}) => {
 
-    const userId = 1;   //  [TEST USER]  ==> to delete
+    const userId = getUserIdFromToken();
     const {handleToggleFavourite, favourites} = useFavourites(userId);
     const isFavourite = favourites.some(fav => fav.id === image.id);
     const location = useLocation();
