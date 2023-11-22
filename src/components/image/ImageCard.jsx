@@ -16,7 +16,9 @@ const ImageCard = ({image, onDeleteImage}) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const goToOffer = () => {
+
+    const goToOffer = (e) => {
+        e.stopPropagation(); // zapubiega propagacji do rodzica!
         navigate(`/offer/${image.id}`);
     };
 
@@ -25,7 +27,7 @@ const ImageCard = ({image, onDeleteImage}) => {
     const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
-        <Card onClick={goToOffer}  sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
+        <Card sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardMedia
                 component="img"
                 image={image.url}
@@ -35,8 +37,9 @@ const ImageCard = ({image, onDeleteImage}) => {
                     height: '100%',
                     objectFit: 'cover'
                 }}
+                onClick={goToOffer}
             />
-            <Box sx={{position: 'absolute', top: 0, right: 0}}>
+            <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
                 {showFavoriteIcon && (
                     <FavoriteIconButton
                         isFavourite={isFavourite}
