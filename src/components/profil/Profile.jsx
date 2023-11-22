@@ -6,7 +6,6 @@ import BottomNav from "../layout/BottomNav";
 import Header from "../layout/Header";
 import ContactDetailsForm from "./ContactDetailsForm";
 import ProfileTabs from "./ProfileTabs";
-
 import AboutMeForm from "./AboutMeForm";
 import {userDataApi} from "../../api/userApi";
 import {toast, ToastContainer} from "react-toastify";
@@ -15,8 +14,9 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import AvatarForm from "./AvatarForm";
 import axios from "axios";
+import {getUserIdFromToken} from '../../utils/jwtUtils';
 
-const Profile = ({userId}) => {
+const Profile = () => {
 
         const [formData, setFormData] = useState({
             streetName: '',
@@ -34,7 +34,7 @@ const Profile = ({userId}) => {
         const [user, setUser] = useState([])
         const [updateUser, setUpdateUser] = useState([])
         const [newAvatar, setNewAvatar] = useState(null)
-
+        const userId = getUserIdFromToken();
 
         useEffect(() => {
 
