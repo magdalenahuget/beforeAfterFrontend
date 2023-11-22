@@ -2,73 +2,11 @@ import React from 'react';
 import {useLocation} from 'react-router-dom';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import useFavourites from '../../hooks/useFavourites';
-import Fab from "@mui/material/Fab";
 import { useNavigate } from 'react-router-dom';
-
-// const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
-//     <IconButton
-//         aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
-//         onClick={() => onToggleFavourite(image)}
-//     >
-//         {isFavourite ?
-//             <FavoriteIcon sx={{color: 'purple', fontSize: '1.3em'}}/> :
-//             <FavoriteBorderIcon sx={{color: 'purple', fontSize: '1.3em'}}/>}
-//     </IconButton>
-// );
-
-
-// const DeleteIconButton = ({onDeleteImage, image}) => (
-//     <IconButton
-//         aria-label="delete image"
-//         onClick={() => onDeleteImage(image.id)}
-//     >
-//         <DeleteIcon sx={{color: 'purple', fontSize: '1.2em'}}/>
-//     </IconButton>
-// );
-
-const FavoriteIconButton = ({isFavourite, onToggleFavourite, image}) => (
-    <Fab
-        color={isFavourite ? "secondary" : "default"}
-        aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
-        onClick={() => onToggleFavourite(image)}
-        sx={{
-            color: 'white',
-            bgcolor: isFavourite ? 'purple' : 'grey',
-            '&:hover': {
-                bgcolor: isFavourite ? 'purple' : 'grey',
-            },
-            boxShadow: 'none',
-        }}
-    >
-        <FavoriteBorderIcon/>
-    </Fab>
-);
-
-
-const DeleteIconButton = ({onDeleteImage, image}) => (
-    <Fab
-        aria-label="delete image"
-        onClick={() => onDeleteImage(image.id)}
-        sx={{
-            color: 'white',
-            bgcolor: 'grey',
-            '&:hover': {
-                bgcolor: 'grey',
-            },
-            boxShadow: 'none',
-            marginLeft: '8px',
-        }}
-    >
-        <DeleteIcon/>
-    </Fab>
-);
-
+import FavoriteIconButton from "../layout/FavoriteIconButton";
+import DeleteIconButton from "../layout/DeleteIconButton";
 
 const ImageCard = ({image, onDeleteImage}) => {
 
