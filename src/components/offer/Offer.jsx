@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
@@ -7,11 +6,14 @@ import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/mater
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
+import {useLocation} from "react-router-dom";
+import {userDataApi} from "../../api/userApi";
 
-const Offer = ({userId}) => {
-    const {imageId} = useParams();
+const Offer = () => {
+    const location = useLocation();
+    const userId = location.state?.userId;
     const theme = useTheme();
-    const {images} = useImageData();
+    const {userImages} = useImageData(userId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -19,18 +21,24 @@ const Offer = ({userId}) => {
         imageId: '',
         description: ''
     });
+    const [user, setUser] = useState({});
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
 
-
-    //move useEffect to separate file into hooks folder.
-    //implement dynamic avatar change taken from profile data
-    //modify screen responsivity
     useEffect(() => {
-        if (images.length > 0 && currentImageIndex < images.length) {
-            const newCurrentImage = images[currentImageIndex];
+        userDataApi.getUserById(userId)
+            .then(response => {
+                console.log(response.data); // Sprawdź, czy dane zawierają pole name
+                setUser(response.data);
+            });
+    }, [userId]);
+
+
+    useEffect(() => {
+        if (userImages.length > 0 && currentImageIndex < userImages.length) {
+            const newCurrentImage = userImages[currentImageIndex];
             setCurrentImage({
                 url: newCurrentImage.file,
                 cityName: newCurrentImage.cityName,
@@ -38,24 +46,25 @@ const Offer = ({userId}) => {
                 description: newCurrentImage.description
             });
         }
-    }, [currentImageIndex, images]);
+        console.log("OFFER: userId: " + userId);
+    }, [currentImageIndex, userImages]);
 
 
     const handleNavClick = (toRight) => {
         let newImageIndex = toRight ? currentImageIndex + 1 : currentImageIndex - 1;
 
-        if (newImageIndex >= images.length) {
+        if (newImageIndex >= userImages.length) {
             newImageIndex = 0;
         } else if (newImageIndex < 0) {
-            newImageIndex = images.length - 1;
+            newImageIndex = userImages.length - 1;
         }
 
         setCurrentImageIndex(newImageIndex);
         setCurrentImage({
-            url: images[newImageIndex].file,
-            cityName: images[newImageIndex].cityName,
-            imageId: images[newImageIndex].id,
-            description: images[newImageIndex].description
+            url: userImages[newImageIndex].file,
+            cityName: userImages[newImageIndex].cityName,
+            imageId: userImages[newImageIndex].id,
+            description: userImages[newImageIndex].description
         });
     };
 
@@ -68,7 +77,7 @@ const Offer = ({userId}) => {
                     <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
                         <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 4, mb: 0}}>
                             <Avatar
-                                alt="Company Logo"
+                                alt={`${user.userName} Logo`}
                                 src="https://source.unsplash.com/random?company"
                                 sx={{
                                     width: avatarSize,
@@ -80,7 +89,7 @@ const Offer = ({userId}) => {
                             />
                             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                 <Typography variant="h5" sx={{fontWeight: 'bold'}}>
-                                    Budomex Sp. z o.o.
+                                    {user?.userName}
                                 </Typography>
                                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                                     <LocationOnIcon sx={{ml: -0.5, mr: 0.5}}/>
@@ -104,10 +113,10 @@ const Offer = ({userId}) => {
                                 height: '80%',
                             }}>
                                 <SimpleImageSlider
-                                    key={images.length}
+                                    key={userImages.length}
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images.map(image => ({url: image.url}))}
+                                    images={userImages.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
                                     onClickNav={handleNavClick}

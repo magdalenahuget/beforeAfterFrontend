@@ -13,10 +13,17 @@ import ContactForm from "./ContactForm";
 import ContactItem from "./ContactItem";
 import {getUserIdFromToken} from '../../utils/jwtUtils';
 
-const ContactDetails = () => {
-    const userId = getUserIdFromToken();
-    const {contactDetails, isLoading, error} = useContactDetails(userId);
+
+const isValueNotEmpty = (value) => value && value.trim() !== '';
+
+const ContactDetails = ({userId, isOwnProfile}) => {
+    const effectiveUserId = isOwnProfile ? getUserIdFromToken() : userId;
+    const {contactDetails, isLoading, error} = useContactDetails(effectiveUserId);
     const [showContactForm, setShowContactForm] = useState(false);
+
+    /*
+        UWAGA Gdy ContacDetails jest wykorzystywany w /Profile należy przekazać <ContactDetails isOwnProfile={true} />
+     */
 
     if (isLoading) {
         return (
@@ -35,32 +42,42 @@ const ContactDetails = () => {
     }
 
     if (showContactForm) {
-        return <ContactForm onCancel={() => setShowContactForm(false)} />;
+        return <ContactForm onCancel={() => setShowContactForm(false)}/>;
     }
 
     return (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }} aria-label="contact details">
-            <ContactItem icon={<HomeIcon />}>
-                {`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}
-            </ContactItem>
-            <ContactItem icon={<PinDropIcon />}>
-                {`${contactDetails.cityName}, ${contactDetails.postcode}`}
-            </ContactItem>
-            <ContactItem icon={<PhoneIcon />}>
-                <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
-                    {contactDetails.phoneNumber}
-                </Link>
-            </ContactItem>
-            <ContactItem icon={<LanguageIcon />}>
-                <Link href={contactDetails.webpage} target="_blank" rel="noopener">
-                    {contactDetails.webpage}
-                </Link>
-            </ContactItem>
-            <ContactItem icon={<EmailIcon />}>
-                <Button variant="outlined" onClick={() => setShowContactForm(true)}>
-                    Write to US
-                </Button>
-            </ContactItem>
+        <List sx={{width: '100%', bgcolor: 'background.paper'}} aria-label="contact details">
+            {isValueNotEmpty(contactDetails.streetName) && (
+                <ContactItem icon={<HomeIcon/>}>
+                    {`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}
+                </ContactItem>
+            )}
+            {isValueNotEmpty(contactDetails.cityName) && (
+                <ContactItem icon={<PinDropIcon/>}>
+                    {`${contactDetails.cityName}, ${contactDetails.postcode}`}
+                </ContactItem>
+            )}
+            {isValueNotEmpty(contactDetails.phoneNumber) && (
+                <ContactItem icon={<PhoneIcon/>}>
+                    <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
+                        {contactDetails.phoneNumber}
+                    </Link>
+                </ContactItem>
+            )}
+            {isValueNotEmpty(contactDetails.webpage) && (
+                <ContactItem icon={<LanguageIcon/>}>
+                    <Link href={contactDetails.webpage} target="_blank" rel="noopener">
+                        {contactDetails.webpage}
+                    </Link>
+                </ContactItem>
+            )}
+            {isValueNotEmpty(contactDetails.email) && (
+                <ContactItem icon={<EmailIcon/>}>
+                    <Button variant="outlined" onClick={() => setShowContactForm(true)}>
+                        Write to US
+                    </Button>
+                </ContactItem>
+            )}
         </List>
     );
 };
