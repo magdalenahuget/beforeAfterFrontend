@@ -7,8 +7,8 @@ const useFavourites = (userId) => {
     const [favourites, setFavourites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
     const loggedUser = getUserIdFromToken();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userId) {
@@ -31,30 +31,18 @@ const useFavourites = (userId) => {
         }
     }, [userId]);
 
-    // const addFavourite = (imageId) => {
-    //     favouritesApi.addImageToFavourites(imageId, userId)
-    //         .then(() => {
-    //             setFavourites([...favourites, { id: imageId, isFavourite: true }]);
-    //         })
-    //         .catch(error => {
-    //             alert("You can not add your own image to favourites.");
-    //         });
-    // };
-
-    const addFavourite = (imageId, ownerId) => {
-        if (!userId) {
-            navigate('/signin');
-        } else if (userId === ownerId) {
-            alert("You cannot add your own image to favourites.");
-        } else {
-            favouritesApi.addImageToFavourites(imageId, userId)
-                .then(() => {
-                    setFavourites([...favourites, {id: imageId, isFavourite: true}]);
-                })
-                .catch(error => {
-                    console.error('Error adding image to favourites:', error);
-                });
-        }
+    const addFavourite = (imageId) => {
+        favouritesApi.addImageToFavourites(imageId, userId)
+            .then(() => {
+                setFavourites([...favourites, {id: imageId, isFavourite: true}]);
+            })
+            .catch(error => {
+                if (loggedUser === null) {
+                    navigate(`/signin`)
+                    return
+                }
+                alert("You can not add your own image to favourites.");
+            });
     };
 
 
@@ -75,7 +63,7 @@ const useFavourites = (userId) => {
             removeFavourite(image.id);
         } else {
             console.log(" useFavourite__ADD image_id: " + image.id + " user_id: " + userId);
-            addFavourite(image.id, loggedUser);
+            addFavourite(image.id);
         }
     };
 
