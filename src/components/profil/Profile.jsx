@@ -9,12 +9,11 @@ import ProfileTabs from "./ProfileTabs";
 import AboutMeForm from "./AboutMeForm";
 import {userDataApi} from "../../api/userApi";
 import {toast, ToastContainer} from "react-toastify";
-import MyImages from "../myimages/MyImages";
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
 import AvatarForm from "./AvatarForm";
 import axios from "axios";
 import {getUserIdFromToken} from '../../utils/jwtUtils';
+import {imagesApi} from "../../api/imagesApi";
+import ImagesList from "../image/ImagesList";
 
 const Profile = () => {
 
@@ -34,7 +33,35 @@ const Profile = () => {
         const [user, setUser] = useState([])
         const [updateUser, setUpdateUser] = useState([])
         const [newAvatar, setNewAvatar] = useState(null)
+    const [images, setImages] = useState([])
         const userId = getUserIdFromToken();
+
+    useEffect(() => {
+        console.log(("testestestestestestest"))
+        console.log(userId)
+        console.log(Number(userId))
+
+
+
+        imagesApi.getImagesByDynamicFilter({
+            approvalStatus: false,
+            usersId: userId
+
+
+        })
+            .then(response => {
+
+                const imagesWithDetails = response.data.map(img => ({
+                    ...img,
+                    url: `data:image/jpeg;base64,${img.file}`,
+                    cityName: img.cityName,
+                    description: img.description
+                }));
+
+                setImages(imagesWithDetails)
+                console.log(imagesWithDetails)
+            })
+    }, [userId]);
 
         useEffect(() => {
 
@@ -215,13 +242,15 @@ const Profile = () => {
                     <ProfileTabs value={value} handleTabChange={handleTabChange}/>
                     {value === 0 && (
                         <TabPanel value={value} index={0}>
-                            <MyImages userId={userId}
+                            <ImagesList
+                                images={images}
                             />
                         </TabPanel>
                     )}
                     {value === 1 && (
                         <TabPanel value={value} index={1}>
                             <AvatarForm
+
                                 user={user}
                                 updateUser={updateUser}
                                 handleUserChange={handleUserChange}
@@ -230,6 +259,7 @@ const Profile = () => {
                                 handleSubmitAvatar={handleSubmitAvatar}
                             />
                             <AboutMeForm
+                                images={images}
                                 aboutMe={aboutMe}
                                 updateAboutMe={updateAboutMe}
                                 handleAboutMeChange={handleAboutMeChange}
