@@ -6,7 +6,7 @@ import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/mater
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {userDataApi} from "../../api/userApi";
 
 const Offer = () => {
@@ -22,6 +22,7 @@ const Offer = () => {
         description: ''
     });
     const [user, setUser] = useState({});
+    const navigate = useNavigate();
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
@@ -30,7 +31,6 @@ const Offer = () => {
     useEffect(() => {
         userDataApi.getUserById(userId)
             .then(response => {
-                console.log(response.data); // Sprawdź, czy dane zawierają pole name
                 setUser(response.data);
             });
     }, [userId]);
@@ -51,7 +51,8 @@ const Offer = () => {
 
 
     const handleNavClick = (toRight) => {
-        let newImageIndex = toRight ? currentImageIndex + 1 : currentImageIndex - 1;
+        let newImageIndex = userImages.findIndex(img => img.id === currentImage.imageId);
+        newImageIndex = toRight ? newImageIndex + 1 : newImageIndex - 1;
 
         if (newImageIndex >= userImages.length) {
             newImageIndex = 0;
@@ -59,7 +60,8 @@ const Offer = () => {
             newImageIndex = userImages.length - 1;
         }
 
-        setCurrentImageIndex(newImageIndex);
+        navigate(`/offer/${userImages[newImageIndex].id}`, { state: { userId: userImages[newImageIndex].userId } });
+
         setCurrentImage({
             url: userImages[newImageIndex].file,
             cityName: userImages[newImageIndex].cityName,
