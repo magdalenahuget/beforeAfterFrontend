@@ -9,11 +9,10 @@ import useImageData from "../../hooks/useImageData";
 import {useLocation} from "react-router-dom";
 
 const Offer = () => {
-    // const {imageId} = useParams();
     const location = useLocation();
     const userId = location.state?.userId;
     const theme = useTheme();
-    const {images} = useImageData();
+    const { userImages } = useImageData(userId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -27,12 +26,9 @@ const Offer = () => {
     const minAvatarSize = '5vw';
 
 
-    //move useEffect to separate file into hooks folder.
-    //implement dynamic avatar change taken from profile data
-    //modify screen responsivity
     useEffect(() => {
-        if (images.length > 0 && currentImageIndex < images.length) {
-            const newCurrentImage = images[currentImageIndex];
+        if (userImages.length > 0 && currentImageIndex < userImages.length) {
+            const newCurrentImage = userImages[currentImageIndex];
             setCurrentImage({
                 url: newCurrentImage.file,
                 cityName: newCurrentImage.cityName,
@@ -40,25 +36,25 @@ const Offer = () => {
                 description: newCurrentImage.description
             });
         }
-        console.log("uzytkownik offer " + userId)
-    }, [currentImageIndex, images]);
+        console.log("OFFER: userId: " + userId);
+    }, [currentImageIndex, userImages]);
 
 
     const handleNavClick = (toRight) => {
         let newImageIndex = toRight ? currentImageIndex + 1 : currentImageIndex - 1;
 
-        if (newImageIndex >= images.length) {
+        if (newImageIndex >= userImages.length) {
             newImageIndex = 0;
         } else if (newImageIndex < 0) {
-            newImageIndex = images.length - 1;
+            newImageIndex = userImages.length - 1;
         }
 
         setCurrentImageIndex(newImageIndex);
         setCurrentImage({
-            url: images[newImageIndex].file,
-            cityName: images[newImageIndex].cityName,
-            imageId: images[newImageIndex].id,
-            description: images[newImageIndex].description
+            url: userImages[newImageIndex].file,
+            cityName: userImages[newImageIndex].cityName,
+            imageId: userImages[newImageIndex].id,
+            description: userImages[newImageIndex].description
         });
     };
 
@@ -107,10 +103,10 @@ const Offer = () => {
                                 height: '80%',
                             }}>
                                 <SimpleImageSlider
-                                    key={images.length}
+                                    key={userImages.length}
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images.map(image => ({url: image.url}))}
+                                    images={userImages.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
                                     onClickNav={handleNavClick}
