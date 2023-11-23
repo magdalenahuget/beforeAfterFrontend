@@ -7,8 +7,8 @@ import {getUserIdFromToken} from "../../utils/jwtUtils";
 import {Typography} from "@mui/material";
 
 const Favourites = () => {
-    const userId = getUserIdFromToken();
-    const {favourites, removeFavourite, isLoading, error} = useFavourites(userId);
+    const loggedUserId = getUserIdFromToken();
+    const {favourites, removeFavourite, isLoading, error} = useFavourites(loggedUserId);
 
     // if (isLoading) return <p>Loading...</p>;
     // if (error) return <p>An error occurred: {error.message}</p>;
