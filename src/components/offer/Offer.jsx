@@ -9,6 +9,7 @@ import useImageData from "../../hooks/useImageData";
 import {useLocation} from "react-router-dom";
 
 const Offer = () => {
+    // const {imageId} = useParams();
     const location = useLocation();
     const userId = location.state?.userId;
     const theme = useTheme();
