@@ -18,9 +18,14 @@ const ImageCard = ({image, onDeleteImage}) => {
     const navigate = useNavigate();
 
 
+    /**
+     * e.stopPropagation();  - Prevents propagation to the parent element
+     * { state: { userId: image.userId } } - Passes the `userId` associated with the image as the navigation state
+     * @param e
+     */
     const goToOffer = (e) => {
-        e.stopPropagation(); // zapubiega propagacji do rodzica!
-        navigate(`/offer/${image.id}`);
+        e.stopPropagation();
+        navigate(`/offer/${image.id}`, { state: { userId: image.userId } });
     };
 
 

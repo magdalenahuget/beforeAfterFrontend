@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import BasicTabs from './BasicTabs';
@@ -7,9 +6,11 @@ import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/mater
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
+import {useLocation} from "react-router-dom";
 
-const Offer = ({userId}) => {
-    const {imageId} = useParams();
+const Offer = () => {
+    const location = useLocation();
+    const userId = location.state?.userId;
     const theme = useTheme();
     const {images} = useImageData();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -38,6 +39,7 @@ const Offer = ({userId}) => {
                 description: newCurrentImage.description
             });
         }
+        console.log("uzytkownik offer " + userId)
     }, [currentImageIndex, images]);
 
 
