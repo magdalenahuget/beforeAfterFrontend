@@ -14,6 +14,7 @@ import axios from "axios";
 import {getUserIdFromToken} from '../../utils/jwtUtils';
 import {imagesApi} from "../../api/imagesApi";
 import ImagesList from "../image/ImagesList";
+import useImageData from "../../hooks/useImageData";
 
 const Profile = () => {
 
@@ -33,35 +34,10 @@ const Profile = () => {
         const [user, setUser] = useState([])
         const [updateUser, setUpdateUser] = useState([])
         const [newAvatar, setNewAvatar] = useState(null)
-    const [images, setImages] = useState([])
+        const [images, setImages] = useState([])
         const userId = getUserIdFromToken();
+        const {userImages} = useImageData(userId);
 
-    useEffect(() => {
-        console.log(("testestestestestestest"))
-        console.log(userId)
-        console.log(Number(userId))
-
-
-
-        imagesApi.getImagesByDynamicFilter({
-            approvalStatus: false,
-            usersId: userId
-
-
-        })
-            .then(response => {
-
-                const imagesWithDetails = response.data.map(img => ({
-                    ...img,
-                    url: `data:image/jpeg;base64,${img.file}`,
-                    cityName: img.cityName,
-                    description: img.description
-                }));
-
-                setImages(imagesWithDetails)
-                console.log(imagesWithDetails)
-            })
-    }, [userId]);
 
         useEffect(() => {
 
@@ -243,7 +219,7 @@ const Profile = () => {
                     {value === 0 && (
                         <TabPanel value={value} index={0}>
                             <ImagesList
-                                images={images}
+                                images={userImages}
                             />
                         </TabPanel>
                     )}
