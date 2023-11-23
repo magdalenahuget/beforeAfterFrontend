@@ -4,6 +4,7 @@ import ImagesList from "../image/ImagesList";
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import {getUserIdFromToken} from "../../utils/jwtUtils";
+import {Typography} from "@mui/material";
 
 const Favourites = () => {
     const userId = getUserIdFromToken();
@@ -19,11 +20,17 @@ const Favourites = () => {
     return (
         <>
             <Header/>
-            <ImagesList
-                images={favourites}
-                titleText="Your Favourites"    //PODMIENIĆ NA TitleTypography.jsx
-                onDeleteImage={handleDeleteImage}
-            />
+            {favourites.length > 0 ? (
+                <ImagesList
+                    images={favourites}
+                    titleText="Your Favourites"
+                    onDeleteImage={handleDeleteImage}
+                />
+            ) : (
+                <Typography sx={{ textAlign: 'center', mt: 10, fontSize: '2em' }}>
+                    You haven't liked any photos yet... :(
+                </Typography>
+            )}
             <BottomNav/>
         </>
     );
