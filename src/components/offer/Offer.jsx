@@ -7,12 +7,13 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
 import {useLocation} from "react-router-dom";
+import {userDataApi} from "../../api/userApi";
 
 const Offer = () => {
     const location = useLocation();
     const userId = location.state?.userId;
     const theme = useTheme();
-    const { userImages } = useImageData(userId);
+    const {userImages} = useImageData(userId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -20,10 +21,19 @@ const Offer = () => {
         imageId: '',
         description: ''
     });
+    const [user, setUser] = useState({});
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
+
+    useEffect(() => {
+        userDataApi.getUserById(userId)
+            .then(response => {
+                console.log(response.data); // Sprawdź, czy dane zawierają pole name
+                setUser(response.data);
+            });
+    }, [userId]);
 
 
     useEffect(() => {
@@ -67,7 +77,7 @@ const Offer = () => {
                     <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
                         <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 4, mb: 0}}>
                             <Avatar
-                                alt="Company Logo"
+                                alt={`${user.userName} Logo`}
                                 src="https://source.unsplash.com/random?company"
                                 sx={{
                                     width: avatarSize,
@@ -79,7 +89,7 @@ const Offer = () => {
                             />
                             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                 <Typography variant="h5" sx={{fontWeight: 'bold'}}>
-                                    Budomex Sp. z o.o.
+                                    {user?.userName}
                                 </Typography>
                                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                                     <LocationOnIcon sx={{ml: -0.5, mr: 0.5}}/>
