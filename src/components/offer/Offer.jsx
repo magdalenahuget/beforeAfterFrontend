@@ -6,10 +6,11 @@ import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/mater
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {userDataApi} from "../../api/userApi";
 
 const Offer = () => {
+    const { imageId } = useParams();
     const location = useLocation();
     const userId = location.state?.userId;
     const theme = useTheme();
@@ -28,6 +29,7 @@ const Offer = () => {
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
 
+
     useEffect(() => {
         userDataApi.getUserById(userId)
             .then(response => {
@@ -37,18 +39,22 @@ const Offer = () => {
 
 
     useEffect(() => {
-        if (userImages.length > 0 && currentImageIndex < userImages.length) {
-            const newCurrentImage = userImages[currentImageIndex];
-            setCurrentImage({
-                url: newCurrentImage.file,
-                cityName: newCurrentImage.cityName,
-                imageId: newCurrentImage.id,
-                description: newCurrentImage.description
-            });
+        if (userImages.length > 0) {
+            const index = userImages.findIndex(img => img.id.toString() === imageId);
+            if (index !== -1) {
+                setCurrentImageIndex(index);
+                const newCurrentImage = userImages[index];
+                setCurrentImage({
+                    url: newCurrentImage.file,
+                    cityName: newCurrentImage.cityName,
+                    imageId: newCurrentImage.id,
+                    description: newCurrentImage.description
+                });
+            } else {
+                console.error("Image with id not found:", imageId);
+            }
         }
-        console.log("OFFER: userId: " + userId);
-    }, [currentImageIndex, userImages]);
-
+    }, [imageId, userImages]);
 
     const handleNavClick = (toRight) => {
         let newImageIndex = userImages.findIndex(img => img.id === currentImage.imageId);
@@ -60,7 +66,7 @@ const Offer = () => {
             newImageIndex = userImages.length - 1;
         }
 
-        navigate(`/offer/${userImages[newImageIndex].id}`, { state: { userId: userImages[newImageIndex].userId } });
+        navigate(`/offer/${userImages[newImageIndex].id}`, {state: {userId: userImages[newImageIndex].userId}});
 
         setCurrentImage({
             url: userImages[newImageIndex].file,
