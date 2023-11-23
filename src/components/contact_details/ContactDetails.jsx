@@ -18,8 +18,9 @@ const isValueNotEmpty = (value) => value && value.trim() !== '';
 
 const ContactDetails = ({userId, isOwnProfile}) => {
     const effectiveUserId = isOwnProfile ? getUserIdFromToken() : userId;
-    const {contactDetails, isLoading, error} = useContactDetails(effectiveUserId);
+    const { contactDetails, isLoading, error } = useContactDetails(effectiveUserId);
     const [showContactForm, setShowContactForm] = useState(false);
+    const [isPhoneBlurred, setIsPhoneBlurred] = useState(true); // Dodano stan dla rozmazywania numeru telefonu
 
     /*
         UWAGA Gdy ContacDetails jest wykorzystywany w /Profile należy przekazać <ContactDetails isOwnProfile={true} />
@@ -45,6 +46,10 @@ const ContactDetails = ({userId, isOwnProfile}) => {
         return <ContactForm onCancel={() => setShowContactForm(false)}/>;
     }
 
+    const handlePhoneClick = () => {
+        setIsPhoneBlurred(false);
+    };
+
     return (
         <List sx={{width: '100%', bgcolor: 'background.paper'}} aria-label="contact details">
             {isValueNotEmpty(contactDetails.streetName) && (
@@ -58,8 +63,16 @@ const ContactDetails = ({userId, isOwnProfile}) => {
                 </ContactItem>
             )}
             {isValueNotEmpty(contactDetails.phoneNumber) && (
-                <ContactItem icon={<PhoneIcon/>}>
-                    <Link href={`tel:${contactDetails.phoneNumber}`} underline="none">
+                <ContactItem icon={<PhoneIcon />}>
+                    <Link
+                        href={`tel:${contactDetails.phoneNumber}`}
+                        underline="none"
+                        sx={{
+                            filter: isPhoneBlurred ? 'blur(5px)' : 'none',
+                            cursor: isPhoneBlurred ? 'pointer' : 'default',
+                        }}
+                        onClick={isPhoneBlurred ? handlePhoneClick : undefined}
+                    >
                         {contactDetails.phoneNumber}
                     </Link>
                 </ContactItem>
