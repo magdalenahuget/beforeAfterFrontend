@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
-import { favouritesApi  } from '../api/favouritesApi';
+import {useEffect, useState} from 'react';
+import {favouritesApi} from '../api/favouritesApi';
+import {useNavigate} from "react-router-dom";
+import {getUserIdFromToken} from "../utils/jwtUtils";
 
 const useFavourites = (userId) => {
     const [favourites, setFavourites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const loggedUser = getUserIdFromToken();
 
     useEffect(() => {
-        if (userId){
+        if (userId) {
             setIsLoading(true);
             favouritesApi.getFavouritesByUserId(userId)
                 .then(response => {
@@ -27,14 +31,30 @@ const useFavourites = (userId) => {
         }
     }, [userId]);
 
-    const addFavourite = (imageId) => {
-        favouritesApi.addImageToFavourites(imageId, userId)
-            .then(() => {
-                setFavourites([...favourites, { id: imageId, isFavourite: true }]);
-            })
-            .catch(error => {
-                alert("You can not add your own image to favourites.");
-            });
+    // const addFavourite = (imageId) => {
+    //     favouritesApi.addImageToFavourites(imageId, userId)
+    //         .then(() => {
+    //             setFavourites([...favourites, { id: imageId, isFavourite: true }]);
+    //         })
+    //         .catch(error => {
+    //             alert("You can not add your own image to favourites.");
+    //         });
+    // };
+
+    const addFavourite = (imageId, ownerId) => {
+        if (!userId) {
+            navigate('/signin');
+        } else if (userId === ownerId) {
+            alert("You cannot add your own image to favourites.");
+        } else {
+            favouritesApi.addImageToFavourites(imageId, userId)
+                .then(() => {
+                    setFavourites([...favourites, {id: imageId, isFavourite: true}]);
+                })
+                .catch(error => {
+                    console.error('Error adding image to favourites:', error);
+                });
+        }
     };
 
 
@@ -51,15 +71,15 @@ const useFavourites = (userId) => {
     const handleToggleFavourite = (image) => {
         const isFavourite = favourites.some(fav => fav.id === image.id);
         if (isFavourite) {
-            console.log(" useFavourite__REMOVE image_id: " + image.id+" user_id: " + userId);
+            console.log(" useFavourite__REMOVE image_id: " + image.id + " user_id: " + userId);
             removeFavourite(image.id);
         } else {
-            console.log(" useFavourite__ADD image_id: " + image.id+" user_id: " + userId);
-            addFavourite(image.id);
+            console.log(" useFavourite__ADD image_id: " + image.id + " user_id: " + userId);
+            addFavourite(image.id, loggedUser);
         }
     };
 
-    return { favourites, addFavourite, removeFavourite, handleToggleFavourite, isLoading, error };
+    return {favourites, addFavourite, removeFavourite, handleToggleFavourite, isLoading, error};
 };
 
 export default useFavourites;
