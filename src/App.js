@@ -12,8 +12,6 @@ import ForgotPassword from "./components/user/ForgotPassword";
 
 function App() {
 
-    const userId = 1
-
     return (
         <div className="App">
             <>
@@ -23,7 +21,7 @@ function App() {
                         <Route path="/favourites" element={<Favourites />}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/images" element={<MyImages/>}/>
-                        <Route path="/profile" element={<Profile userId={userId}/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
                         {/*<Route path="/offer" element={<OfferDetails userId={userId}/>}/>*/}
                         <Route path="/offer/:imageId" element={<OfferDetails />} />
                         <Route path="/signin" element={<SignIn/>}/>
