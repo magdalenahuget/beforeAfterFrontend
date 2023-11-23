@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
 import AddImage from "./components/image/AddImage";
-import OfferDetails from "./components/offer/Offer";
+import Offer from "./components/offer/Offer";
 import Favourites from "./components/favourites/Favourites";
 import Home from "./components/home/Home";
 import SignIn from "./components/user/SignIn";
@@ -20,8 +20,7 @@ function App() {
                         <Route path="/favourites" element={<Favourites />}/>
                         <Route path="/add" element={<AddImage/>}/>
                         <Route path="/profile" element={<Profile/>}/>
-                        {/*<Route path="/offer" element={<OfferDetails userId={userId}/>}/>*/}
-                        <Route path="/offer/:imageId" element={<OfferDetails />} />
+                        <Route path="/offer/:imageId" element={<Offer />} />
                         <Route path="/signin" element={<SignIn/>}/>
                         <Route path="/signup" element={<SignUp/>}/>
                         <Route path="/forgot" element={<ForgotPassword/>}/>
