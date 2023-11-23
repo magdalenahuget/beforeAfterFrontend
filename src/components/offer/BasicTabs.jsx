@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
-import AboutMe from '../user/AboutMe';
+import AboutMe from '../profil/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
 const BasicTabs = ({userId, description, isSmallScreen}) => {
