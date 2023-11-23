@@ -7,22 +7,24 @@ const useFavourites = (userId) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        favouritesApi.getFavouritesByUserId(userId)
-            .then(response => {
-                setFavourites(response.data.map(fav => ({
-                    ...fav,
-                    isFavourite: true,
-                    url: `data:image/jpeg;base64,${fav.file}`
-                })));
-            })
-            .catch(error => {
-                console.error('Error fetching favourites:', error);
-                setError(error);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        if (userId){
+            setIsLoading(true);
+            favouritesApi.getFavouritesByUserId(userId)
+                .then(response => {
+                    setFavourites(response.data.map(fav => ({
+                        ...fav,
+                        isFavourite: true,
+                        url: `data:image/jpeg;base64,${fav.file}`
+                    })));
+                })
+                .catch(error => {
+                    console.error('Error fetching favourites:', error);
+                    setError(error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
     }, [userId]);
 
     const addFavourite = (imageId) => {
