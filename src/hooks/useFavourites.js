@@ -34,7 +34,6 @@ const useFavourites = (userId) => {
             })
             .catch(error => {
                 alert("You can not add your own image to favourites.");
-                console.error('Error adding image to favourites:', error);
             });
     };
 
