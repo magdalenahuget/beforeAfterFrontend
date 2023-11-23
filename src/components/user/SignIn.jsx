@@ -16,6 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
 import axios from "axios";
+import BottomNav from "../layout/BottomNav";
 
 export default function SignIn() {
 
@@ -147,6 +148,7 @@ export default function SignIn() {
                     </Box>
                 </Box>
             </Container>
+            <BottomNav/>
         </>
     );
 }

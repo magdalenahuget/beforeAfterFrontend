@@ -17,6 +17,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
+import BottomNav from "../layout/BottomNav";
 
 const SignUp = () => {
 
@@ -186,6 +187,7 @@ const SignUp = () => {
                     </Box>
                 </Box>
             </Container>
+            <BottomNav/>
             <ToastContainer
                 position="top-right"
                 autoClose={2000}

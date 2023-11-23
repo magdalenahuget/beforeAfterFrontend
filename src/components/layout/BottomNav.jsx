@@ -12,7 +12,7 @@ const BottomNav = () => {
     const navigate = useNavigate();
 
     return (
-        <AppBar position="fixed" sx={{top: 'auto', bottom: 0}} >
+        <AppBar position="fixed" sx={{top: 'auto', bottom: 0}}>
             <Toolbar sx={{justifyContent: 'center'}}>
                 <div style={{padding: '0 1.5%'}}>
                     <Fab color="primary" aria-label="home" onClick={() => navigate('/')}>
@@ -20,17 +20,20 @@ const BottomNav = () => {
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="secondary" aria-label="like" onClick={() => navigate('/favourites')}>
+                    <Fab color="secondary" aria-label="like"
+                         onClick={() => navigate(sessionStorage.getItem("jwt") ? '/favourites' : '/signin')}>
                         <FavoriteBorderIcon/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="primary" aria-label="add" onClick={() => navigate('/add')}>
+                    <Fab color="primary" aria-label="add"
+                         onClick={() => navigate(sessionStorage.getItem("jwt") ? '/add' : '/signin')}>
                         <AddIcon/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="primary" aria-label="profile" onClick={() => navigate('/profile')}>
+                    <Fab color="primary" aria-label="profile"
+                         onClick={() => navigate(sessionStorage.getItem("jwt") ? '/profile' : '/signin')}>
                         <PersonOutlineIcon/>
                     </Fab>
                 </div>
