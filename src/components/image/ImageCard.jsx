@@ -5,7 +5,7 @@ import useFavourites from '../../hooks/useFavourites';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import FavoriteIconButton from "../layout/FavoriteIconButton";
 import DeleteIconButton from "../layout/DeleteIconButton";
 
@@ -25,7 +25,7 @@ const ImageCard = ({image, onDeleteImage}) => {
      */
     const goToOffer = (e) => {
         e.stopPropagation();
-        navigate(`/offer/${image.id}`, { state: { userId: image.userId } });
+        navigate(`/offer/${image.id}`, {state: {userId: image.userId}});
     };
 
 
@@ -33,7 +33,7 @@ const ImageCard = ({image, onDeleteImage}) => {
     const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
-        <Card sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
             <CardMedia
                 component="img"
                 image={image.url}
@@ -45,12 +45,13 @@ const ImageCard = ({image, onDeleteImage}) => {
                 }}
                 onClick={goToOffer}
             />
-            <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+            <Box sx={{position: 'absolute', top: 0, right: 0}}>
                 {showFavoriteIcon && (
                     <FavoriteIconButton
                         isFavourite={isFavourite}
                         onToggleFavourite={() => handleToggleFavourite(image)}
                         image={image}
+                        loggedUserId={getUserIdFromToken()}
                     />
                 )}
                 {showDeleteIcon && (

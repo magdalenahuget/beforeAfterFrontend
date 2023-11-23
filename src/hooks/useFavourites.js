@@ -1,19 +1,17 @@
 import {useEffect, useState} from 'react';
 import {favouritesApi} from '../api/favouritesApi';
 import {useNavigate} from "react-router-dom";
-import {getUserIdFromToken} from "../utils/jwtUtils";
 
-const useFavourites = (userId) => {
+const useFavourites = (loggedUserId) => {
     const [favourites, setFavourites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const loggedUser = getUserIdFromToken();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (userId) {
+        if (loggedUserId) {
             setIsLoading(true);
-            favouritesApi.getFavouritesByUserId(userId)
+            favouritesApi.getFavouritesByUserId(loggedUserId)
                 .then(response => {
                     setFavourites(response.data.map(fav => ({
                         ...fav,
@@ -29,15 +27,15 @@ const useFavourites = (userId) => {
                     setIsLoading(false);
                 });
         }
-    }, [userId]);
+    }, [loggedUserId]);
 
     const addFavourite = (imageId) => {
-        favouritesApi.addImageToFavourites(imageId, userId)
+        favouritesApi.addImageToFavourites(imageId, loggedUserId)
             .then(() => {
                 setFavourites([...favourites, {id: imageId, isFavourite: true}]);
             })
             .catch(error => {
-                if (loggedUser === null) {
+                if (loggedUserId === null) {
                     navigate(`/signin`)
                     return
                 }
@@ -47,7 +45,7 @@ const useFavourites = (userId) => {
 
 
     const removeFavourite = (imageId) => {
-        favouritesApi.deleteFavourite(imageId, userId)
+        favouritesApi.deleteFavourite(imageId, loggedUserId)
             .then(() => {
                 setFavourites(favourites.filter(fav => fav.id !== imageId));
             })
@@ -59,10 +57,10 @@ const useFavourites = (userId) => {
     const handleToggleFavourite = (image) => {
         const isFavourite = favourites.some(fav => fav.id === image.id);
         if (isFavourite) {
-            console.log(" useFavourite__REMOVE image_id: " + image.id + " user_id: " + userId);
+            console.log(" useFavourite__REMOVE image_id: " + image.id + " user_id: " + loggedUserId);
             removeFavourite(image.id);
         } else {
-            console.log(" useFavourite__ADD image_id: " + image.id + " user_id: " + userId);
+            console.log(" useFavourite__ADD image_id: " + image.id + " user_id: " + loggedUserId);
             addFavourite(image.id);
         }
     };
