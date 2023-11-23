@@ -33,6 +33,7 @@ const useFavourites = (userId) => {
                 setFavourites([...favourites, { id: imageId, isFavourite: true }]);
             })
             .catch(error => {
+                alert("You can not add your own image to favourites.");
                 console.error('Error adding image to favourites:', error);
             });
     };
