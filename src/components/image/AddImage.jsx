@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import {FormControl, FormLabel} from '@mui/material';
 import Button from '@mui/material/Button';
@@ -13,6 +13,8 @@ import CitySearch from "./CitySearch";
 import CategorySelect from "./CategorySelect";
 import DescriptionInput from "./DescriptionInput";
 import {getUserIdFromToken} from '../../utils/jwtUtils';
+import ModalTip from '../../modaltip/ModalTip';
+import useContactDetails from "../../hooks/useContactDetails";
 
 const AddImage = () => {
         const [selectedCategory, setSelectedCategory] = useState('');
@@ -22,8 +24,44 @@ const AddImage = () => {
         const [selectedAfterFile, setSelectedAfterFile] = useState(null);
         const [beforeImagePreview, setBeforeImagePreview] = useState(null);
         const [afterImagePreview, setAfterImagePreview] = useState(null);
-
+        const [open, setOpen] = useState(false);
         const userId = getUserIdFromToken();
+
+        // FETCH USER CONTACT DETAILS
+        const {contactDetails, isLoading, error} = useContactDetails(userId);
+
+        // EFFECT TO OPEN MODAL IF CONTACT DETAILS HAVE NULL FIELDS
+        useEffect(() => {
+            console.log(contactDetails);
+
+            if (
+                !isLoading &&
+                !error &&
+                (!contactDetails || hasNullFields(contactDetails))
+            ) {
+                setOpen(true);
+            }
+        }, [isLoading, error, contactDetails]);
+
+// CHECK IF CONTACT DETAILS HAVE NULL FIELDS
+        const hasNullFields = (details) => {
+            for (const key in details) {
+                if (details.hasOwnProperty(key) && details[key] === null) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        // HANDLE MODAL
+        const handleOpen = () => {
+            setOpen(true);
+        };
+
+        const handleClose = () => {
+            setOpen(false);
+        };
+
 
         // BEFORE IMAGE
         const onBeforeFileChange = (event) => {
@@ -227,6 +265,9 @@ const AddImage = () => {
                     </FormControl>
                 </Box>
                 <BottomNav/>
+                <div>
+                    <ModalTip open={open} handleOpen={handleOpen} handleClose={handleClose}/>
+                </div>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
