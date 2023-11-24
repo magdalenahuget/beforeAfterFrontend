@@ -13,28 +13,28 @@ const BottomNav = () => {
 
     return (
         <AppBar position="fixed" sx={{top: 'auto', bottom: 0}}>
-            <Toolbar sx={{justifyContent: 'center'}}>
+            <Toolbar sx={{justifyContent: 'center', background:'#3A4750'}}>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="primary" aria-label="home" onClick={() => navigate('/')}>
-                        <HomeOutlinedIcon/>
+                    <Fab sx={{background:"#303841"}} color="primary" aria-label="home" onClick={() => navigate('/')}>
+                        <HomeOutlinedIcon sx={{ color: '#EA9215' }}/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
                     <Fab color="secondary" aria-label="like"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/favourites' : '/signin')}>
-                        <FavoriteBorderIcon/>
+                        <FavoriteBorderIcon sx={{ color: '#EEEEEE' }}/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="primary" aria-label="add"
+                    <Fab sx={{background:"#303841"}} color="primary" aria-label="add"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/add' : '/signin')}>
-                        <AddIcon/>
+                        <AddIcon sx={{ color: '#EA9215' }}/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="primary" aria-label="profile"
+                    <Fab sx={{background:"#303841"}} color="primary" aria-label="profile"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/profile' : '/signin')}>
-                        <PersonOutlineIcon/>
+                        <PersonOutlineIcon sx={{ color: '#EA9215' }}/>
                     </Fab>
                 </div>
             </Toolbar>

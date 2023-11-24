@@ -10,9 +10,16 @@ import Profile from "./components/profil/Profile";
 import ForgotPassword from "./components/user/ForgotPassword";
 
 function App() {
+    const appStyle = {
+        backgroundColor: '#EEEEEE',
+        minHeight: '100vh'
+    };
+
 
     return (
-        <div className="App">
+        <div className="App" style={appStyle}>
+
+
             <>
                 <BrowserRouter>
                     <Routes>
