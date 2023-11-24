@@ -9,6 +9,9 @@ import {getUserIdFromToken} from "../../utils/jwtUtils";
 import useUser from "../../hooks/useUser";
 import Fab from "@mui/material/Fab";
 import Box from "@mui/material/Box";
+import {Avatar} from "@mui/material";
+import logo from "../../images/before-4_preview_rev_1.png"
+import {Image} from "@mui/icons-material";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -33,26 +36,38 @@ const Header = () => {
         navigate('/');
     }
 
+
+    const handleHelloClick = () => {
+        if (isUserLogged) {
+            handleLogout();
+        }
+    };
+
     return (
         <AppBar position="fixed">
-            <Toolbar sx={{ display: 'flex', alignItems: 'center' }}>
-                <CameraIcon sx={{mr: 2}}/>
-                <Typography variant="h6" color="inherit" noWrap>
-                    Before And After
-                </Typography>
-                {isUserLogged && (
-                    <>
-                        <Box sx={{ marginLeft: 'auto', marginRight: 1 }}>
-                            <Typography>
+            {!isUserLogged && (
+                <Toolbar sx={{display: 'flex', alignItems: 'center', height: 20, background: '#3A4750'}}>
+                    <Avatar alt={userName} src={logo} sx={{width: 80, height: 80, marginRight: 1}}/>
+                    <Typography sx={{color: "#EA9215", fontFamily: 'Poppins, sans-serif', fontWeight: '200'}}
+                                variant="h6" noWrap>
+                        Before & After
+                    </Typography>
+                </Toolbar>
+            )}
+            {isUserLogged && (
+                <Toolbar sx={{display: 'flex', alignItems: 'center', height: 20, background: '#3A4750'}}>
+                    <Avatar alt={userName} src={logo} sx={{width: 80, height: 80, marginRight: 1}}/>
+                    <div onClick={handleHelloClick} style={{cursor: 'pointer'}}>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            <Typography sx={{color: "#EA9215", fontFamily: 'Poppins, sans-serif', fontWeight: '200'}}
+                                        variant="h6">
                                 Hello, {userName}
                             </Typography>
-                        </Box>
-                        <Fab color="primary" aria-label="home" onClick={handleLogout}>
-                            <LogoutIcon onClick={handleLogout}/>
-                        </Fab>
-                    </>
-                )}
-            </Toolbar>
+                            <LogoutIcon sx={{marginLeft: 10, color: "#EA9215"}} onClick={handleLogout}/>
+                        </div>
+                    </div>
+                </Toolbar>
+            )}
         </AppBar>
     );
 };
