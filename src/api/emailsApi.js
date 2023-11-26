@@ -11,11 +11,11 @@ const sendPasswordResetEmail = (passwordResetData) => {
     return axios.post(`${API_EMAILS}/reset-password`, passwordResetData);
 };
 
-const sendContactFormEmail = (contactFormData) => {
+const sendContactEmail = (contactFormData) => {
     return axios.post(`${API_EMAILS}/contact`, contactFormData);
 };
 export const emailsDataApi = {
     sendRegistrationEmail,
     sendPasswordResetEmail,
-    sendContactEmail: sendContactFormEmail,
+    sendContactEmail,
 };

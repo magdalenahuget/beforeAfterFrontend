@@ -1,11 +1,11 @@
-import {useState} from 'react';
-import {emailsDataApi as emailsApi} from "../api/emailsApi";
+import { useState } from 'react';
+import { emailsDataApi as emailsApi } from "../api/emailsApi";
 
-const useSendEmail = (apiMethod) => {
+export const useSendEmail = (apiMethod) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const sendEmail = async (emailData) => {
+    const send = async (emailData) => {
         setIsLoading(true);
         setError(null);
         try {
@@ -14,22 +14,22 @@ const useSendEmail = (apiMethod) => {
         } catch (error) {
             console.error('Error sending email:', error);
             setError(error);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
-    return {sendEmail, isLoading, error};
+    return { send, isLoading, error };
 };
 
-// Specific hooks that use the generic one with the appropriate API call
-export const sendRegistrationEmail = () => {
+export const useSendRegistrationEmail = () => {
     return useSendEmail(emailsApi.sendRegistrationEmail);
 };
 
-export const sendPasswordResetEmail = () => {
+export const useSendPasswordResetEmail = () => {
     return useSendEmail(emailsApi.sendPasswordResetEmail);
 };
 
-export const sendContactEmail = () => {
+export const useSendContactEmail = () => {
     return useSendEmail(emailsApi.sendContactEmail);
 };
