@@ -10,11 +10,11 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {userDataApi} from "../../api/userApi";
 
 const Offer = () => {
-    const { imageId } = useParams();
+    const {imageId} = useParams();
     const location = useLocation();
-    const userId = location.state?.userId;
+    const offerUserId = location.state?.userId;
     const theme = useTheme();
-    const {userImages} = useImageData(userId);
+    const {userImages} = useImageData(offerUserId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
@@ -31,11 +31,11 @@ const Offer = () => {
 
 
     useEffect(() => {
-        userDataApi.getUserById(userId)
+        userDataApi.getUserById(offerUserId)
             .then(response => {
                 setUser(response.data);
             });
-    }, [userId]);
+    }, [offerUserId]);
 
 
     useEffect(() => {
@@ -134,7 +134,7 @@ const Offer = () => {
                     </Grid>
                     <Grid item xs={12} md={5} lg={4}>
                         <BasicTabs
-                            userId={userId}
+                            offerUserId={offerUserId}
                             imageId={currentImage.imageId}
                             description={currentImage.description}
                             isSmallScreen={isSmallScreen}

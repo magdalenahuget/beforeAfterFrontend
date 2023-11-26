@@ -1,39 +1,55 @@
-import React, { useState, useRef } from "react";
-import { TextField, Button, Typography, Box } from "@mui/material";
+import React, {useState, useRef} from "react";
+import {TextField, Button, Typography, Box} from "@mui/material";
 import ReCAPTCHA from 'react-google-recaptcha';
+import {emailsDataApi} from '../../api/emailsApi';
 
-export default function ContactForm({ onCancel }) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
+export default function ContactForm({offerUserId, onCancel}) {
+    const [senderName, setSenderName] = useState('');
+    const [senderEmail, setSenderEmail] = useState('');
+    const [emailContent, setEmailContent] = useState('');
     const [recaptchaToken, setRecaptchaToken] = useState("");
     const recaptchaRef = useRef(null);
     const recaptchaSiteKey = `${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
 
-
     const resetForm = () => {
-        setName("");
-        setEmail("");
-        setMessage("");
+        setSenderName("");
+        setSenderEmail("");
+        setEmailContent("");
         setRecaptchaToken("");
         if (recaptchaRef.current) {
             recaptchaRef.current.reset();
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (!recaptchaToken) {
             console.log('Please verify that you are not a robot.');
             return;
         }
-        console.log('Message sent:', { name, email, message });
-        /*
 
-        LOGIKA WYSYŁANIA FORMULARZA
+        const contactFormData = {
+            offerUserId,
+            senderName,
+            senderEmail,
+            emailContent
+        };
 
-         */
-        resetForm();
+        try {
+            await emailsDataApi.sendContactEmail(contactFormData, {
+                timeout: 30000
+            });
+            resetForm();
+            setTimeout(() => {
+                alert('Email sent successfully!');
+            }, 0);
+        } catch (error) {
+            console.error('Error sending email:', error);
+            console.log(error.response);
+            console.log(error.request);
+            console.log(error.message);
+        }
     };
 
     const onRecaptchaChange = (token) => {
@@ -53,7 +69,7 @@ export default function ContactForm({ onCancel }) {
                 mt: -10
             }}
         >
-            <Box sx={{ maxWidth: 600, mx: "auto", p: 2 }}>
+            <Box sx={{maxWidth: 600, mx: "auto", p: 2}}>
                 <Typography variant="h5" align="center" mb={2}>
                     Contact Us
                 </Typography>
@@ -61,16 +77,16 @@ export default function ContactForm({ onCancel }) {
                     <TextField
                         fullWidth
                         label="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={senderName}
+                        onChange={(e) => setSenderName(e.target.value)}
                         margin="normal"
                         required
                     />
                     <TextField
                         fullWidth
                         label="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={senderEmail}
+                        onChange={(e) => setSenderEmail(e.target.value)}
                         margin="normal"
                         required
                         type="email"
@@ -78,15 +94,15 @@ export default function ContactForm({ onCancel }) {
                     <TextField
                         fullWidth
                         label="Message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                        value={emailContent}
+                        onChange={(e) => setEmailContent(e.target.value)}
                         margin="normal"
                         required
                         multiline
                         rows={4}
                     />
                     {recaptchaToken ? (
-                        <Button variant="contained" type="submit" sx={{ mt: 2 }}>
+                        <Button variant="contained" type="submit" sx={{mt: 2}}>
                             SEND
                         </Button>
                     ) : (
@@ -94,10 +110,10 @@ export default function ContactForm({ onCancel }) {
                             ref={recaptchaRef}
                             sitekey={recaptchaSiteKey}
                             onChange={onRecaptchaChange}
-                            sx={{ my: 2 }}
+                            sx={{my: 2}}
                         />
                     )}
-                    <Button variant="outlined" onClick={onCancel} sx={{ mt: 2 }}>
+                    <Button variant="outlined" onClick={onCancel} sx={{mt: 2}}>
                         CANCEL
                     </Button>
                 </form>
@@ -105,4 +121,3 @@ export default function ContactForm({ onCancel }) {
         </Box>
     );
 }
-

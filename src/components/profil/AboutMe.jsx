@@ -3,8 +3,8 @@ import UseAboutMe from '../../hooks/useAboutMe';
 import {Typography, CircularProgress} from '@mui/material';
 import Scrollable from "../layout/Scrollbar";
 
-const AboutMeComponent = ({userId}) => {
-    const {aboutMeInfo, isLoading, error} = UseAboutMe(userId);
+const AboutMeComponent = ({offerUserId}) => {
+    const {aboutMeInfo, isLoading, error} = UseAboutMe(offerUserId);
 
     if (isLoading) {
         return (

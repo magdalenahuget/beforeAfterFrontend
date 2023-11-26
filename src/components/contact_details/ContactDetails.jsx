@@ -15,12 +15,11 @@ import {getUserIdFromToken} from '../../utils/jwtUtils';
 
 
 const isValueNotEmpty = (value) => value && value.trim() !== '';
-
-const ContactDetails = ({userId, isOwnProfile}) => {
-    const effectiveUserId = isOwnProfile ? getUserIdFromToken() : userId;
-    const { contactDetails, isLoading, error } = useContactDetails(effectiveUserId);
+const ContactDetails = ({offerUserId, isOwnProfile}) => {
+    const effectiveUserId = isOwnProfile ? getUserIdFromToken() : offerUserId;
+    const {contactDetails, isLoading, error} = useContactDetails(effectiveUserId);
     const [showContactForm, setShowContactForm] = useState(false);
-    const [isPhoneBlurred, setIsPhoneBlurred] = useState(true); // Dodano stan dla rozmazywania numeru telefonu
+    const [isPhoneBlurred, setIsPhoneBlurred] = useState(true);
 
     /*
         UWAGA Gdy ContacDetails jest wykorzystywany w /Profile należy przekazać <ContactDetails isOwnProfile={true} />
@@ -43,7 +42,7 @@ const ContactDetails = ({userId, isOwnProfile}) => {
     }
 
     if (showContactForm) {
-        return <ContactForm onCancel={() => setShowContactForm(false)}/>;
+        return <ContactForm offerUserId={offerUserId} onCancel={() => setShowContactForm(false)}/>;
     }
 
     const handlePhoneClick = () => {
@@ -63,7 +62,7 @@ const ContactDetails = ({userId, isOwnProfile}) => {
                 </ContactItem>
             )}
             {isValueNotEmpty(contactDetails.phoneNumber) && (
-                <ContactItem icon={<PhoneIcon />}>
+                <ContactItem icon={<PhoneIcon/>}>
                     <Link
                         href={`tel:${contactDetails.phoneNumber}`}
                         underline="none"
