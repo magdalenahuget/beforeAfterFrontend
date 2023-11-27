@@ -142,7 +142,7 @@ export default function ContactForm({offerUserId, onCancel}) {
     const [senderEmail, setSenderEmail] = useState('');
     const [emailContent, setEmailContent] = useState('');
     const [isFormFilled, setIsFormFilled] = useState(false);
-    const [recaptchaToken, setRecaptchaToken] = useState("");
+    const [recaptchaToken, setRecaptchaToken] = useState("");   //zamienic
     const recaptchaRef = useRef(null);
     const recaptchaSiteKey = `${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
     const {send, isLoading, error} = useSendContactEmail();
@@ -177,11 +177,18 @@ export default function ContactForm({offerUserId, onCancel}) {
             emailContent
         };
 
-        await send(contactFormData);
-        resetForm();
+        try {
+            await send(contactFormData);
+            alert('Email sent successfully!');
+            resetForm();
+        } catch (sendError) {
+            console.error('Error sending email:', sendError);
+            alert(`Error sending email: ${sendError.message}`);
+        }
     };
 
     const onRecaptchaChange = (token) => {
+        console.log(recaptchaSiteKey)
         setRecaptchaToken(token);
     };
 
