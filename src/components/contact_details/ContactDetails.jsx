@@ -50,7 +50,7 @@ const ContactDetails = ({offerUserId, isOwnProfile}) => {
     };
 
     return (
-        <List sx={{width: '100%', bgcolor: 'background.paper'}} aria-label="contact details">
+        <List sx={{ml: -10, width: '200%', bgcolor: 'background.paper'}} aria-label="contact details">
             {isValueNotEmpty(contactDetails.streetName) && (
                 <ContactItem icon={<HomeIcon/>}>
                     {`${contactDetails.streetName} ${contactDetails.streetNumber}, ${contactDetails.apartNumber}`}

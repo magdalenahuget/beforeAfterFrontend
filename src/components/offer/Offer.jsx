@@ -20,7 +20,7 @@ const Offer = () => {
         url: '',
         cityName: '',
         imageId: '',
-        description: ''
+        description: '',
     });
     const [user, setUser] = useState({});
     const navigate = useNavigate();
@@ -37,7 +37,6 @@ const Offer = () => {
             });
     }, [offerUserId]);
 
-
     useEffect(() => {
         if (userImages.length > 0) {
             const index = userImages.findIndex(img => img.id.toString() === imageId);
@@ -48,8 +47,10 @@ const Offer = () => {
                     url: newCurrentImage.file,
                     cityName: newCurrentImage.cityName,
                     imageId: newCurrentImage.id,
-                    description: newCurrentImage.description
+                    description: newCurrentImage.description,
                 });
+
+                console.log(currentImage)
             } else {
                 console.error("Image with id not found:", imageId);
             }
@@ -72,7 +73,7 @@ const Offer = () => {
             url: userImages[newImageIndex].file,
             cityName: userImages[newImageIndex].cityName,
             imageId: userImages[newImageIndex].id,
-            description: userImages[newImageIndex].description
+            description: userImages[newImageIndex].description,
         });
     };
 
@@ -81,9 +82,10 @@ const Offer = () => {
         <>
             <Header/>
             <Box sx={{flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9)}}>
-                <Grid container spacing={2} sx={{px: '2vw'}}>
+                <Grid container spacing={2} sx={{px: '2vw'}}
+                >
                     <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
-                        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 4, mb: 0}}>
+                        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 1, mb: -0.5}}>
                             <Avatar
                                 alt={`${user.userName} Logo`}
                                 src="https://source.unsplash.com/random?company"
@@ -142,7 +144,7 @@ const Offer = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <BottomNav sx={{mt: 1}}/>
+            <BottomNav sx={{ mt: 1 }}/>
         </>
     );
 };

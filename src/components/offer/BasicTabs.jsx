@@ -20,7 +20,7 @@ const BasicTabs = ({offerUserId, description, isSmallScreen}) => {
     return (
         <Box sx={{
             width: '100%',
-            mt: theme => (isSmallScreen ? theme.spacing(-5) : theme.spacing(11)),
+            mt: theme => (isSmallScreen ? theme.spacing(-5) : theme.spacing(5)),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
