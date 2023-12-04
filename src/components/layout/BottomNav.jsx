@@ -13,28 +13,56 @@ const BottomNav = () => {
 
     return (
         <AppBar position="fixed" sx={{top: 'auto', bottom: 0}}>
-            <Toolbar sx={{justifyContent: 'center', background:'#3A4750'}}>
+            <Toolbar sx={{justifyContent: 'center', background: '#3A4750'}}>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab sx={{background:"#303841"}} color="primary" aria-label="home" onClick={() => navigate('/')}>
-                        <HomeOutlinedIcon sx={{ color: '#EA9215' }}/>
+                    <Fab sx={{
+                        background: "#303841",
+                        color: "#EA9215", // Orange color for not active state
+                        '&:hover': {
+                            background: "#EA9215",
+                            color: "#303841", // Orange color for hover
+                        },
+                    }} color="primary" aria-label="home" onClick={() => navigate('/')}>
+                        <HomeOutlinedIcon />
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab color="secondary" aria-label="like"
+                    <Fab  sx={{
+                        background: "#EA9215", // Kolor tła Fab (pomarańczowy)
+                        color: "#303841",      // Kolor ikony (szary)
+                        '&:hover': {
+                            background: "#303841", // Kolor tła Fab na hover (szary)
+                            color: "#EA9215",      // Kolor ikony na hover (pomarańczowy)
+                        },
+                    }} aria-label="like"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/favourites' : '/signin')}>
-                        <FavoriteBorderIcon sx={{ color: '#EEEEEE' }}/>
+                        <FavoriteBorderIcon sx={{color: '#EEEEEE'}}/>
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab sx={{background:"#303841"}} color="primary" aria-label="add"
+                    <Fab sx={{
+                        background: "#303841",
+                        color: "#EA9215",
+                        '&:hover': {
+                            background: "#EA9215",
+                            color: "#303841",
+                        },
+                    }} color="primary" aria-label="add"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/add' : '/signin')}>
-                        <AddIcon sx={{ color: '#EA9215' }}/>
+                        <AddIcon />
                     </Fab>
                 </div>
                 <div style={{padding: '0 1.5%'}}>
-                    <Fab sx={{background:"#303841"}} color="primary" aria-label="profile"
+                    <Fab sx={{
+                        background: "#303841",
+                        color: "#EA9215",
+                        '&:hover': {
+                            background: "#EA9215",
+                            color: "#303841",
+                        },
+                    }} color="primary" aria-label="profile"
                          onClick={() => navigate(sessionStorage.getItem("jwt") ? '/profile' : '/signin')}>
-                        <PersonOutlineIcon sx={{ color: '#EA9215' }}/>
+                        <PersonOutlineIcon />
                     </Fab>
                 </div>
             </Toolbar>
