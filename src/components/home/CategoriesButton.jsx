@@ -18,8 +18,7 @@ const CategoriesButton = ({ categories, onSelect, selectedCategories }) => {
                             key={category.id}
                             variant={selectedCategories.includes(category) ? "contained" : "outlined"}
                             onClick={() => onSelect(category)}
-                            sx={{fontFamily: 'Poppins, sans-serif', fontWeight:'500',
-
+                            sx={{fontFamily: 'Poppins, sans-serif', fontWeight:'300',
                                 backgroundColor: selectedCategories.includes(category) ? '#EA9215' : 'inherit',
                                 '&:hover': {
                                     backgroundColor: selectedCategories.includes(category) ? '#EA9215' : 'rgba(0, 0, 0, 0.05)',

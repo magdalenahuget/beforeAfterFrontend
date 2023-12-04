@@ -13,6 +13,7 @@ const ImagesList = ({ images, titleText,onDeleteImage  }) => {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Container sx={{ py: 8, marginLeft: 0, marginRight: 0}} maxWidth="x1">
+                {/*<TitleTypography titleText={titleText}/>*/}
                 <Grid container spacing={4}>
                     {images.map((image) => (
                         <Grid item key={image.id} xs={12} sm={6} md={4}>
