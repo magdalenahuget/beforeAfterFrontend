@@ -58,7 +58,9 @@ const Header = () => {
                             Hello, {userName}
                         </Typography>
                     )}
-                    <LogoutIcon sx={{ marginLeft: 10, color: '#EA9215', cursor: 'pointer' }} onClick={handleLogout} />
+                    {isUserLogged && (
+                        <LogoutIcon sx={{ marginLeft: 10, color: '#EA9215', cursor: 'pointer' }} onClick={handleLogout} />
+                    )}
                 </div>
             </Toolbar>
         </AppBar>

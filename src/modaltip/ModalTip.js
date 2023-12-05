@@ -2,22 +2,17 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import MuiModal from '@mui/material/Modal';
-import {useNavigate} from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import { useNavigate } from "react-router-dom";
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    textAlign: 'center', // Dodaj styl do wyśrodkowania
 };
 
-const CustomModalTip = ({ open, handleOpen, handleClose }) => {
+const ModalTip = ({ open, handleOpen, handleClose }) => {
 
     const navigate = useNavigate();
 
@@ -28,24 +23,29 @@ const CustomModalTip = ({ open, handleOpen, handleClose }) => {
     return (
         <div>
             <Button onClick={handleOpen}>Open modal</Button>
-            <MuiModal
+            <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                maxWidth="sm"
+                fullWidth
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <DialogTitle>
                         To add a new service, you must first complete your contact details.
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Click the Continue button to be redirected to the contact details form.
-                    </Typography>
-                    <Button onClick={handleContinue}>Continue</Button>
+                    </DialogTitle>
+                    <DialogContent>
+                        <Typography variant="body1">
+                            Click the Continue button to be redirected to the contact details form.
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleContinue}>Continue</Button>
+                    </DialogActions>
                 </Box>
-            </MuiModal>
+            </Dialog>
         </div>
     );
 }
 
-export default CustomModalTip;
+export default ModalTip;

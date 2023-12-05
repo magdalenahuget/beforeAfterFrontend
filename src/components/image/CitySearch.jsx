@@ -33,14 +33,14 @@ const CitySearch = ({selectedCity, setSelectedCity}) => {
     }, [selectedCity]);
 
     return (
-        <Box sx={{marginBottom: 2, width: '100%'}}>
+        <Box sx={{marginBottom: 3}}>
             <Autocomplete
                 value={selectedCity}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 disablePortal
                 id="combo-box"
                 options={cities}
-                sx={{width: 300}}
+                sx={{width: '100%'}}
                 renderInput={(params) => (
                     <TextField
                         {...params}
