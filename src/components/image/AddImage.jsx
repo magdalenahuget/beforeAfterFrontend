@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
-import {FormControl, FormLabel} from '@mui/material';
+import {FormControl, FormLabel, Paper} from '@mui/material';
 import Button from '@mui/material/Button';
 import Header from "../layout/Header";
 import BottomNav from "../layout/BottomNav";
@@ -43,10 +43,11 @@ const AddImage = () => {
             }
         }, [isLoading, error, contactDetails]);
 
-// CHECK IF CONTACT DETAILS HAVE NULL FIELDS
+        // CHECK IF CONTACT DETAILS HAVE NULL FIELDS
         const hasNullFields = (details) => {
             for (const key in details) {
                 if (details.hasOwnProperty(key) && details[key] === null) {
+                    console.log("Any field in contact details is empty.")
                     return true;
                 }
             }
@@ -215,19 +216,25 @@ const AddImage = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         minHeight: '100vh',
+                        background: '#EEEEEE',
                     }}
                 >
-                    <FormControl
-                        sx={{
-                            marginTop: 10,
-                            marginBottom: 10,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <FormLabel variant="h4" component="div">
-                            Add image
+                    {/*<FormControl*/}
+                    {/*    sx={{*/}
+                    {/*        marginTop: 10,*/}
+                    {/*        marginBottom: 10,*/}
+                    {/*        display: 'flex',*/}
+                    {/*        flexDirection: 'column',*/}
+                    {/*        alignItems: 'center',*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    <Paper elevation={3} style={{padding: 20}}
+                           sx={{background: '#EEEEEE'}}>
+                        <FormLabel variant="h5" component="div" sx={{
+                            fontSize: '1.5rem',
+                            marginBottom: '8px',
+                        }}>
+                            Add Image Form
                         </FormLabel>
                         <CategorySelect
                             selectedCategory={selectedCategory}
@@ -242,27 +249,53 @@ const AddImage = () => {
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button name={"before-file"} onChange={onBeforeFileChange} component="label"
                                     variant="contained"
-                                    startIcon={<Upload/>} sx={{width: '100%'}}>
-                                Upload before image
-                                <SetButtonType type="file"/>
-                            </Button>
-                            {beforeImagePreview &&
-                                <img src={beforeImagePreview} alt="Before"
-                                     style={{marginTop: '10px', maxWidth: '20%'}}/>}
+                                    startIcon={<Upload/>}
+                                    sx={{
+                                        width: '100%',
+                                        background: '#303841',
+                                        color: "#EA9215",
+                                        '&:hover': {
+                                            background: "#EA9215",
+                                            color: "#303841"
+                                        },
+                                        }}> Upload before image
+                                        <SetButtonType type="file"/>
+                                        </Button>
+                                    {beforeImagePreview &&
+                                        <img src={beforeImagePreview} alt="Before"
+                                    style={{marginTop: '10px', maxWidth: '20%'}}/>}
                         </Box>
                         <Box sx={{marginBottom: 2, width: '100%'}}>
                             <Button onChange={onAfterFileChange} component="label" variant="contained"
-                                    startIcon={<Upload/>} sx={{width: '100%'}}>
+                                    startIcon={<Upload/>}  sx={{
+                                width: '100%',
+                                background: '#303841',
+                                color: "#EA9215",
+                                '&:hover': {
+                                    background: "#EA9215",
+                                    color: "#303841"
+                                },
+                            }}>
                                 Upload after image
                                 <SetButtonType type="file"/>
                             </Button>
                             {afterImagePreview &&
                                 <img src={afterImagePreview} alt="After" style={{marginTop: '10px', maxWidth: '20%'}}/>}
                         </Box>
-                        <Box sx={{marginTop: 6, marginBottom: 4, width: '100%'}}>
-                            <Button onClick={handleSubmit} variant="contained" fullWidth>Save</Button>
+                        <Box sx={{marginTop: 6, marginBottom: 0, width: '100%'}}>
+                            <Button onClick={handleSubmit} variant="contained" fullWidth
+                                    sx={{
+                                        width: '100%',
+                                        background: '#303841',
+                                        color: "#EA9215",
+                                        '&:hover': {
+                                            background: "#EA9215",
+                                            color: "#303841"
+                                        },
+                                    }}
+                                    >Save</Button>
                         </Box>
-                    </FormControl>
+                    </Paper>
                 </Box>
                 <BottomNav/>
                 <div>
