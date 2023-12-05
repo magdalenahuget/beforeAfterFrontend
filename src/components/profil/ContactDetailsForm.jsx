@@ -4,14 +4,15 @@ import {Button, Container, Grid, Paper, TextField, Typography} from "@mui/materi
 const ContactDetailsForm = ({
                                 formData,
                                 isPostcodeValid,
-                                    handleFormInputChange,
+                                handleFormInputChange,
                                 handleSubmitForm,
                                 contactDetails
                             }) => {
 
     return (
         <Container>
-            <Paper elevation={3} style={{padding: 20, marginTop: 20}}>
+            <Paper elevation={3} style={{padding: 20, marginTop: 20}}
+            sx={{background:'#EEEEEE'}}>
                 <Typography variant="h5" align="center" gutterBottom>
                     Contact Details Form
                 </Typography>
@@ -73,7 +74,7 @@ const ContactDetailsForm = ({
                                     value={contactDetails.phoneNumber || formData.phoneNumber}
                                     onChange={handleFormInputChange}
 
-                                    helperText= "Enter the country code."
+                                    helperText="Enter the country code."
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -86,16 +87,25 @@ const ContactDetailsForm = ({
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary">
-                                    Save
-                                </Button>
-                            </Grid>
+                                <Button type="submit" variant="contained" color="primary"
+                                        sx={{
+                                            background: '#303841',
+                                            color: "#EA9215",
+                                            '&:hover': {
+                                                background: "#EA9215",
+                                                color: "#303841"
+                                            },
+                                        }}>SAVE
+
+                            </Button>
                         </Grid>
-                    </form>
-                </div>
-            </Paper>
-        </Container>
-    );
+                    </Grid>
+                </form>
+            </div>
+        </Paper>
+</Container>
+)
+    ;
 };
 
 export default ContactDetailsForm;
