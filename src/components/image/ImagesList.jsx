@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grid } from '@mui/material';
 import TitleTypography from "../layout/TitleTypography";
 import ImageCard from "./ImageCard";
+import Typography from "@mui/material/Typography";
 
 const ImagesList = ({ images, titleText,onDeleteImage  }) => {
     const theme = createTheme();
@@ -17,6 +18,14 @@ const ImagesList = ({ images, titleText,onDeleteImage  }) => {
                 <Grid container spacing={4}>
                     {images.map((image) => (
                         <Grid item key={image.id} xs={12} sm={6} md={4}>
+                            <Typography sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                textAlign: 'right', // To align the text from right to left
+                                fontFamily: 'Poppins, sans-serif',
+                                fontWeight: 300, // Thin
+                            }}>{image.description}</Typography>
                             <ImageCard image={image} onDeleteImage={onDeleteImage} />
                         </Grid>
                     ))}
