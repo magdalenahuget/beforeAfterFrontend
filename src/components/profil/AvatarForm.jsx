@@ -6,14 +6,15 @@ import Grid from '@mui/material/Grid';
 import {styled} from "@mui/material/styles";
 import TextField from '@mui/material/TextField';
 
-const AvatarForm = ({
-                        user,
-                        updateUser,
-                        handleSubmitUserForm,
-                        handleUserChange,
-                        handleAvatarChange,
-                        handleSubmitAvatar
-                    }) => {
+
+const AvatarForm =  ({
+                              user,
+                              updateUser,
+                              handleSubmitUserForm,
+                              handleUserChange,
+                              handleAvatarChange,
+                              handleSubmitAvatar
+                          }) => {
     const [hasChanges, setHasChanges] = useState(false);
     const [hasChangesAvatar, setHasChangesAvatar] = useState(false);
 
@@ -37,6 +38,7 @@ const AvatarForm = ({
 
     const handleAvatarSubmit = (event) => {
         handleSubmitAvatar(event);
+        window.location.reload(true);
         setHasChangesAvatar(false)
     }
 
@@ -58,18 +60,20 @@ const AvatarForm = ({
         width: 1,
     });
 
-    const renderUserAvatar = () => {
-        if (user.avatar) {
-            return `data:image/jpeg;base64,${user.avatar}`;
-        } else {
-            return "https://source.unsplash.com/random?company";
-        }
+    const renderUserAvatar =  () => {
+
+            if (user.avatar) {
+                return `data:image/jpeg;base64,${user.avatar}`;
+            } else {
+                return "https://source.unsplash.com/random?company";
+            }
     };
 
 
     return (
         <div>
-            <form>
+
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
                 <Grid item>
                     <Box sx={{
                         position: 'relative',
@@ -95,7 +99,7 @@ const AvatarForm = ({
                                     padding: 0,
                                     minWidth: 'auto',
                                     borderRadius: '50%',
-                                    backgroundColor: 'black',
+                                    backgroundColor: '#303841',
                                     color: 'white',
                                     width: '40px',
                                     height: '40px',
@@ -104,7 +108,7 @@ const AvatarForm = ({
                                     marginLeft: '-30px',
                                     marginTop: '55px',
                                     '&:hover': {
-                                        backgroundColor: 'red',
+                                        backgroundColor: '#EA9215',
                                     }
                                 }}>
                             <VisuallyHiddenInput
@@ -115,79 +119,89 @@ const AvatarForm = ({
                         </Button>
                     </Box>
                 </Grid>
-            </form>
-
-            <form onSubmit={handleFormSubmitName}>
-                <Grid container spacing={2}>
-
-                    <Grid item>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'flex-start',
-                                position: 'relative'
-                            }}>
-                            <TextField
-                                variant="outlined"
-                                multiline
-                                rows='3'
-                                fullWidth
-                                label="My Name"
-                                name="your name"
-                                value={updateUser.userName}
-                                onChange={handleInputChangeName}
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
-                {hasChanges && (
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        marginTop: '10px', // Adjusted marginTop
-                    }}>
-                        <Button
-                            type="button"
+                <Grid item>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            position: 'relative'
+                        }}>
+                        <TextField
                             variant="outlined"
-                            onClick={handleCancelName}
-                            sx={{
-                                marginRight: '15px', // Add margin between buttons
-                                backgroundColor: 'red', // Set background color to black
-                                color: 'white', // Set color to black
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            type="submit"
-                            onClick={handleFormSubmitName}
-                            disabled={!hasChanges}
-                            variant="contained"
-                            sx={{
-                                backgroundColor: 'black', // Set background color to black
-                                color: 'white', // Set text color to white
-                            }}
-                        >
-                            Save
-                        </Button>
+                            // multiline
+                            rows='3'
+                            fullWidth
+                            label="My Name"
+                            name="your name"
+                            value={updateUser.userName}
+                            onChange={handleInputChangeName}
+                        />
                     </Box>
-                )}
-            </form>
-            <Button
-                type="button"
-                onClick={handleAvatarSubmit}
-                sx={{
-                    backgroundColor: 'black',
-                    color: 'white',
-                }}
-            >
-                Save Avatar
-            </Button>
+                </Grid>
+            </Box>
+            {hasChangesAvatar && (
+                <Grid item xs={12}>
+                    <Button
+                        type="submit" variant="contained" color="primary"
+                        onClick={handleAvatarSubmit}
+                        sx={{
+                            background: '#303841',
+                            color: "#EA9215",
+                            '&:hover': {
+                                background: "#EA9215",
+                                color: "#303841"
+                            },
+                        }}
+                    >
+                        Save Avatar
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outlined"
+                        onClick={handleCancelName}
+                        sx={{
+                            marginRight: '15px',
+                            backgroundColor: 'red',
+                            color: '#303841',
+                        }}
+                    >
+                        Cancel
+                    </Button>
+                </Grid>
+            )}
+            {hasChanges && (
+                <Grid item xs={12}>
+                    <Button
+                        type="submit" variant="contained" color="primary"
+                        onClick={handleFormSubmitName}
+                        sx={{
+                            background: '#303841',
+                            color: "#EA9215",
+                            '&:hover': {
+                                background: "#EA9215",
+                                color: "#303841"
+                            },
+                        }}
+                    >
+                        Save Name
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outlined"
+                        onClick={handleCancelName}
+                        sx={{
+                            marginRight: '15px',
+                            backgroundColor: 'red',
+                            color: '#303841',
+                        }}
+                    >
+                        Cancel
+                    </Button>
+                </Grid>
+            )}
         </div>
     );
 }
-
 
 export default AvatarForm;
