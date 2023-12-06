@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button, Container, Grid, Paper, TextField, Typography} from "@mui/material";
 
 const ContactDetailsForm = ({
@@ -80,6 +80,15 @@ const ContactDetailsForm = ({
                             <Grid item xs={6}>
                                 <TextField
                                     fullWidth
+                                    label="Email"
+                                    name="email"
+                                    value={contactDetails.email || formData.email}
+                                    onChange={handleFormInputChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
                                     label="Webpage"
                                     name="webpage"
                                     value={contactDetails.webpage || formData.webpage}
@@ -96,7 +105,6 @@ const ContactDetailsForm = ({
                                                 color: "#303841"
                                             },
                                         }}>SAVE
-
                             </Button>
                         </Grid>
                     </Grid>

@@ -15,6 +15,8 @@ import {getUserIdFromToken} from '../../utils/jwtUtils';
 import {imagesApi} from "../../api/imagesApi";
 import ImagesList from "../image/ImagesList";
 import useImageData from "../../hooks/useImageData";
+import {Grid} from "@mui/material";
+import AboutMeFormII from "./AboutMeForm";
 
 const Profile = () => {
 
@@ -64,8 +66,6 @@ const Profile = () => {
 
 
         const handleTabChange = (event, newValue) => {
-
-
             setValue(newValue);
             if (newValue === 1) {
                 console.log(aboutMe)
@@ -95,17 +95,19 @@ const Profile = () => {
             }));
         };
 
-        const handleAboutMeChange = (event) => {
+        const handleFormAboutMeChange = (event) => {
 
             const {value} = event.target;
+            console.log(value)
             setUpdateAboutMe((prevUpdateAboutMe) => ({
                 ...prevUpdateAboutMe,
                 aboutMe: value,
+
             }));
 
             setAboutMe((prevAboutMe) => ({
                 ...prevAboutMe,
-                aboutMe: updateAboutMe.aboutMe || aboutMe.aboutMe,
+                aboutMe: value,
             }));
         };
 
@@ -127,16 +129,6 @@ const Profile = () => {
         const handleAvatarChange = (event) => {
             const file = event.target.files[0];
             setNewAvatar(file);
-
-            // if (file) {
-            //     const img = new Image();
-            //     img.onload = () => {
-            //         setNewAvatar(img);
-            //     };
-            //     img.src = URL.createObjectURL(file);
-            //
-            //     console.log(newAvatar);
-            // }
         };
 
         const handleSubmitAvatar = (event) => {
@@ -167,9 +159,8 @@ const Profile = () => {
             event.preventDefault();
 
         };
-        const handleSubmitAboutMe = (event) => {
-
-            userDataApi.updateAboutMeByUserId(userId, aboutMe)
+        const handleSubmitAboutMeForm = (event) => {
+            userDataApi.updateAboutMeByUserId(userId,aboutMe)
                 .then((response) => {
                     if (response.status === 200) {
                         showSuccessToastMessage()
@@ -192,7 +183,6 @@ const Profile = () => {
         };
 
         const isPostcodeValid = () => {
-
             const postcodePattern = /^\d{2}-\d{3}$/;
             return postcodePattern.test(formData.postcode);
         };
@@ -203,72 +193,73 @@ const Profile = () => {
             });
         };
 
-
         return (
             <>
-                <Header/>
-                <Box sx={{
-                    width: '100%',
-                    paddingTop: '5em',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}>
-                    <ProfileTabs value={value} handleTabChange={handleTabChange}/>
-                    {value === 0 && (
-                        <TabPanel value={value} index={0}>
-                            <ImagesList
-                                images={userImages}
-                            />
-                        </TabPanel>
-                    )}
-                    {value === 1 && (
-                        <TabPanel value={value} index={1}>
-                            <AvatarForm
-
-                                user={user}
-                                updateUser={updateUser}
-                                handleUserChange={handleUserChange}
-                                handleSubmitUserForm={handleSubmitUserForm}
-                                handleAvatarChange={handleAvatarChange}
-                                handleSubmitAvatar={handleSubmitAvatar}
-                            />
-                            <AboutMeForm
-                                images={images}
-                                aboutMe={aboutMe}
-                                updateAboutMe={updateAboutMe}
-                                handleAboutMeChange={handleAboutMeChange}
-                                handleSubmitAboutMe={handleSubmitAboutMe}
-
-                            />
-                        </TabPanel>
-                    )}
-                    {value === 2 && (
-                        <TabPanel value={value} index={2}>
-                            <ContactDetailsForm
-                                formData={formData}
-                                isPostcodeValid={isPostcodeValid}
-                                handleFormInputChange={handleFormInputChange}
-                                handleSubmitForm={handleSubmitForm}
-                                contactDetails={contactDetails}
-                            />
-                        </TabPanel>
-                    )}
-                </Box>
-                <BottomNav/>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={100}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
-                <ToastContainer/>
+                <Grid container justifyContent="center" alignItems="center">
+                    <Header/>
+                    <Grid>
+                        <Box sx={{
+                            width: '100%',
+                            mt: '4vh',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            // margin: '50px -0px'
+                        }}>
+                            <ProfileTabs value={value} handleTabChange={handleTabChange}/>
+                            {value === 0 && (
+                                <TabPanel value={value} index={0}>
+                                    <ImagesList
+                                        images={userImages}
+                                    />
+                                </TabPanel>
+                            )}
+                            {value === 1 && (
+                                <TabPanel value={value} index={1}>
+                                    <AvatarForm
+                                        user={user}
+                                        updateUser={updateUser}
+                                        handleUserChange={handleUserChange}
+                                        handleSubmitUserForm={handleSubmitUserForm}
+                                        handleAvatarChange={handleAvatarChange}
+                                        handleSubmitAvatar={handleSubmitAvatar}
+                                    />
+                                    <AboutMeForm
+                                        aboutMe={aboutMe}
+                                        updateAboutMe={updateAboutMe}
+                                        handleFormAboutMeChange={handleFormAboutMeChange}
+                                        handleSubmitAboutMeForm={handleSubmitAboutMeForm}
+                                    />
+                                </TabPanel>
+                            )}
+                            {value === 2 && (
+                                <TabPanel value={value} index={2}>
+                                    <ContactDetailsForm
+                                        formData={formData}
+                                        isPostcodeValid={isPostcodeValid}
+                                        handleFormInputChange={handleFormInputChange}
+                                        handleSubmitForm={handleSubmitForm}
+                                        contactDetails={contactDetails}
+                                    />
+                                </TabPanel>
+                            )}
+                        </Box>
+                    </Grid>
+                    <BottomNav/>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={100}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                    />
+                    <ToastContainer/>
+                </Grid>
             </>
 
         );
