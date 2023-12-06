@@ -209,11 +209,10 @@ const Profile = () => {
                 <Header/>
                 <Box sx={{
                     width: '100%',
-                    mt: '4vh',
+                    paddingTop: '5em',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    margin: '50px -0px'
                 }}>
                     <ProfileTabs value={value} handleTabChange={handleTabChange}/>
                     {value === 0 && (
