@@ -200,11 +200,10 @@ const Profile = () => {
                     <Grid>
                         <Box sx={{
                             width: '100%',
-                            mt: '4vh',
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            // margin: '50px -0px'
+                            paddingTop: '5em'
                         }}>
                             <ProfileTabs value={value} handleTabChange={handleTabChange}/>
                             {value === 0 && (
