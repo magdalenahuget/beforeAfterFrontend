@@ -5,6 +5,7 @@ import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
 import {getUserIdFromToken} from "../../utils/jwtUtils";
 import {Typography} from "@mui/material";
+import Box from "@mui/material/Box";
 
 const Favourites = () => {
     const loggedUserId = getUserIdFromToken();
@@ -19,19 +20,31 @@ const Favourites = () => {
 
     return (
         <>
-            <Header/>
-            {favourites.length > 0 ? (
-                <ImagesList
-                    images={favourites}
-                    titleText="Your Favourites"
-                    onDeleteImage={handleDeleteImage}
-                />
-            ) : (
-                <Typography sx={{ textAlign: 'center', mt: 10, fontSize: '2em' }}>
-                    You haven't liked any photos yet... :(
-                </Typography>
-            )}
-            <BottomNav/>
+            <div>
+                <Header/>
+                <div style={{ paddingTop: '2em' }}>
+                    {favourites.length > 0 && (
+                        <Typography variant="h4" sx={{ textAlign: 'center', paddingTop: '2em',  }}>
+                            Your Favourite Images
+                        </Typography>
+                    )}
+                    {favourites.length > 0
+                        ? (
+                            <ImagesList
+                                images={favourites}
+                                titleText="Your Favourites"
+                                onDeleteImage={handleDeleteImage}
+                            />
+                        )
+                        : (
+                            <Typography sx={{ textAlign: 'center', paddingTop: '2em', fontSize: '2em' }}>
+                                You haven't liked any photos yet...
+                            </Typography>
+                        )
+                    }
+                </div>
+                <BottomNav/>
+            </div>
         </>
     );
 };
