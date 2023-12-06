@@ -1,82 +1,59 @@
-import React, { useState } from 'react';
-import { Box, Button, Grid, TextField } from '@mui/material';
-import classes from '../../index.css';
+import {Button, Container, Grid, Paper, TextField, Typography} from "@mui/material";
 
-const AboutMeForm = ({ aboutMe, updateAboutMe, handleAboutMeChange, handleSubmitAboutMe }) => {
+const ContactDetailsForm = ({
+                                aboutMe,
+                                updateAboutMe,
+                                handleFormAboutMeChange,
+                                handleSubmitAboutMeForm,
+                            }) => {
+
     const calculateRows = () => {
         const screenHeight = window.innerHeight;
-        return Math.floor((screenHeight * 0.8) / 28);
-    };
-
-    const styles = (theme) => ({
-        notchedOutline: {
-            borderWidth: '1px',
-            borderColor: 'yellow !important',
-        },
-    });
-
-    const [hasChanges, setHasChanges] = useState(false);
-
-    const handleInputChange = (event) => {
-        handleAboutMeChange(event);
-        setHasChanges(true);
-    };
-
-    const handleFormSubmit = (event) => {
-        handleSubmitAboutMe(event);
-        setHasChanges(false);
-    };
-
-    const handleCancel = () => {
-        window.location.reload();
-        setHasChanges(false);
+        const row = Math.floor((screenHeight * 0.9) / 40);
+        console.log(row);
+        return row
     };
 
     return (
-        <div>
-            <Box sx={{ mt: 2 }}>
-                <form onSubmit={handleFormSubmit}>
-                    {hasChanges && (
-                        <Grid container justifyContent="space-between" alignItems="center">
-                            <Button
-                                type="button"
-                                variant="contained"
-                                onClick={handleCancel}
-                                sx={{ backgroundColor: 'red' }}
-                            >
-                                Cancel
-                            </Button>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                disabled={!hasChanges}
-                                sx={{ backgroundColor: 'black' }}
-                            >
-                                Save
-                            </Button>
+        <Container>
+            <Paper elevation={3} style={{padding: 20, marginTop: 20}}
+                   sx={{background: '#EEEEEE'}}>
+                <Typography variant="h5" align="center" gutterBottom>
+                    About Us
+                </Typography>
+                <div>
+                    <form onSubmit={handleSubmitAboutMeForm}>
+                        <Grid container spacing={2} alignItems="flex-start">
+                            <Grid item xs={120}>
+                                <TextField
+                                    fullWidth
+                                    multiline
+                                    rows={calculateRows()}
+                                    label="Street Name"
+                                    name="streetName"
+                                    value={aboutMe.aboutMe || updateAboutMe.aboutMe}
+                                    onChange={handleFormAboutMeChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary"
+                                        sx={{
+                                            background: '#303841',
+                                            color: "#EA9215",
+                                            '&:hover': {
+                                                background: "#EA9215",
+                                                color: "#303841"
+                                            },
+                                        }}>SAVE
+                                </Button>
+                            </Grid>
                         </Grid>
-                    )}
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                multiline
-                                rows={calculateRows()}
-                                fullWidth
-                                label="About Us"
-                                name="description"
-                                value={updateAboutMe.aboutMe}
-                                onChange={handleInputChange}
-                                sx={{ mt: 1.5 }}
-                            />
-                        </Grid>
-                    </Grid>
-
-
-                </form>
-            </Box>
-        </div>
-    );
+                    </form>
+                </div>
+            </Paper>
+        </Container>
+    )
+        ;
 };
 
-export default AboutMeForm;
+export default ContactDetailsForm;
