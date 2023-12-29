@@ -1,49 +1,52 @@
-import React, {useState} from 'react';
+import React from 'react';
 import useFavourites from '../../hooks/useFavourites';
 import ImagesList from "../image/ImagesList";
-import { Box, CircularProgress, Typography } from '@mui/material';
 import Header from '../layout/Header';
 import BottomNav from '../layout/BottomNav';
+import {getUserIdFromToken} from "../../utils/jwtUtils";
+import {Typography} from "@mui/material";
+import Box from "@mui/material/Box";
 
-const FavouritesComponent = ({ userId }) => {
-    const { favourites, addFavourite, removeFavourite, isLoading, error } = useFavourites(userId);
-    const [titleText, setTitleText] = useState("Your Favourite Images");
+const Favourites = () => {
+    const loggedUserId = getUserIdFromToken();
+    const {favourites, removeFavourite, isLoading, error} = useFavourites(loggedUserId);
 
-    const handleToggleFavourite = (imageId, isFavourite) => {
-        if (isFavourite) {
-            removeFavourite(imageId);
-        } else {
-            addFavourite(imageId);
-        }
+    // if (isLoading) return <p>Loading...</p>;
+    // if (error) return <p>An error occurred: {error.message}</p>;
+    //
+    const handleDeleteImage = (imageId) => {
+        removeFavourite(imageId);
     };
-
-    if (isLoading) {
-        return (
-            <Box display="flex" justifyContent="center">
-                <CircularProgress />
-            </Box>
-        );
-    }
-
-    if (error) {
-        return (
-            <Typography color="error" textAlign="center">
-                Error loading favourites.
-            </Typography>
-        );
-    }
 
     return (
         <>
-            <Header />
-            <ImagesList
-                images={favourites}
-                onToggleFavourite={handleToggleFavourite}
-                titleText={titleText}
-            />
-            <BottomNav />
+            <div>
+                <Header/>
+                <div style={{ paddingTop: '2em' }}>
+                    {favourites.length > 0 && (
+                        <Typography variant="h4" sx={{ textAlign: 'center', paddingTop: '2em',  }}>
+                            Your Favourite Images
+                        </Typography>
+                    )}
+                    {favourites.length > 0
+                        ? (
+                            <ImagesList
+                                images={favourites}
+                                titleText="Your Favourites"
+                                onDeleteImage={handleDeleteImage}
+                            />
+                        )
+                        : (
+                            <Typography sx={{ textAlign: 'center', paddingTop: '2em', fontSize: '2em' }}>
+                                You haven't liked any photos yet...
+                            </Typography>
+                        )
+                    }
+                </div>
+                <BottomNav/>
+            </div>
         </>
     );
 };
 
-export default FavouritesComponent;
+export default Favourites;

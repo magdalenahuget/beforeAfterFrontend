@@ -6,53 +6,74 @@ import {Avatar, Typography, Box, Grid, useTheme, useMediaQuery} from "@mui/mater
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SimpleImageSlider from "react-simple-image-slider";
 import useImageData from "../../hooks/useImageData";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {userDataApi} from "../../api/userApi";
 
-const OfferDetails = ({userId}) => {
+const Offer = () => {
+    const {imageId} = useParams();
+    const location = useLocation();
+    const offerUserId = location.state?.userId;
     const theme = useTheme();
-    const {images} = useImageData(userId);
+    const {userImages} = useImageData(offerUserId);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentImage, setCurrentImage] = useState({
         url: '',
         cityName: '',
         imageId: '',
-        description: ''
+        description: '',
     });
+    const [user, setUser] = useState({});
+    const navigate = useNavigate();
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const avatarSize = isSmallScreen ? '5vw' : '5vw';
     const minAvatarSize = '5vw';
 
-    //move useEffect to separate file into hooks folder.
-    //implement dynamic avatar change taken from profile data
-    //modify screen responsivity
-    useEffect(() => {
-        if (images.length > 0 && currentImageIndex < images.length) {
-            const newCurrentImage = images[currentImageIndex];
-            setCurrentImage({
-                url: newCurrentImage.file,
-                cityName: newCurrentImage.cityName,
-                imageId: newCurrentImage.id,
-                description: newCurrentImage.description
-            });
-        }
-    }, [currentImageIndex, images]);
 
+    useEffect(() => {
+        userDataApi.getUserById(offerUserId)
+            .then(response => {
+                setUser(response.data);
+            });
+    }, [offerUserId]);
+
+    useEffect(() => {
+        if (userImages.length > 0) {
+            const index = userImages.findIndex(img => img.id.toString() === imageId);
+            if (index !== -1) {
+                setCurrentImageIndex(index);
+                const newCurrentImage = userImages[index];
+                setCurrentImage({
+                    url: newCurrentImage.file,
+                    cityName: newCurrentImage.cityName,
+                    imageId: newCurrentImage.id,
+                    description: newCurrentImage.description,
+                });
+
+                console.log(currentImage)
+            } else {
+                console.error("Image with id not found:", imageId);
+            }
+        }
+    }, [imageId, userImages]);
 
     const handleNavClick = (toRight) => {
-        let newImageIndex = toRight ? currentImageIndex + 1 : currentImageIndex - 1;
+        let newImageIndex = userImages.findIndex(img => img.id === currentImage.imageId);
+        newImageIndex = toRight ? newImageIndex + 1 : newImageIndex - 1;
 
-        if (newImageIndex >= images.length) {
+        if (newImageIndex >= userImages.length) {
             newImageIndex = 0;
         } else if (newImageIndex < 0) {
-            newImageIndex = images.length - 1;
+            newImageIndex = userImages.length - 1;
         }
 
-        setCurrentImageIndex(newImageIndex);
+        navigate(`/offer/${userImages[newImageIndex].id}`, {state: {userId: userImages[newImageIndex].userId}});
+
         setCurrentImage({
-            url: images[newImageIndex].file,
-            cityName: images[newImageIndex].cityName,
-            imageId: images[newImageIndex].id,
-            description: images[newImageIndex].description
+            url: userImages[newImageIndex].file,
+            cityName: userImages[newImageIndex].cityName,
+            imageId: userImages[newImageIndex].id,
+            description: userImages[newImageIndex].description,
         });
     };
 
@@ -61,11 +82,12 @@ const OfferDetails = ({userId}) => {
         <>
             <Header/>
             <Box sx={{flexGrow: 1, mt: isSmallScreen ? theme.spacing(8) : theme.spacing(9)}}>
-                <Grid container spacing={2} sx={{px: '2vw'}}>
+                <Grid container spacing={2} sx={{px: '2vw'}}
+                >
                     <Grid item xs={12} md={7} lg={8} sx={{pr: isSmallScreen ? '0' : '2%'}}>
-                        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 4, mb: 0}}>
+                        <Box sx={{display: 'flex', alignItems: 'center', flexDirection: 'row', mt: 1, mb: -0.5}}>
                             <Avatar
-                                alt="Company Logo"
+                                alt={`${user.userName} Logo`}
                                 src="https://source.unsplash.com/random?company"
                                 sx={{
                                     width: avatarSize,
@@ -77,7 +99,7 @@ const OfferDetails = ({userId}) => {
                             />
                             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                                 <Typography variant="h5" sx={{fontWeight: 'bold'}}>
-                                    Budomex Sp. z o.o.
+                                    {user?.userName}
                                 </Typography>
                                 <Box sx={{display: 'flex', alignItems: 'center'}}>
                                     <LocationOnIcon sx={{ml: -0.5, mr: 0.5}}/>
@@ -101,10 +123,10 @@ const OfferDetails = ({userId}) => {
                                 height: '80%',
                             }}>
                                 <SimpleImageSlider
-                                    key={images.length}
+                                    key={userImages.length}
                                     width={'100%'}
                                     height={'100%'}
-                                    images={images.map(image => ({url: image.url}))}
+                                    images={userImages.map(image => ({url: image.url}))}
                                     showBullets={true}
                                     showNavs={true}
                                     onClickNav={handleNavClick}
@@ -114,7 +136,7 @@ const OfferDetails = ({userId}) => {
                     </Grid>
                     <Grid item xs={12} md={5} lg={4}>
                         <BasicTabs
-                            userId={userId}
+                            offerUserId={offerUserId}
                             imageId={currentImage.imageId}
                             description={currentImage.description}
                             isSmallScreen={isSmallScreen}
@@ -122,9 +144,9 @@ const OfferDetails = ({userId}) => {
                     </Grid>
                 </Grid>
             </Box>
-            <BottomNav sx={{mt: 1}}/>
+            <BottomNav sx={{ mt: 1 }}/>
         </>
     );
 };
 
-export default OfferDetails;
+export default Offer;

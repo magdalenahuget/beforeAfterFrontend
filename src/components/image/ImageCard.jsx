@@ -1,38 +1,39 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
+import {getUserIdFromToken} from "../../utils/jwtUtils";
+import useFavourites from '../../hooks/useFavourites';
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom';
+import FavoriteIconButton from "../layout/FavoriteIconButton";
+import DeleteIconButton from "../layout/DeleteIconButton";
 
-const FavoriteIconButton = ({ isFavourite, onToggleFavourite, image }) => (
-    <IconButton
-        aria-label={isFavourite ? "remove from favorites" : "add to favorites"}
-        onClick={() => onToggleFavourite(image)}
-    >
-        {isFavourite ? <FavoriteIcon sx={{ color: 'purple' }} /> : <FavoriteBorderIcon sx={{ color: 'red' }} />}
-    </IconButton>
-);
 
-const DeleteIconButton = ({ onDeleteImage, image }) => (
-    <IconButton
-        aria-label="delete image"
-        onClick={() => onDeleteImage(image.id)}
-    >
-        <DeleteIcon sx={{ color: 'purple', fontSize: '1.2em'  }} />
-    </IconButton>
-);
-
-const ImageCard = ({ image, onToggleFavourite, onDeleteImage }) => {
+const ImageCard = ({image, onDeleteImage}) => {
+    const userId = getUserIdFromToken();
+    const {handleToggleFavourite, favourites} = useFavourites(userId);
+    const isFavourite = favourites.some(fav => fav.id === image.id);
     const location = useLocation();
-    const showFavoriteIcon = location.pathname === '/home' || location.pathname === '/offer';
-    const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites';
+    const navigate = useNavigate();
+
+
+    /**
+     * e.stopPropagation();  - Prevents propagation to the parent element
+     * { state: { userId: image.userId } } - Passes the `userId` associated with the image as the navigation state
+     * @param e
+     */
+    const goToOffer = (e) => {
+        e.stopPropagation();
+        navigate(`/offer/${image.id}`, {state: {userId: image.userId}});
+    };
+
+
+    const showFavoriteIcon = location.pathname === '/' || location.pathname === '/offer';
+    const showDeleteIcon = location.pathname === '/images' || location.pathname === '/favourites' || location.pathname === '/profile';
 
     return (
-        <Card sx={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{position: 'relative', height: '100%', display: 'flex', flexDirection: 'column'}}>
             <CardMedia
                 component="img"
                 image={image.url}
@@ -42,13 +43,15 @@ const ImageCard = ({ image, onToggleFavourite, onDeleteImage }) => {
                     height: '100%',
                     objectFit: 'cover'
                 }}
+                onClick={goToOffer}
             />
-            <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+            <Box sx={{position: 'absolute', top: 0, right: 0}}>
                 {showFavoriteIcon && (
                     <FavoriteIconButton
-                        isFavourite={image.isFavourite}
-                        onToggleFavourite={onToggleFavourite}
+                        isFavourite={isFavourite}
+                        onToggleFavourite={() => handleToggleFavourite(image)}
                         image={image}
+                        loggedUserId={getUserIdFromToken()}
                     />
                 )}
                 {showDeleteIcon && (

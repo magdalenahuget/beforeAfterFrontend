@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import {categoriesApi} from "../api/categoriesApi";
-import {imagesApi} from "../api/imagesApi";
+import {getImagesByDynamicFilter, imagesApi} from "../api/imagesApi";
 
 
-const useImageData = () => {
+const useImageData = (userId) => {
     const [cities, setCities] = useState([])
     const [categories, setCategories] = useState([])
     const [selectedCity, setSelectedCity] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([])
     const [images, setImages] = useState([])
+    const [userImages, setUserImages] = useState([]);
 
 
     useEffect(() => {
@@ -49,6 +50,26 @@ const useImageData = () => {
             })
     }, [selectedCity, selectedCategories]);
 
+    useEffect(() => {
+        if (userId) {
+            imagesApi.getImagesByDynamicFilter({
+                approvalStatus: false, // TODO: Change to true in final version
+                usersId: userId,
+            })
+                .then(response => {
+                    const imagesWithDetails = response.data.map(img => ({
+                        ...img,
+                        url: `data:image/jpeg;base64,${img.file}`,
+                        cityName: img.cityName,
+                        description: img.description
+                    }));
+                    setUserImages(imagesWithDetails);
+                })
+                .catch(error => console.error('Error fetching images by user ID: ', error));
+        }
+    }, [userId]);
+
+
     const deleteImage = (imageId) => {
         imagesApi.deleteImage(imageId)
             .then(() => {
@@ -79,9 +100,10 @@ const useImageData = () => {
         selectedCity,
         selectedCategories,
         images,
+        userImages,
         handleCategorySelect,
         handleChange,
-        deleteImage
+        deleteImage,
     };
 };
 

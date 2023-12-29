@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import TabPanel from './tabs/TabPanel';
 import a11yProps from './tabs/a11yProps';
 import ContactDetails from '../contact_details/ContactDetails'
-import AboutMe from '../user/AboutMe';
+import AboutMe from '../profil/AboutMe';
 import ImageDescription from "../image/ImageDescription";
 
-const BasicTabs = ({userId, description, isSmallScreen}) => {
+const BasicTabs = ({offerUserId, description, isSmallScreen}) => {
 
     const [value, setValue] = useState(0);
 
@@ -20,7 +20,7 @@ const BasicTabs = ({userId, description, isSmallScreen}) => {
     return (
         <Box sx={{
             width: '100%',
-            mt: theme => (isSmallScreen ? theme.spacing(-5) : theme.spacing(11)),
+            mt: theme => (isSmallScreen ? theme.spacing(-5) : theme.spacing(5)),
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
@@ -36,10 +36,10 @@ const BasicTabs = ({userId, description, isSmallScreen}) => {
                 <ImageDescription description={description}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <AboutMe userId={userId}/>
+                <AboutMe offerUserId={offerUserId}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <ContactDetails userId={userId}/>
+                <ContactDetails offerUserId={offerUserId}/>
             </TabPanel>
         </Box>
     );

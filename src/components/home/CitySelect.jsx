@@ -8,7 +8,16 @@ import Select from '@mui/material/Select';
 const CitySelect = ({cities,selectedCity,onChange}) => {
 
     return (
-        <Box sx={{ minWidth: 20, pt:3}}>
+        <Box   sx={{
+            pt:2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '50%', // Ustaw szerokość na 50% szerokości ekranu
+            mx: 'auto', // Ustaw marginesy auto, aby wyśrodkować
+
+
+        }}>
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">City</InputLabel>
                 <Select

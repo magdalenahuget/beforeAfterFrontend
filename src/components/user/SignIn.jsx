@@ -15,25 +15,62 @@ import {InputAdornment} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useState} from "react";
+import axios from "axios";
+import BottomNav from "../layout/BottomNav";
 
 export default function SignIn() {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const navigate = useNavigate();
 
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        axios.post('http://localhost:8080/api/v1/auth/signin', {
+            userEmail: email,
+            userPassword: password
+        })
+            .then(response => {
+                console.log('Status: ' + response.status);
+                if (response.status === 200) {
+                    console.log(response);
+                    console.log(response.data["jwt"]);
+                    sessionStorage.setItem('jwt', response.data["jwt"]);
+                    console.log('User logged in successfully!');
+                    const userId = parseJwt(response.data["jwt"]).userId;
+                    console.log(userId);
+                    navigate('/');
+                } else {
+                    console.log('Login failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Connection error:', error);
+            })
+    };
+
+    const parseJwt = (token) => {
+        try {
+            return JSON.parse(atob(token.split('.')[1]));
+        } catch (e) {
+            return null;
+        }
     };
 
     return (
         <>
-        <Header/>
+            <Header/>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -60,6 +97,8 @@ export default function SignIn() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={email}
+                            onChange={handleEmailChange}
                         />
                         <TextField
                             margin="normal"
@@ -69,6 +108,8 @@ export default function SignIn() {
                             autoComplete="current-password"
                             name="password"
                             label="Password"
+                            value={password}
+                            onChange={handlePasswordChange}
                             type={showPassword ? "text" : "password"} // <-- This is where can show and hide password
                             InputProps={{ // <-- This is where the toggle button is added.
                                 endAdornment: (
@@ -88,6 +129,7 @@ export default function SignIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            // onClick={() => navigate('/home')}
                         >
                             Sign In
                         </Button>
@@ -106,6 +148,7 @@ export default function SignIn() {
                     </Box>
                 </Box>
             </Container>
+            <BottomNav/>
         </>
     );
 }
