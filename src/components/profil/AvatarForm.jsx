@@ -73,7 +73,7 @@ const AvatarForm =  ({
     return (
         <div>
 
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
                 <Grid item>
                     <Box sx={{
                         position: 'relative',
@@ -82,7 +82,8 @@ const AvatarForm =  ({
                         flexDirection: 'row',
                         mt: 0,
                         mb: 0,
-                        marginLeft: '-20px', // Adjusted margin-left
+                        marginLeft: '30px',
+                        flexGrow: 1, // Dodane flex-grow
                     }}>
                         <Avatar
                             alt="Logo"
@@ -104,7 +105,7 @@ const AvatarForm =  ({
                                     height: '40px',
                                     border: '5px solid white',
                                     fontSize: '1.5em',
-                                    marginLeft: '-30px',
+                                    marginLeft: '-20px', // Adjusted margin-left
                                     marginTop: '55px',
                                     backgroundColor: '#303841',
                                     '&:hover': {
