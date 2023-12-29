@@ -85,13 +85,13 @@ const AvatarForm =  ({
                         marginLeft: '-20px', // Adjusted margin-left
                     }}>
                         <Avatar
-                            alt="Logo Firmy"
+                            alt="Logo"
                             src={renderUserAvatar()}
                             sx={{
                                 width: 70,
                                 height: 70,
-                                border: '4px solid black',
                                 marginBottom: 0,
+                                border: '2px solid #303841',
                             }}
                         />
                         <Button component="label"
@@ -99,7 +99,6 @@ const AvatarForm =  ({
                                     padding: 0,
                                     minWidth: 'auto',
                                     borderRadius: '50%',
-                                    backgroundColor: '#303841',
                                     color: 'white',
                                     width: '40px',
                                     height: '40px',
@@ -107,6 +106,7 @@ const AvatarForm =  ({
                                     fontSize: '1.5em',
                                     marginLeft: '-30px',
                                     marginTop: '55px',
+                                    backgroundColor: '#303841',
                                     '&:hover': {
                                         backgroundColor: '#EA9215',
                                     }
