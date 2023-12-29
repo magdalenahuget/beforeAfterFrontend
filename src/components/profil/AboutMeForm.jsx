@@ -17,9 +17,9 @@ const ContactDetailsForm = ({
     return (
         <Container>
             <Paper elevation={3} style={{padding: 20, marginTop: 20}}
-                   sx={{background: '#EEEEEE'}}>
+                   sx={{background: '#EEEEEE', width: '500px'}}>
                 <Typography variant="h5" align="center" gutterBottom>
-                    About Us
+                    About Me
                 </Typography>
                 <div>
                     <form onSubmit={handleSubmitAboutMeForm}>
@@ -29,8 +29,8 @@ const ContactDetailsForm = ({
                                     fullWidth
                                     multiline
                                     rows={calculateRows()}
-                                    label="Street Name"
-                                    name="streetName"
+                                    label="About me"
+                                    name="aboutme"
                                     value={aboutMe.aboutMe || updateAboutMe.aboutMe}
                                     onChange={handleFormAboutMeChange}
                                 />

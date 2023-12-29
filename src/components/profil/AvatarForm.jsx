@@ -72,8 +72,7 @@ const AvatarForm =  ({
 
     return (
         <div>
-
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+            <Grid container spacing={2} alignItems="flex-start">
                 <Grid item>
                     <Box sx={{
                         position: 'relative',
@@ -83,7 +82,8 @@ const AvatarForm =  ({
                         mt: 0,
                         mb: 0,
                         marginLeft: '30px',
-                        flexGrow: 1, // Dodane flex-grow
+                        flexGrow: 1,
+                        width: '100%',
                     }}>
                         <Avatar
                             alt="Logo"
@@ -105,7 +105,7 @@ const AvatarForm =  ({
                                     height: '40px',
                                     border: '5px solid white',
                                     fontSize: '1.5em',
-                                    marginLeft: '-20px', // Adjusted margin-left
+                                    marginLeft: '-20px',
                                     marginTop: '55px',
                                     backgroundColor: '#303841',
                                     '&:hover': {
@@ -125,22 +125,25 @@ const AvatarForm =  ({
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            position: 'relative'
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            paddingTop: '20px',
+                            marginLeft: '10px',
+                            width: '410px',
                         }}>
                         <TextField
                             variant="outlined"
-                            // multiline
                             rows='3'
-                            fullWidth
                             label="My Name"
                             name="your name"
+                            fullWidth
                             value={updateUser.userName}
                             onChange={handleInputChangeName}
                         />
                     </Box>
                 </Grid>
-            </Box>
+            </Grid>
             {hasChangesAvatar && (
                 <Grid item xs={12}>
                     <Button
