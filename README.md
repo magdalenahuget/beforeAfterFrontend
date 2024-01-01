@@ -18,7 +18,10 @@ The application revolutionizes service exploration through "before and after" ph
 - Javascript
 - React
 - MaterialUI
-  
+
+## Features
+The features used in "Before After" allowed to build a fully functional web application in line with current trends.
+
 ## Available Scripts
 
 In the project directory, you can run:
