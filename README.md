@@ -25,8 +25,8 @@ The features used in "Before After" allowed to build a fully functional web appl
 |                                                          Technology Icon                                                      | Technology Name |                                Feature                                          |
 |:------------------------------------------------------------------------------------------------------------------------------|:----------------|:------------------------------------------|
 | <img height="50" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png"> |   JavaScript    | Utilizing JavaScript extensively enables enhanced interactivity within the user interface. |
-| <img height="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png"> |      React	    | |
-| <img height="50" src="https://user-images.githubusercontent.com/25181517/189716630-fe6c084c-6c66-43af-aa49-64c8aea4a5c2.png"> |   Material UI   | |
+| <img height="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png"> |      React	    | Component-based architecture, efficient one-way data binding, and extensive community support enable the development of a dynamic, reusable user interface with improved performance. |
+| <img height="50" src="https://user-images.githubusercontent.com/25181517/189716630-fe6c084c-6c66-43af-aa49-64c8aea4a5c2.png"> |   Material UI   | Comprehensive set of pre-designed React components that provide a smooth and visually appealing user interface. |
 
 ## Available Scripts
 
