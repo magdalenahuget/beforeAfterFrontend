@@ -22,6 +22,10 @@ The application revolutionizes service exploration through "before and after" ph
 ## Features
 The features used in "Before After" allowed to build a fully functional web application in line with current trends.
 
+| Technology Icon | Technology Name | Feature |
+|:----------------|:----------------|:--------|
+|                 |                 |         |
+
 ## Available Scripts
 
 In the project directory, you can run:
