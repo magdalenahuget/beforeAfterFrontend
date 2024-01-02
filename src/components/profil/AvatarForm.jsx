@@ -72,8 +72,7 @@ const AvatarForm =  ({
 
     return (
         <div>
-
-            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            <Grid container spacing={2} alignItems="flex-start">
                 <Grid item>
                     <Box sx={{
                         position: 'relative',
@@ -82,16 +81,18 @@ const AvatarForm =  ({
                         flexDirection: 'row',
                         mt: 0,
                         mb: 0,
-                        marginLeft: '-20px', // Adjusted margin-left
+                        marginLeft: '30px',
+                        flexGrow: 1,
+                        width: '100%',
                     }}>
                         <Avatar
-                            alt="Logo Firmy"
+                            alt="Logo"
                             src={renderUserAvatar()}
                             sx={{
                                 width: 70,
                                 height: 70,
-                                border: '4px solid black',
                                 marginBottom: 0,
+                                border: '2px solid #303841',
                             }}
                         />
                         <Button component="label"
@@ -99,14 +100,14 @@ const AvatarForm =  ({
                                     padding: 0,
                                     minWidth: 'auto',
                                     borderRadius: '50%',
-                                    backgroundColor: '#303841',
                                     color: 'white',
                                     width: '40px',
                                     height: '40px',
                                     border: '5px solid white',
                                     fontSize: '1.5em',
-                                    marginLeft: '-30px',
+                                    marginLeft: '-20px',
                                     marginTop: '55px',
+                                    backgroundColor: '#303841',
                                     '&:hover': {
                                         backgroundColor: '#EA9215',
                                     }
@@ -124,22 +125,25 @@ const AvatarForm =  ({
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            position: 'relative'
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            position: 'relative',
+                            paddingTop: '20px',
+                            marginLeft: '10px',
+                            width: '410px',
                         }}>
                         <TextField
                             variant="outlined"
-                            // multiline
                             rows='3'
-                            fullWidth
                             label="My Name"
                             name="your name"
+                            fullWidth
                             value={updateUser.userName}
                             onChange={handleInputChangeName}
                         />
                     </Box>
                 </Grid>
-            </Box>
+            </Grid>
             {hasChangesAvatar && (
                 <Grid item xs={12}>
                     <Button
