@@ -1,71 +1,63 @@
-# Getting Started with Create React App
+# Before After
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Authors](#authors)
 
-## Available Scripts
+## General Information
+The application revolutionizes service exploration through "before and after" photos, allowing users to easily filter and view transformations in various categories. It addresses the common issue of inadequate visual representation in service discovery, aiming to increase user comfort by streamlining decision-making through a visually rich platform. The project was initiated to simplify and enhance the service exploration process, providing users with comprehensive information for transparent and user-friendly service selection.
 
-In the project directory, you can run:
+## Technologies Used
+- Javascript
+- React
+- MaterialUI
 
-### `npm start`
+## Features
+The features used in "Before After" allowed to build a fully functional web application in line with current trends.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+|                                                          Technology Icon                                                      | Technology Name |                                Feature                                          |
+|:------------------------------------------------------------------------------------------------------------------------------|:----------------|:------------------------------------------|
+| <img height="50" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png"> |   JavaScript    | Utilizing JavaScript extensively enables enhanced interactivity within the user interface. |
+| <img height="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png"> |      React	    | Component-based architecture, efficient one-way data binding, and extensive community support enable the development of a dynamic, reusable user interface with improved performance. |
+| <img height="50" src="https://user-images.githubusercontent.com/25181517/189716630-fe6c084c-6c66-43af-aa49-64c8aea4a5c2.png"> |   Material UI   | Comprehensive set of pre-designed React components that provide a smooth and visually appealing user interface. |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Screenshots
+![](readmeSources/before-after-main.gif)
 
-### `npm test`
+## Setup
+TODO
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+- **Serach service:** User can easily filter services by categories and provided city.
 
-### `npm run build`
+- **Vieving transformations of selected service provider:** After selecting a specific service, the user can view all photos of metamorphoses performed by this service provider.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Registration and Login:** Users can create their accounts in the application, providing access to full functionality, adding makeovers to favorites and adding new makeovers.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Add new service transformation:** User can add their before and after transformation, but need first fill out their service details and contact information.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Add/remove transformation to favourites:** User can create a list of their favorite before and after photos or remove them from this list.
 
-### `npm run eject`
+- **Add/edit service provider info:** Serice provider can edit and add their contact details so that customers can easily find and contact them.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Status
+Project is: _in progress_
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Room for Improvement
+<!--Room for improvement:
+- Improvement to be done-->
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To do:
+- Feature to be added: Admin panel to verify content
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
+## Authors
+Magdalena Huget,
+Marcin Kącki,
+Patrycja Markiewicz
