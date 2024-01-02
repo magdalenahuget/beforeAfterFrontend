@@ -52,8 +52,7 @@ const ContactDetailsForm = ({
                 </div>
             </Paper>
         </Container>
-    )
-        ;
+    );
 };
 
 export default ContactDetailsForm;
