@@ -9,7 +9,7 @@ const ContactDetailsForm = ({
 
     const calculateRows = () => {
         const screenHeight = window.innerHeight;
-        const row = Math.floor((screenHeight * 0.9) / 40);
+        const row = Math.floor((screenHeight * 0.5) / 70);
         console.log(row);
         return row
     };

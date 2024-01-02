@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 const CategoriesButton = ({ categories, onSelect, selectedCategories }) => {
     return (
         <div>
-            <Container maxWidth="sm">
+            <Container maxWidth="700px">
                 <Stack
                     sx={{ pt: 10 }}
                     direction="row"
@@ -24,12 +24,10 @@ const CategoriesButton = ({ categories, onSelect, selectedCategories }) => {
                                     backgroundColor: selectedCategories.includes(category) ? '#EA9215' : 'rgba(0, 0, 0, 0.05)',
                                 },
                                 boxShadow: selectedCategories.includes(category) ? '5px 5px 5px rgba(234, 130, 17, 0.3)' : 'inset 0px 0.5px 25px rgba(0, 0, 0, 0.3)',
-                                borderColor: '#202830', // Border color
                                 color: '#202830',
-                                borderWidth: '1px', // Border width
-                                borderStyle: 'solid',
                                 fontSize: `min(2.7vw, 20px)`,
-                                borderRadius: '12px 0px 12px 0px',
+                                borderRadius: '45px',
+                                width: 'fit-content',
                             }}
                         >
                             {category.categoryName}
