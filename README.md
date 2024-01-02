@@ -29,7 +29,7 @@ The features used in "Before After" allowed to build a fully functional web appl
 | <img height="50" src="https://user-images.githubusercontent.com/25181517/189716630-fe6c084c-6c66-43af-aa49-64c8aea4a5c2.png"> |   Material UI   | Comprehensive set of pre-designed React components that provide a smooth and visually appealing user interface. |
 
 ## Screenshots
-TODO
+![](readmeSources/before-after-main.gif)
 
 ## Setup
 TODO
@@ -40,7 +40,7 @@ TODO
 - **Vieving transformations of selected service provider:** After selecting a specific service, the user can view all photos of metamorphoses performed by this service provider.
 
 - **Registration and Login:** Users can create their accounts in the application, providing access to full functionality, adding makeovers to favorites and adding new makeovers.
-  
+
 - **Add new service transformation:** User can add their before and after transformation, but need first fill out their service details and contact information.
 
 - **Add/remove transformation to favourites:** User can create a list of their favorite before and after photos or remove them from this list.
@@ -58,6 +58,6 @@ To do:
 - Feature to be added: Admin panel to verify content
 
 ## Authors
-Magdalena Huget, 
-Marcin Kącki, 
+Magdalena Huget,
+Marcin Kącki,
 Patrycja Markiewicz
