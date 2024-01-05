@@ -32,7 +32,21 @@ The features used in "Before After" allowed to build a fully functional web appl
 ![](readmeSources/before-after-main.gif)
 
 ## Setup
-TODO
+1. *Install Git* - Make sure you have the Git version control system installed on your computer.
+2. *Clone Repository* - Copy the project repository URL and clone it on your local computer using the following command in the terminal:
+
+git clone <repository-url>
+
+3. *Install Dependencies* - Install the required dependencies using the following command:
+
+npm install
+
+3. *Configure application* - Contact the project maintainers for API keys.
+4. *Run the Application* - After completing the above steps, you can now run the application using the following command:
+
+npm start
+
+The application should be available at http://localhost:3000 in your web browser.
 
 ## Usage
 - **Serach service:** User can easily filter services by categories and provided city.
