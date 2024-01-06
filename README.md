@@ -1,5 +1,9 @@
 # Before After 
 
+Here you can find repository with frontend part for this project:
+
+- [Backend part](https://github.com/magdalenahuget/beforeAfterBackend)
+
 ## Table of Contents
 * [General Info](#general-information)
 * [Planning](#planning)
