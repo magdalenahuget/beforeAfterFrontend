@@ -2,6 +2,7 @@
 
 ## Table of Contents
 * [General Info](#general-information)
+* [Planning](#planning)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
@@ -13,6 +14,19 @@
 
 ## General Information
 The application revolutionizes service exploration through "before and after" photos, allowing users to easily filter and view transformations in various categories. It addresses the common issue of inadequate visual representation in service discovery, aiming to increase user comfort by streamlining decision-making through a visually rich platform. The project was initiated to simplify and enhance the service exploration process, providing users with comprehensive information for transparent and user-friendly service selection.
+
+## Planning
+- **Jira software** was used to create tasks, divide them and track their progress.
+  ![](readmeSources/jira-cumulative-flow-diagram.PNG)
+
+
+- **Lucidchart** was used for database project creation.
+  ![](readmeSources/lucidchart-erd.png)
+
+
+- **Figma** was used to create project design.
+  ![](readmeSources/figma-main.PNG)
+  ![](readmeSources/figma-sign.PNG)
 
 ## Technologies Used
 - Javascript
@@ -30,6 +44,9 @@ The features used in "Before After" allowed to build a fully functional web appl
 
 ## Screenshots
 ![](readmeSources/before-after-main.gif)
+
+
+![](readmeSources/add-image.gif)
 
 ## Setup
 1. *Install Git* - Make sure you have the Git version control system installed on your computer.
@@ -69,13 +86,14 @@ The application should be available at http://localhost:3000 in your web browser
 
 ## Project Status
 Project is: _in progress_
+Basic functionalities have been implemented. However, the application is being further developed and new features and improvements are being added.
 
 ## Room for Improvement
-<!--Room for improvement:
-- Improvement to be done-->
-
 To do:
-- Feature to be added: Admin panel to verify content
+- add admin panel for approving resources and users
+- improve responsiveness
+- standardize component styling
+- create docker compose version to run
 
 ## Authors
 Magdalena Huget,
