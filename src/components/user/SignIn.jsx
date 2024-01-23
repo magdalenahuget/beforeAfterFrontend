@@ -19,6 +19,7 @@ import axios from "axios";
 import BottomNav from "../layout/BottomNav";
 
 export default function SignIn() {
+    const BACKEND_API = `${process.env.REACT_APP_API_URL}`;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +38,7 @@ export default function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('http://localhost:8080/api/v1/auth/signin', {
+        axios.post(`${BACKEND_API}/auth/signin`, {
             userEmail: email,
             userPassword: password
         })

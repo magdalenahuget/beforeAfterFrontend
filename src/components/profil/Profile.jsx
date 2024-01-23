@@ -19,6 +19,7 @@ import {Grid} from "@mui/material";
 import AboutMeFormII from "./AboutMeForm";
 
 const Profile = () => {
+        const BACKEND_API = `${process.env.REACT_APP_API_URL}`;
 
         const [formData, setFormData] = useState({
             streetName: '',
@@ -139,7 +140,7 @@ const Profile = () => {
             dataToSend.append('userId', userId);
 
 
-            axios.post(`http://localhost:8080/api/v1/users`, dataToSend)
+            axios.post(`${BACKEND_API}/users`, dataToSend)
                 .then((response) => {
                     console.log('Response', response);
                 }).catch(error => console.error(error))
@@ -160,7 +161,7 @@ const Profile = () => {
 
         };
         const handleSubmitAboutMeForm = (event) => {
-            userDataApi.updateAboutMeByUserId(userId,aboutMe)
+            userDataApi.updateAboutMeByUserId(userId, aboutMe)
                 .then((response) => {
                     if (response.status === 200) {
                         showSuccessToastMessage()
