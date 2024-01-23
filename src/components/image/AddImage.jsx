@@ -17,6 +17,8 @@ import ModalTip from '../../modaltip/ModalTip';
 import useContactDetails from "../../hooks/useContactDetails";
 
 const AddImage = () => {
+    const BACKEND_API = `${process.env.REACT_APP_API_URL}`;
+
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
     const [description, setDescription] = useState('');
@@ -122,7 +124,7 @@ const AddImage = () => {
             maxBodyLength: Infinity,
         };
 
-        axios.post(`http://localhost:8080/api/v1/images`, dataToSend, config)
+        axios.post(`${BACKEND_API}/images`, dataToSend, config)
             .then(response => {
                 console.log('Response:', response);
                 // Reset form fields
