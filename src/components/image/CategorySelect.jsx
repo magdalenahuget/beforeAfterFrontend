@@ -4,11 +4,13 @@ import axios from "axios";
 import { MenuItem, TextField } from "@mui/material";
 
 const CategorySelect = ({ selectedCategory, setSelectedCategory }) => {
+    const BACKEND_API = `${process.env.REACT_APP_API_URL}`;
+
     const [categories, setCategories] = useState([]);
 
     // CATEGORY
     useEffect(() => {
-        axios.get("http://localhost:8080/api/v1/categories")
+        axios.get(`${BACKEND_API}/categories`)
             .then((response) => {
                 console.log(response.data);
                 setCategories(response.data);
