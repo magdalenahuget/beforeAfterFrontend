@@ -20,6 +20,7 @@ import {toast, ToastContainer} from "react-toastify";
 import BottomNav from "../layout/BottomNav";
 
 const SignUp = () => {
+    const BACKEND_API = `${process.env.REACT_APP_API_URL}`;
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -48,7 +49,7 @@ const SignUp = () => {
             return;
         }
 
-        axios.post(`http://localhost:8080/api/v1/auth/signup`, {
+        axios.post(`${BACKEND_API}/auth/signup`, {
             userName: userName,
             userEmail: userEmail,
             userPassword: userPassword
@@ -61,7 +62,7 @@ const SignUp = () => {
                 setUserEmail('');
                 setUserPassword('');
 
-                if (response.status === 201) {
+                if (response.status >= 200) {
                     console.log('User registered successfully!');
                     showSuccessToastMessage();
                     // Navidate to '/signin' after displaying toast
