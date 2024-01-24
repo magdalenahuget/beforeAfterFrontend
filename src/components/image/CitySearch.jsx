@@ -7,7 +7,7 @@ import {TextField} from "@mui/material";
 
 const CitySearch = ({selectedCity, setSelectedCity}) => {
     const API_KEY = `${process.env.REACT_APP_CITIES_API_KEY}`;
-    const URL_CITY_SEARCH = `http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=`;
+    const URL_CITY_SEARCH = `https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=`;
     const [cities, setCities] = useState([]);
 
     const handleSelectedCity = (event, value) => {
